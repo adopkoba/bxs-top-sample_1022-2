@@ -912,8 +912,10 @@ button {
 /*
 	見出し（Figma「トップページ-h2」／アニメーション「h2-スクロールアニメーション」）
 	<h2 class="secTtl js-secTtl"><span class="en">Network</span><span class="ja">全国対応ネットワーク</span></h2>
-	① 上の青バーと下の紺バーが同時に伸びる(0.4s) → ② バーが縦線に縮み、文字が下からふわっと出る(0.6s)
-	（2026-10-13 ユーザー指示で、上下のバーを時間差ではなく同時に）
+	① 上の青バーと下の紺バーが同時に左から右へ伸びる(0.4s) → ② バーが右へ抜けて消え、文字が下からふわっと出る(0.6s)
+	左の縦線（青・紺）は .secTtl の背景で描き、帯が右へ抜けると現れる
+	帯の長さは文字の長さに合わせる（上の青＝英字の右端まで／下の紺＝日本語の右端まで。js/main.js が --bar-top-w / --bar-bottom-w に入れる）
+	（2026-10-13 ユーザー指示で上下のバーを同時に／2026-10-14 ユーザー指示で、縦線に縮むのではなく右へ抜けて消えるように）
 */
 .secTtl {
 	position: relative;
@@ -922,7 +924,14 @@ button {
 	display: inline-block;
 	vertical-align: top;
 	font-weight: 700;
-	--bar-top-w: calc(13.1 * var(--rem));
+	--bar-top-w: calc(13.1 * var(--rem)); /* JS が動かないときの値 */
+	--bar-bottom-w: 100%;
+	--bar-top-h: calc(1.76 * var(--rem));
+	--bar-bottom-h: calc(4.54 * var(--rem));
+	/* 左の縦線（上：青／下：紺） */
+	background:
+		linear-gradient(var(--color-blue), var(--color-blue)) 0 0 / calc(0.2 * var(--rem)) var(--bar-top-h) no-repeat,
+		linear-gradient(var(--color-navy), var(--color-navy)) 0 var(--bar-top-h) / calc(0.2 * var(--rem)) var(--bar-bottom-h) no-repeat;
 }
 .secTtl .en {
 	margin-top: calc(-0.4 * var(--rem));
@@ -947,16 +956,16 @@ button {
 	content: "";
 	position: absolute;
 	left: 0;
-	width: calc(0.2 * var(--rem));
+	width: 0;
 }
 .secTtl::before {
 	top: 0;
-	height: calc(1.76 * var(--rem));
+	height: var(--bar-top-h);
 	background: var(--color-blue);
 }
 .secTtl::after {
-	top: calc(1.76 * var(--rem));
-	height: calc(4.54 * var(--rem));
+	top: var(--bar-top-h);
+	height: var(--bar-bottom-h);
 	background: var(--color-navy);
 }
 .js-secTtl .en,
@@ -964,9 +973,11 @@ button {
 	opacity: 0;
 	transform: translateY(calc(0.8 * var(--rem)));
 }
-.js-secTtl::before,
-.js-secTtl::after {
-	width: 0;
+.js-secTtl {
+	background-size: 0 0, 0 0; /* 縦線は帯が伸びきるまで隠す */
+}
+.js-secTtl.is-inview {
+	animation: secTtlLine 1s both;
 }
 .js-secTtl.is-inview .en,
 .js-secTtl.is-inview .ja {
@@ -978,15 +989,21 @@ button {
 .js-secTtl.is-inview::after {
 	animation: secTtlBarBottom 1s both;
 }
+/* 帯：左から右へ伸びる → 左端が右へ動いて、右端で消える */
 @keyframes secTtlBarTop {
-	0%   { width: 0; animation-timing-function: ease-out; }
-	40%  { width: var(--bar-top-w); animation-timing-function: ease-in-out; }
-	100% { width: calc(0.2 * var(--rem)); }
+	0%   { left: 0; width: 0; animation-timing-function: ease-out; }
+	40%  { left: 0; width: var(--bar-top-w); animation-timing-function: ease-in-out; }
+	100% { left: var(--bar-top-w); width: 0; }
 }
 @keyframes secTtlBarBottom {
-	0%   { width: 0; animation-timing-function: ease-out; }
-	40%  { width: 100%; animation-timing-function: ease-in-out; }
-	100% { width: calc(0.2 * var(--rem)); }
+	0%   { left: 0; width: 0; animation-timing-function: ease-out; }
+	40%  { left: 0; width: var(--bar-bottom-w); animation-timing-function: ease-in-out; }
+	100% { left: var(--bar-bottom-w); width: 0; }
+}
+/* 左の縦線：帯が伸びきった時点（帯の下）で出しておき、帯が右へ抜けると見える */
+@keyframes secTtlLine {
+	0%, 39.9% { background-size: 0 0, 0 0; }
+	40%, 100% { background-size: calc(0.2 * var(--rem)) var(--bar-top-h), calc(0.2 * var(--rem)) var(--bar-bottom-h); }
 }
 @keyframes secTtlTxt {
 	0%, 40% { opacity: 0; transform: translateY(calc(0.8 * var(--rem))); animation-timing-function: ease-in-out; }
@@ -995,7 +1012,6 @@ button {
 @media all and (max-width: 1024px) {
 	.secTtl {
 		padding-left: calc(1.6 * var(--rem));
-		--bar-top-w: calc(9.6 * var(--rem));
 	}
 	.secTtl .en {
 		font-size: calc(1.8 * var(--rem));
@@ -1006,8 +1022,10 @@ button {
 	.secTtl {
 		height: calc(5 * var(--rem));
 	}
-	.secTtl::before { height: calc(1.4 * var(--rem)); }
-	.secTtl::after  { top: calc(1.4 * var(--rem)); height: calc(3.6 * var(--rem)); }
+	.secTtl {
+		--bar-top-h: calc(1.4 * var(--rem));
+		--bar-bottom-h: calc(3.6 * var(--rem));
+	}
 }
 /* ※ OS の「アニメーション効果オフ」（prefers-reduced-motion）でも止めない（2026-10-07 ユーザー指示。Windows で演出が出ないため） */
 

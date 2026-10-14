@@ -381,6 +381,27 @@
 			groupTargets.push(group);
 		}
 	});
+	/* 見出しの帯の長さを文字の長さに合わせる（上の青＝英字、下の紺＝日本語。左端から文字の右端まで） */
+	var secTtls = document.querySelectorAll('.js-secTtl');
+	function setSecTtlBars() {
+		secTtls.forEach(function (ttl) {
+			var en = ttl.querySelector('.en');
+			var ja = ttl.querySelector('.ja');
+			var left = ttl.getBoundingClientRect().left;
+			if (en) ttl.style.setProperty('--bar-top-w', textRight(en) - left + 'px');
+			if (ja) ttl.style.setProperty('--bar-bottom-w', textRight(ja) - left + 'px');
+		});
+	}
+	// ブロック要素の幅ではなく、文字そのものの右端
+	function textRight(el) {
+		var range = document.createRange();
+		range.selectNodeContents(el);
+		return range.getBoundingClientRect().right;
+	}
+	setSecTtlBars();
+	window.addEventListener('resize', setSecTtlBars, { passive: true });
+	if (document.fonts && document.fonts.ready) document.fonts.ready.then(setSecTtlBars);
+
 	var targets = document.querySelectorAll('.js-fade:not(.js-fadeByGroup), .js-band, .js-secTtl');
 	if ('IntersectionObserver' in window) {
 		var io = new IntersectionObserver(function (entries) {
