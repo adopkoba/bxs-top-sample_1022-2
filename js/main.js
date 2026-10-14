@@ -1,7 +1,26 @@
 (function () {
 	'use strict';
 
+	/*------------------------------------------------------------
+		定数（★カスタマイズ：数値を変更する場所）
+	------------------------------------------------------------*/
+	var SP_BREAKPOINT = 1024; // PC/SP の切替（px。CSS の @media と合わせる）
+	var VW_MAX = 1920;        // ヘッダー・フッターなどの拡大を止める画面幅（px）
+
 	var body = document.body;
+
+	/*------------------------------------------------------------
+		リキッド方式：--vw（画面幅。最大 VW_MAX）を入れる
+		- base.css の --rem はこの --vw から計算（#main の中は CSS で 100vw に上書き済み）
+		- VW_MAX を超えたら body に .is-capped
+	------------------------------------------------------------*/
+	function updateVw() {
+		var w = window.innerWidth;
+		document.documentElement.style.setProperty('--vw', Math.min(w, VW_MAX) + 'px');
+		body.classList.toggle('is-capped', w > VW_MAX);
+	}
+	updateVw();
+	window.addEventListener('resize', updateVw, { passive: true });
 	var header = document.getElementById('gHeader');
 	var menuBtn = document.querySelector('#gHeader .menu');
 	var menuBox = document.getElementById('menuBox');
@@ -114,7 +133,7 @@
 		for (var i = 1; i < n * 2; i++) {
 			loopTrack.appendChild(loopSrc.cloneNode(true));
 		}
-		var secPerText = window.matchMedia('(max-width: 896px)').matches ? 25 : 40;
+		var secPerText = window.matchMedia('(max-width: 1024px)').matches ? 41 : 67; // 前回（文字 54px で 40 秒／SP 28px で 25 秒）と同じ見た目の速さ。文字を大きくした分だけ秒数を伸ばした
 		loopTrack.style.animationDuration = (secPerText * n) + 's';
 	}
 	buildLoop();
@@ -129,7 +148,7 @@
 		var area = li.getAttribute('data-area');
 		var link = li.querySelector('a');
 		function toggle(on) {
-			if (on && !window.matchMedia('(min-width: 897px)').matches) return;
+			if (on && !window.matchMedia('(min-width: 1025px)').matches) return;
 			mapHls.forEach(function (img) {
 				img.classList.toggle('is-active', on && img.getAttribute('data-area') === area);
 			});
@@ -168,39 +187,49 @@
 	});
 
 	/*------------------------------------------------------------
-		コンテンツ一覧のカルーセル（中央拡大・ループ）
-		現在のカードを中央に、前後を左右に置く。それ以外は左右の位置で透明にしておき、
-		移動時にフェードで出入りさせる（Figma のプロトタイプと同じ動き）。SP はスワイプでも動く
+		横に流れるカルーセル（コンテンツ一覧・文化シヤッターグループ共通。.js-loopSlider）
+		- 各カードに「現在のカードから何枚目か」k を --k で入れ、CSS が left を計算して並べる（ループ）
+		  k = 0, ±1 … 表示 ／ ±2 … 40% ／ それ以外 … 非表示（Figma「サービスカルーセル 1013」）
+		- 端から反対側へ回り込むカードは、その瞬間だけアニメなしで移動させる
+		- 前後ボタン・スワイプで 0.5 秒移動。進捗バーは現在の位置
+		- data-auto="4000" を付けると 4 秒ごとに自動で次へ（hover・フォーカス中・画面外・タブ非表示では停止）
 	------------------------------------------------------------*/
-	document.querySelectorAll('.js-ctSlider').forEach(function (slider) {
-		var cards = Array.prototype.slice.call(slider.querySelectorAll('.ctCard'));
-		var n = cards.length;
+	document.querySelectorAll('.js-loopSlider').forEach(function (slider) {
+		var items = Array.prototype.slice.call(slider.querySelectorAll('.slideItem'));
+		var n = items.length;
+		var bar = slider.querySelector('.slideBar span');
 		var current = 0;
-		var CLASSES = ['is-left', 'is-center', 'is-right', 'is-outL', 'is-outR'];
+		var prevK = [];
+		if (bar) bar.style.setProperty('--n', n);
+		function kOf(i) {
+			// -floor((n-1)/2) 〜 ceil((n-1)/2) の範囲に収める（6枚なら -2〜3）
+			var k = ((i - current) % n + n) % n;
+			if (k > Math.ceil((n - 1) / 2)) k -= n;
+			return k;
+		}
 		function render() {
-			cards.forEach(function (card, i) {
-				var d = (i - current + n) % n; // 0:中央 1:右 n-1:左
-				var cls = d === 0 ? 'is-center' : d === 1 ? 'is-right' : d === n - 1 ? 'is-left' : d <= n / 2 ? 'is-outR' : 'is-outL';
-				CLASSES.forEach(function (c) { card.classList.toggle(c, c === cls); });
-				var link = card.querySelector('a');
-				var visible = cls === 'is-left' || cls === 'is-center' || cls === 'is-right';
+			items.forEach(function (item, i) {
+				var k = kOf(i);
+				// 反対側へ回り込むカードはアニメなし
+				item.classList.toggle('no-anim', prevK[i] !== undefined && Math.abs(k - prevK[i]) > 1);
+				item.style.setProperty('--k', k);
+				item.classList.toggle('is-near', Math.abs(k) <= 1);
+				item.classList.toggle('is-side', Math.abs(k) === 2);
+				var link = item.querySelector('a');
+				var visible = Math.abs(k) <= 2;
 				link.tabIndex = visible ? 0 : -1;
-				card.setAttribute('aria-hidden', visible ? 'false' : 'true');
+				item.setAttribute('aria-hidden', visible ? 'false' : 'true');
+				prevK[i] = k;
 			});
+			if (bar) bar.style.setProperty('--i', current);
 		}
 		function go(step) {
 			current = (current + step + n) % n;
 			render();
+			restart();
 		}
-		slider.querySelector('.ctArrow.prev').addEventListener('click', function () { go(-1); });
-		slider.querySelector('.ctArrow.next').addEventListener('click', function () { go(1); });
-		// 左右のカードをクリックしたら、リンクには飛ばずにそのカードを中央へ
-		cards.forEach(function (card) {
-			card.querySelector('a').addEventListener('click', function (e) {
-				if (card.classList.contains('is-left')) { e.preventDefault(); go(-1); }
-				if (card.classList.contains('is-right')) { e.preventDefault(); go(1); }
-			});
-		});
+		slider.querySelector('.slideBtn.prev').addEventListener('click', function () { go(-1); });
+		slider.querySelector('.slideBtn.next').addEventListener('click', function () { go(1); });
 		var startX = null;
 		slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
 		slider.addEventListener('touchend', function (e) {
@@ -209,59 +238,9 @@
 			if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
 			startX = null;
 		});
-		render();
-		requestAnimationFrame(function () {
-			requestAnimationFrame(function () { slider.classList.add('is-ready'); });
-		});
-	});
 
-	/*------------------------------------------------------------
-		文化シヤッターグループのスライダー（ループ）
-		元のカードの前後に複製を1組ずつ置き、--pos（左から何枚目を中央にするか）を変えて動かす。
-		複製側まで行ったら、移動が終わった瞬間にアニメなしで元の側へ戻す
-		4秒ごとに自動で次へ（hover 中・画面外では停止）
-	------------------------------------------------------------*/
-	document.querySelectorAll('.js-grpSlider').forEach(function (slider) {
-		var track = slider.querySelector('.grpTrack');
-		var originals = Array.prototype.slice.call(track.children);
-		var n = originals.length;
-		var dotsWrap = slider.querySelector('.grpDots');
-		var current = 0;
-		// 複製（読み上げ・タブ移動の対象外にする）
-		function clone(li) {
-			var c = li.cloneNode(true);
-			c.setAttribute('aria-hidden', 'true');
-			c.querySelector('a').tabIndex = -1;
-			return c;
-		}
-		originals.slice().reverse().forEach(function (li) { track.insertBefore(clone(li), track.firstChild); });
-		originals.forEach(function (li) { track.appendChild(clone(li)); });
-		// ドットを枚数に合わせて作り直す
-		dotsWrap.innerHTML = '';
-		originals.forEach(function (li, i) {
-			var b = document.createElement('button');
-			b.type = 'button';
-			b.setAttribute('aria-label', (i + 1) + '枚目');
-			b.addEventListener('click', function () { move(i - current); });
-			dotsWrap.appendChild(b);
-		});
-		var dots = dotsWrap.querySelectorAll('button');
-		var pos = n; // 元の1枚目
-		function apply(animate) {
-			slider.classList.toggle('is-ready', animate);
-			track.style.setProperty('--pos', pos);
-			current = ((pos - n) % n + n) % n;
-			dots.forEach(function (d, i) { d.classList.toggle('is-active', i === current); });
-		}
-		function move(step) {
-			if (!step) return;
-			pos += step;
-			apply(true);
-			restart();
-		}
-		// 自動スライド：4秒ごとに次へ。マウスが乗っている間・画面外・タブ非表示のときは止める（OS の動きを減らす設定では止めない）。
-		// 矢印・ドット・スワイプで動かしたら、そこから4秒数え直す
-		var AUTO_MS = 4000;
+		// 自動で次へ（data-auto がある場合のみ）
+		var autoMs = parseInt(slider.getAttribute('data-auto'), 10) || 0;
 		var timer = null;
 		var hovering = false;
 		var inView = false;
@@ -271,77 +250,91 @@
 		}
 		function restart() {
 			stop();
-			if (hovering || !inView || document.hidden) return;
+			if (!autoMs || hovering || !inView || document.hidden) return;
 			timer = setInterval(function () {
-				pos += 1;
-				apply(true);
-			}, AUTO_MS);
+				current = (current + 1) % n;
+				render();
+			}, autoMs);
 		}
-		// スマホはタップで mouseenter が起きて止まったままになるので、hover できる端末だけ
-		if (window.matchMedia('(hover: hover)').matches) {
-			slider.addEventListener('mouseenter', function () { hovering = true; stop(); });
-			slider.addEventListener('mouseleave', function () { hovering = false; restart(); });
-		}
-		slider.addEventListener('focusin', function () { hovering = true; stop(); });
-		slider.addEventListener('focusout', function () { hovering = false; restart(); });
-		document.addEventListener('visibilitychange', restart);
-		if ('IntersectionObserver' in window) {
-			new IntersectionObserver(function (entries) {
-				inView = entries[0].isIntersecting;
-				restart();
-			}).observe(slider);
-		} else {
-			inView = true;
-		}
-		track.addEventListener('transitionend', function (e) {
-			if (e.target !== track) return;
-			if (pos < n || pos >= n * 2) {
-				pos = n + current;
-				apply(false);
+		if (autoMs) {
+			// スマホはタップで mouseenter が起きて止まったままになるので、hover できる端末だけ
+			if (window.matchMedia('(hover: hover)').matches) {
+				slider.addEventListener('mouseenter', function () { hovering = true; stop(); });
+				slider.addEventListener('mouseleave', function () { hovering = false; restart(); });
 			}
+			slider.addEventListener('focusin', function () { hovering = true; stop(); });
+			slider.addEventListener('focusout', function () { hovering = false; restart(); });
+			document.addEventListener('visibilitychange', restart);
+			if ('IntersectionObserver' in window) {
+				new IntersectionObserver(function (entries) {
+					inView = entries[0].isIntersecting;
+					restart();
+				}).observe(slider);
+			} else {
+				inView = true;
+			}
+		}
+
+		render();
+		// 最初の配置ではアニメーションさせない
+		requestAnimationFrame(function () {
+			requestAnimationFrame(function () { slider.classList.add('is-ready'); });
 		});
-		slider.querySelector('.grpArrow.prev').addEventListener('click', function () { move(-1); });
-		slider.querySelector('.grpArrow.next').addEventListener('click', function () { move(1); });
-		var startX = null;
-		track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
-		track.addEventListener('touchend', function (e) {
-			if (startX === null) return;
-			var dx = e.changedTouches[0].clientX - startX;
-			if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
-			startX = null;
-		});
-		apply(false);
-		restart();
 	});
 
 	/*------------------------------------------------------------
-		背景エリアの色（スクロール連動）
-		- 白の濃さ：エリア上端 0.8 → お問い合わせフローの手前 0.89（Figma のグラデと同じ）
-		  → お問い合わせフローが画面下から中央に来るまでに 1（白ベタ）へ徐々に
-		- data-bg-from の色：そのセクションの上端が画面の 60% の高さまで来たら表示（CSS で 1 秒フェード）
+		背景エリアの色（スクロール連動。Figma「背景グラデ」1013）
+		- 白の濃さ：エリア上端 0.8 → エリア上端から 1305px（Figma の 36.8%）で 1（白ベタ）
+		  画面の上端・下端それぞれの位置の濃さを --bg-top / --bg-bottom に入れる
+		- 丸く広がる背景（.js-dome）：参考 alvamososaka.com の黄色い丸を計測した動きに合わせる
+		  ・形は「円の上半分＋円の中心から下は全面」（カンプのドームと同じ。円の下端が見えないように）
+		  ・始まり：円の上端（エリアの上端から 400px 下）が画面の下端に来たとき。直径は画面幅の 74%
+		  ・スクロール量 画面の高さ×2.2 かけて、イーズアウトで 3 倍に拡大しながら中心が画面幅の 48.8% 上へ（参考サイトと同じ比率）
+		  ・円が横幅いっぱいを超えたら、左右の端で円と交わる高さより下を全面にする
+		  ・円はエリアの上へはみ出して、前のセクションの後ろまで広がる（.dome は CSS で上へ広げてある）
 	------------------------------------------------------------*/
 	var gradArea = document.querySelector('.js-gradArea');
 	var gradBg = document.querySelector('.js-gradBg');
-	var flowSec = document.getElementById('flow');
-	var gradColors = gradBg ? Array.prototype.slice.call(gradBg.querySelectorAll('.gradColor')) : [];
-	function whiteAlpha(y, flowTop, vh) {
-		// y：エリア上端からの距離（px）
-		if (y <= flowTop - vh) return 0.8 + 0.09 * Math.max(0, y) / Math.max(1, flowTop - vh);
-		if (y >= flowTop - vh / 2) return 1;
-		return 0.89 + 0.11 * (y - (flowTop - vh)) / (vh / 2);
+	var domeArea = document.querySelector('.js-domeArea');
+	var dome = document.querySelector('.js-dome');
+	// #main の中の --rem（Figma の 10px）を px で（リキッド方式。base.css と同じ計算）
+	function remPx() {
+		var w = window.innerWidth;
+		return w <= SP_BREAKPOINT ? w * 10 / 390 : w * 10 / 1366;
+	}
+	function whiteAlpha(y) {
+		return 0.8 + 0.2 * Math.min(1, Math.max(0, y / (130.5 * remPx())));
 	}
 	function updateBg() {
-		if (!gradArea || !gradBg) return;
-		var areaTop = gradArea.getBoundingClientRect().top;
 		var vh = window.innerHeight;
-		var flowTop = flowSec ? flowSec.getBoundingClientRect().top - areaTop : 0;
-		var yTop = -areaTop;
-		gradBg.style.setProperty('--bg-top', whiteAlpha(yTop, flowTop, vh).toFixed(3));
-		gradBg.style.setProperty('--bg-bottom', whiteAlpha(yTop + vh, flowTop, vh).toFixed(3));
-		gradColors.forEach(function (layer) {
-			var sec = document.getElementById(layer.getAttribute('data-bg-from'));
-			layer.classList.toggle('is-on', !!sec && sec.getBoundingClientRect().top < vh * 0.6);
-		});
+		if (gradArea && gradBg) {
+			var yTop = -gradArea.getBoundingClientRect().top;
+			gradBg.style.setProperty('--bg-top', whiteAlpha(yTop).toFixed(3));
+			gradBg.style.setProperty('--bg-bottom', whiteAlpha(yTop + vh).toFixed(3));
+		}
+		if (domeArea && dome) {
+			var rect = dome.getBoundingClientRect();
+			var areaTop = domeArea.getBoundingClientRect().top;
+			var off = areaTop - rect.top; // .dome の上端からエリアの上端まで（上へ広げた分）
+			var w = rect.width;
+			var h = rect.height;
+			var start = 40 * remPx(); // 円の上端の開始位置：エリアの上端から 400px 下（ユーザー指示）
+			var t = Math.min(1, Math.max(0, (vh - areaTop - start) / (vh * 2.2)));
+			var e = 1 - Math.pow(1 - t, 2.3);
+			var r = w * 0.37 * (1 + 2 * e);
+			var cy = off + start + w * 0.37 - w * 0.488 * e; // .dome の座標での円の中心
+			var path;
+			if (r < w / 2) {
+				// 円が横幅より小さい：円の上半分＋その真下の長方形
+				path = 'M' + (w / 2 - r) + ',' + cy + ' A' + r + ',' + r + ' 0 0 1 ' + (w / 2 + r) + ',' + cy +
+					' L' + (w / 2 + r) + ',' + h + ' L' + (w / 2 - r) + ',' + h + ' Z';
+			} else {
+				// 円が横幅を超えた：左右の端と円が交わる高さから下は全面
+				var ys = cy - Math.sqrt(r * r - (w / 2) * (w / 2));
+				path = 'M0,' + ys + ' A' + r + ',' + r + ' 0 0 1 ' + w + ',' + ys + ' L' + w + ',' + h + ' L0,' + h + ' Z';
+			}
+			dome.style.clipPath = 'path("' + path.replace(/(\d+\.\d)\d+/g, '$1') + '")';
+		}
 	}
 
 	/*------------------------------------------------------------
@@ -373,7 +366,7 @@
 		- .js-fadeGroup の中の .js-fade は 0.12 秒ずつ（data-stagger で変更可）遅らせて順番に表示（左から時間差でふわっと）
 		- data-trigger="group" のグループは PC ではグループが画面に入った時点でまとめて開始（横並びのカードを左から順に出す）
 	------------------------------------------------------------*/
-	var isPc = window.matchMedia('(min-width: 897px)').matches;
+	var isPc = window.matchMedia('(min-width: 1025px)').matches;
 	var groupTargets = []; // まとめて表示するグループ（PC の横並び。data-trigger="group"）
 	document.querySelectorAll('.js-fadeGroup').forEach(function (group) {
 		var step = parseFloat(group.getAttribute('data-stagger')) || 0.12;

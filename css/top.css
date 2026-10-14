@@ -12,7 +12,7 @@
 ------------------------------------------------------------*/
 #main .mv {
 	position: relative;
-	height: max(76.8rem, min(56.22vw, 94.5rem));
+	height: max(calc(76.8 * var(--rem)), min(56.22vw, calc(94.5 * var(--rem))));
 }
 #main .mvSlide {
 	position: fixed;
@@ -44,8 +44,8 @@
 	left: 0;
 	z-index: 2;
 	width: 100%;
-	height: 6rem;
-	padding: 0 12rem 0 6.4rem;
+	height: calc(6 * var(--rem));
+	padding: 0 calc(12 * var(--rem)) 0 calc(6.4 * var(--rem));
 	display: flex;
 	align-items: center;
 	color: #000;
@@ -54,43 +54,56 @@
 #main .newsBar::after {
 	content: "";
 	position: absolute;
-	top: 2.2rem;
-	right: 6.8rem;
-	width: 0.9rem;
-	height: 1.53rem;
+	top: calc(2.2 * var(--rem));
+	right: calc(6.8 * var(--rem));
+	width: calc(0.9 * var(--rem));
+	height: calc(1.53 * var(--rem));
 	background: url(../img/common/arrow_right.svg) no-repeat center / contain;
 	transform: scaleX(-1);
 }
 #main .newsBar .label {
-	width: 11.4rem;
-	height: 2.4rem;
+	width: calc(11.4 * var(--rem));
+	height: calc(2.4 * var(--rem));
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-shrink: 0;
 	color: #fff;
-	font-size: 1.2rem;
+	font-size: calc(1.2 * var(--rem));
 	font-weight: 700;
 	background: var(--color-red);
-	border-radius: 5rem;
+	border-radius: calc(5 * var(--rem));
 }
 #main .newsBar .txt {
-	margin-left: 2.4rem;
+	margin-left: calc(2.4 * var(--rem));
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
-	font-size: 1.4rem;
-	line-height: 2.2rem;
+	font-size: calc(1.4 * var(--rem));
+	line-height: calc(2.2 * var(--rem));
 }
 /* キャッチコピー */
+/* 写真の下部を暗くするグラデ（Figma「Rectangle 4258」：紺・不透明度 50%） */
+/* Figma「Rectangle 4258」：MV の写真からループ文字の下端まで（MV の高さ＋ループ帯 calc(12.4 * var(--rem))） */
+#main .mvShade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: calc(100% + calc(12.4 * var(--rem)));
+	background: linear-gradient(180deg, rgba(16, 16, 55, 0) 64.6%, #0a0d27 100%);
+	opacity: 0.5;
+	pointer-events: none;
+}
+/* Figma：MV 下端（768）からキャッチの下端（行ボックス 577.5＋73.84×2＝725.2）まで 42.8px。MV の高さが画面幅で変わっても下からの位置を保つ */
 #main .mvCatch {
 	position: absolute;
-	top: 18.25rem;
-	left: 6.6rem;
+	bottom: calc(4.28 * var(--rem));
+	left: calc(6.3 * var(--rem));
 	z-index: 1;
 	color: #fff;
-	font-size: 5.2rem;
+	font-size: calc(5.2 * var(--rem));
 	font-weight: 700;
 	line-height: 1.42;
 	letter-spacing: 0.03em;
@@ -98,37 +111,37 @@
 #main .mvCatch .line {
 	display: block;
 }
-@media all and (min-width: 897px) {
+@media all and (min-width: 1025px) {
 	#main .newsBar:hover .txt {
 		color: var(--color-blue);
 	}
 }
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .mv {
-		height: calc(var(--header-h) + 8.4rem + 48rem);
+		height: calc(var(--header-h) + calc(8.4 * var(--rem)) + calc(48 * var(--rem)));
 	}
 	#main .newsBar {
 		position: absolute;
-		height: 8.4rem;
-		padding: 1.2rem 4rem 1.2rem 2rem;
+		height: calc(8.4 * var(--rem));
+		padding: calc(1.2 * var(--rem)) calc(4 * var(--rem)) calc(1.2 * var(--rem)) calc(2 * var(--rem));
 		display: block;
 		border-bottom: 1px solid var(--color-line);
 	}
 	#main .newsBar::after {
-		top: 3.4rem;
-		right: 1.8rem;
-		width: 0.8rem;
-		height: 1.36rem;
+		top: calc(3.4 * var(--rem));
+		right: calc(1.8 * var(--rem));
+		width: calc(0.8 * var(--rem));
+		height: calc(1.36 * var(--rem));
 	}
 	#main .newsBar .label {
-		width: 9.6rem;
-		height: 2rem;
-		font-size: 1rem;
+		width: calc(9.6 * var(--rem));
+		height: calc(2 * var(--rem));
+		font-size: calc(1 * var(--rem));
 	}
 	#main .newsBar .txt {
-		margin: 0.6rem 0 0;
-		font-size: 1.2rem;
-		line-height: 1.8rem;
+		margin: calc(0.6 * var(--rem)) 0 0;
+		font-size: calc(1.2 * var(--rem));
+		line-height: calc(1.8 * var(--rem));
 	}
 	#main .newsBar .txt br {
 		display: none;
@@ -137,27 +150,32 @@
 	#main .mv::before {
 		content: "";
 		position: absolute;
-		top: calc(var(--header-h) + 8.4rem);
+		top: calc(var(--header-h) + calc(8.4 * var(--rem)));
 		left: 0;
 		width: 100%;
-		height: 24rem;
+		height: calc(24 * var(--rem));
 		background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
 	}
+	#main .mvShade {
+		height: calc(100% + calc(6.4 * var(--rem)));
+	}
 	#main .mvCatch {
-		top: calc(var(--header-h) + 8.4rem + 2.8rem);
-		left: 2rem;
-		font-size: 2.6rem;
-		text-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.3);
+		top: calc(var(--header-h) + calc(8.4 * var(--rem)) + calc(2.8 * var(--rem)));
+		bottom: auto;
+		left: calc(2 * var(--rem));
+		font-size: calc(2.6 * var(--rem));
+		text-shadow: 0 0 calc(1.2 * var(--rem)) rgba(0, 0, 0, 0.3);
 	}
 }
 
 /*------------------------------------------------------------
 	英字テキストの無限ループ（右→左）
 ------------------------------------------------------------*/
+/* 文字の上端は帯の上端から 13px（Figma：帯 768〜892、文字 781） */
 #main .loopTxt {
-	height: 12.4rem;
-	display: flex;
-	align-items: center;
+	position: relative; /* MV の影（.mvShade）より手前に出す */
+	height: calc(12.4 * var(--rem));
+	padding-top: calc(1.3 * var(--rem));
 	overflow: hidden;
 }
 #main .loopTrack {
@@ -166,10 +184,11 @@
 	animation: loopTxt 40s linear infinite; /* 実際の秒数は js/main.js が文の数に合わせて設定 */
 }
 #main .loopTrack p {
-	padding-right: 5.4rem;
+	padding-right: calc(9 * var(--rem)); /* 文と文の間隔＝文字サイズ（前回と同じ比率） */
 	color: #fff;
+	opacity: 0.6; /* Figma：不透明度 60% */
 	font-family: var(--font-en);
-	font-size: 5.4rem;
+	font-size: calc(9 * var(--rem));
 	font-weight: 700;
 	line-height: 1.03;
 	white-space: nowrap;
@@ -178,16 +197,14 @@
 	from { transform: translateX(0); }
 	to   { transform: translateX(-50%); }
 }
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .loopTxt {
-		height: 6.4rem;
-	}
-	#main .loopTrack {
-		animation-duration: 25s;
+		height: calc(6.4 * var(--rem));
+		padding-top: calc(0.8 * var(--rem));
 	}
 	#main .loopTrack p {
-		padding-right: 2.8rem;
-		font-size: 2.8rem;
+		padding-right: calc(4.6 * var(--rem));
+		font-size: calc(4.6 * var(--rem));
 	}
 }
 
@@ -195,13 +212,13 @@
 	背景エリア（固定した MV 写真の上に重なってスクロールしてくる）
 	- .gradArea 自体は背景ぼかし 10px（Figma「背景グラデ」）
 	- 画面に貼り付く .gradBgInner に色を塗る（js/main.js）
-	  上部：白 80%→89%（写真がぼけて透ける）→ お問い合わせフローで徐々に白ベタ（スクロール連動）
-	  → コンテンツ一覧で #C1E6F3、お知らせで #C0ECDF（.gradColor を 1 秒でフェード）
+	  白 80%（写真がぼけて透ける）→ 製品ラインナップまでに白ベタ（スクロール連動。Figma「背景グラデ」1013）
+	- コンテンツ一覧〜グループ会社の後ろはドーム型の背景（.dome。下の「ドーム型の背景」）
 ------------------------------------------------------------*/
 #main .gradArea {
 	position: relative;
-	-webkit-backdrop-filter: blur(1rem);
-	backdrop-filter: blur(1rem);
+	-webkit-backdrop-filter: blur(calc(1 * var(--rem)));
+	backdrop-filter: blur(calc(1 * var(--rem)));
 }
 #main .gradBg {
 	position: absolute;
@@ -215,21 +232,12 @@
 	/* 白の濃さ（画面上端・下端）は js/main.js が --bg-top / --bg-bottom に入れる */
 	background: linear-gradient(180deg, rgba(255, 255, 255, var(--bg-top, 0.8)), rgba(255, 255, 255, var(--bg-bottom, 0.8)));
 }
-#main .gradColor {
-	position: absolute;
-	inset: 0;
-	opacity: 0;
-	transition: opacity 1s ease;
-}
-#main .gradColor.is-on {
-	opacity: 1;
-}
 #main .gradArea > *:not(.gradBg) {
 	position: relative;
 	z-index: 1;
 }
 #main .gradArea {
-	padding-top: 12rem;
+	padding-top: calc(12 * var(--rem));
 }
 
 /*------------------------------------------------------------
@@ -237,86 +245,79 @@
 ------------------------------------------------------------*/
 #main .lpBanner {
 	position: relative;
-	height: 20rem;
+	height: calc(24 * var(--rem));
 	display: block;
 	overflow: hidden;
 	color: #fff;
 	background: url(../img/top/lp_maintenance.webp) no-repeat center / cover;
-	border-radius: 1rem;
+	border-radius: calc(1 * var(--rem));
 }
 #main .lpBanner::before {
 	content: "";
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 55.95rem;
+	width: calc(66.8 * var(--rem));
 	height: 100%;
 	background: url(../img/top/lp_panel.svg) no-repeat left top / 100% 100%;
 }
 #main .lpBanner > span {
 	position: absolute;
-	left: 4.2rem;
+	left: calc(4.2 * var(--rem));
 }
 #main .lpBanner .tags {
-	top: 3rem;
+	top: calc(4.2 * var(--rem));
 	display: flex;
-	gap: 2.36rem;
+	gap: calc(1.6 * var(--rem));
 }
 #main .lpBanner .tag {
-	width: 9.67rem;
-	height: 3.7rem;
+	width: calc(9.67 * var(--rem));
+	height: calc(3.7 * var(--rem));
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: var(--color-blue);
-	font-size: 2.8rem;
+	color: #f0742d;
+	font-size: calc(2.8 * var(--rem));
 	font-weight: 700;
 	line-height: 1;
 	background: #fff;
-	border-radius: 0.4rem;
+	border-radius: calc(0.4 * var(--rem));
 }
 #main .lpBanner .made {
 	position: absolute;
-	top: 0.49rem;
-	left: 36.08rem;
-	font-size: 3rem;
+	top: calc(0.49 * var(--rem));
+	left: calc(33.79 * var(--rem));
+	font-size: calc(3 * var(--rem));
 	font-weight: 700;
-	line-height: 2.4rem;
+	line-height: calc(2.4 * var(--rem));
 	white-space: nowrap;
 }
 #main .lpBanner .ttl {
-	top: 6.01rem;
-	font-size: 4rem;
+	top: calc(7.71 * var(--rem));
+	font-size: calc(5 * var(--rem));
 	font-weight: 900;
-	line-height: 7.75rem;
+	line-height: calc(7.75 * var(--rem));
 	white-space: nowrap;
 }
 #main .lpBanner .sub {
-	top: 13.85rem;
-	font-size: 3.2rem;
+	top: calc(16.05 * var(--rem));
+	font-size: calc(3.2 * var(--rem));
 	font-weight: 700;
-	line-height: 2.4rem;
+	line-height: calc(2.4 * var(--rem));
 	white-space: nowrap;
 }
 #main .lpBanner .btn01 {
 	position: absolute;
-	top: 11.6rem;
-	left: 82.9rem;
+	top: calc(16.4 * var(--rem));
+	left: calc(82.9 * var(--rem));
 }
-@media all and (min-width: 897px) and (max-width: 1024px) {
-	/* 中身の幅が 102rem になるので、ボタンを右端基準に */
-	#main .lpBanner .btn01 {
-		left: auto;
-		right: 2.5rem;
-	}
-}
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .gradArea {
-		padding-top: 6rem;
+		padding-top: calc(6 * var(--rem));
 	}
 	#main .lpBanner {
 		height: auto;
-		padding: 2.4rem 2rem;
+		padding: calc(2.4 * var(--rem)) calc(2 * var(--rem));
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -334,89 +335,86 @@
 		left: auto;
 	}
 	#main .lpBanner .tags {
-		gap: 0.8rem;
+		gap: calc(0.8 * var(--rem));
 		align-items: center;
 	}
 	#main .lpBanner .tag {
-		width: 5.6rem;
-		height: 2.8rem;
-		font-size: 1.7rem;
+		width: calc(5.6 * var(--rem));
+		height: calc(2.8 * var(--rem));
+		font-size: calc(1.7 * var(--rem));
 	}
 	#main .lpBanner .made {
 		position: static;
-		margin-left: 0.4rem;
-		font-size: 1.8rem;
+		margin-left: calc(0.4 * var(--rem));
+		font-size: calc(1.8 * var(--rem));
 	}
 	#main .lpBanner .ttl {
-		margin-top: 1rem;
-		font-size: 2.6rem;
+		margin-top: calc(1 * var(--rem));
+		font-size: calc(2.6 * var(--rem));
 		line-height: 1.4;
 	}
 	#main .lpBanner .sub {
-		margin-top: 0.4rem;
-		font-size: 1.8rem;
+		margin-top: calc(0.4 * var(--rem));
+		font-size: calc(1.8 * var(--rem));
 		line-height: 1.5;
 	}
 	#main .lpBanner .btn01 {
-		margin-top: 1.6rem;
+		margin-top: calc(1.6 * var(--rem));
 	}
 }
 
 /*------------------------------------------------------------
-	全国対応ネットワーク
-	PC は Figma の座標どおり .netStage（112rem × 69.5rem）の中に絶対配置
+	全国対応ネットワーク（Figma「全国対応ネットワーク-1013」）
+	PC は Figma の座標どおり .netStage の中に絶対配置（基準は青カードの左上＝コンテンツ左端）
+	エリアボタンに hover：ボタンが濃い青、地図の該当地域が青グラデ（0.3s）
 ------------------------------------------------------------*/
 #main .network {
-	margin-top: 12rem;
+	margin-top: calc(12 * var(--rem));
 }
 #main .netBody {
 	position: relative;
-	margin-top: 4rem;
+	height: calc(69.5 * var(--rem));
+	margin-top: calc(4 * var(--rem));
 }
-/* 左端から伸びる青グラデの帯（Figma「Rectangle 4260」。.js-band で左から伸びる） */
-#main .netBand {
+/* 青グラデのカード（左端から伸びる。.js-band） */
+#main .netCard {
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0;
-	right: max(12.3rem, calc((100% - 136.6rem) / 2 + 12.3rem));
-	background: linear-gradient(151.2deg, #def4ff 21.7%, #009ce5 102.3%);
-	border-radius: 0 1rem 1rem 0;
+	right: max(calc(12.3 * var(--rem)), calc((100% - calc(136.6 * var(--rem))) / 2 + calc(12.3 * var(--rem))));
+	overflow: hidden;
+	background: linear-gradient(180deg, #2aa3dc, #ccecfd);
+	border-radius: 0 calc(1 * var(--rem)) calc(1 * var(--rem)) 0;
+	box-shadow: 0 0 calc(4 * var(--rem)) rgba(0, 0, 0, 0.25);
+}
+/* 背景のピンと線の模様（下に向かって濃くなる） */
+#main .netPattern {
+	position: absolute;
+	top: calc(6.2 * var(--rem));
+	left: 0;
+	right: 0;
+	height: calc(63.3 * var(--rem));
+	background: url(../img/top/network_bg.webp) no-repeat right top / cover;
+	opacity: 0.5;
+	-webkit-mask-image: linear-gradient(180deg, transparent 40.6%, #000 84%);
+	mask-image: linear-gradient(180deg, transparent 40.6%, #000 84%);
+}
+#main .netBody > .inner {
+	position: relative;
+	height: 100%;
 }
 #main .netStage {
 	position: relative;
-	height: 69.5rem;
-}
-#main .netTxt {
-	position: absolute;
-	top: 5.79rem;
-	left: 0;
-	z-index: 2;
-	width: 33.8rem;
-}
-#main .netTtl {
-	font-size: 2rem;
-	font-weight: 700;
-	line-height: 2.6rem;
-}
-#main .netDesc {
-	width: 32.1rem;
-	margin-top: 1.8rem;
-	font-size: 1.6rem;
-	line-height: 2.6rem;
-}
-#main .netTxt .btn01 {
-	margin-top: 2.4rem;
-}
-#main .netBtn {
-	--btn-w: 30.3rem;
+	height: 100%;
 }
 #main .netMap {
 	position: absolute;
-	top: 3rem;
-	left: -6.1rem;
-	width: 73rem;
-	height: 67.5rem;
+	top: calc(-8.3 * var(--rem));
+	left: calc(0.1 * var(--rem));
+	width: calc(118.5 * var(--rem));
+	height: calc(87.8 * var(--rem));
+	pointer-events: none;
 }
 #main .netMap img {
 	position: absolute;
@@ -432,183 +430,220 @@
 #main .netMap .hl.is-active {
 	opacity: 1;
 }
+#main .netTtl {
+	position: absolute;
+	top: calc(6.4 * var(--rem));
+	left: calc(-0.1 * var(--rem));
+	z-index: 1;
+	color: #fff;
+	font-size: calc(4.2 * var(--rem));
+	font-weight: 700;
+	line-height: 1;
+	white-space: nowrap;
+}
+/* 「138」（Figma 7519:20411）：Inter Bold 65px・字間 -3%
+   塗り：キャップ上端 #FFFED3 → ベースライン #A5DAD3 のグラデ（Figma はキャップハイトでトリミングした枠に対してかかる）
+   線：外側 1px 白 75%（::before に 2px の線を描いて塗りの後ろに重ねる＝外側の 1px だけ見える）
+   影：0 1px 5px rgba(0,0,0,.25)（線も含めて影を落とす） */
+#main .netTtl .num {
+	margin: 0 calc(-0.1 * var(--rem)) 0 calc(0.4 * var(--rem));
+	display: inline-grid;
+	font-family: var(--font-num);
+	font-size: calc(6.5 * var(--rem));
+	line-height: 1;
+	letter-spacing: -0.03em;
+	filter: drop-shadow(0 calc(0.1 * var(--rem)) calc(0.5 * var(--rem)) rgba(0, 0, 0, 0.25));
+}
+#main .netTtl .num::before,
+#main .netTtl .num .fill {
+	grid-area: 1 / 1;
+}
+#main .netTtl .num::before {
+	content: attr(data-num);
+	color: transparent;
+	-webkit-text-stroke: calc(0.2 * var(--rem)) rgba(255, 255, 255, 0.75);
+}
+#main .netTtl .num .fill {
+	/* 行の高さ 1em の箱の中で、Inter のキャップ上端は 0.1365em、ベースラインは 0.8635em（ascent 0.969 / descent 0.242 / キャップ 0.727） */
+	background: linear-gradient(180deg, #fffed3 0.1365em, #a5dad3 0.8635em);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
 #main .netLead {
 	position: absolute;
-	top: 5.21rem;
-	left: 70.5rem;
-	font-size: 2.4rem;
+	top: calc(13.81 * var(--rem));
+	left: calc(-0.1 * var(--rem));
+	z-index: 1;
+	color: #fff;
+	font-size: calc(2.4 * var(--rem));
 	font-weight: 700;
-	line-height: 3.4rem;
+	line-height: calc(3.4 * var(--rem));
+	white-space: nowrap;
 }
-/* エリアカード（hover：紺地＋拠点数を表示、地図の該当地域が青くなる） */
-#main .netArea li {
+#main .netArea {
 	position: absolute;
-	width: 17.5rem;
-	height: 10.8rem;
-}
-@media all and (min-width: 897px) {
-	#main .netArea .hokkaido   { top: 14.77rem; left: 69.27rem; }
-	#main .netArea .tohoku     { top: 14.7rem;  left: 88.37rem; }
-	#main .netArea .kanetsu    { top: 27.17rem; left: 63.3rem; }
-	#main .netArea .shutoken   { top: 27.17rem; left: 82.4rem; }
-	#main .netArea .chubu      { top: 39.57rem; left: 57.3rem; }
-	#main .netArea .kansai     { top: 39.57rem; left: 76.4rem; }
-	#main .netArea .chushikoku { top: 51.97rem; left: 51.3rem; }
-	#main .netArea .kyushu     { top: 51.97rem; left: 70.4rem; }
+	top: calc(20.6 * var(--rem));
+	left: calc(0.1 * var(--rem));
+	z-index: 1;
+	display: grid;
+	grid-template-columns: repeat(4, calc(14.2 * var(--rem)));
+	gap: calc(1.6 * var(--rem));
 }
 #main .netArea a {
 	position: relative;
-	height: 100%;
+	height: calc(7.5 * var(--rem));
 	display: block;
 	background: #fff;
-	border-radius: 0.6rem;
-	transition: background-color 0.3s ease-out;
+	border-radius: calc(0.6 * var(--rem));
+	box-shadow: calc(0.2 * var(--rem)) calc(0.2 * var(--rem)) calc(0.6 * var(--rem)) rgba(0, 0, 0, 0.2), inset calc(-0.3 * var(--rem)) calc(-0.3 * var(--rem)) calc(0.4 * var(--rem)) rgba(0, 0, 0, 0.2);
+	transition: background-color 0.3s linear, box-shadow 0.3s linear;
+}
+#main .netArea a::after {
+	content: "";
+	position: absolute;
+	top: calc(3.1 * var(--rem));
+	right: calc(0.8 * var(--rem));
+	width: calc(0.8 * var(--rem));
+	height: calc(1.4 * var(--rem));
+	background: url(../img/top/net_arrow.svg) no-repeat center / contain;
+	transform: scaleX(-1);
 }
 #main .netArea .name {
 	position: absolute;
-	top: 1.79rem;
-	left: 2.4rem;
-	font-size: 2rem;
+	top: calc(0.98 * var(--rem));
+	left: 0;
+	right: 0;
+	color: var(--color-text);
+	font-size: calc(1.6 * var(--rem));
 	font-weight: 700;
-	line-height: 2.4rem;
+	line-height: calc(2.4 * var(--rem));
 	letter-spacing: 0.05em;
+	text-align: center;
 	white-space: nowrap;
-	transition: color 0.3s ease-out;
+	transition: color 0.3s linear;
 }
 #main .netArea .count {
 	position: absolute;
-	top: 5.03rem;
-	left: 2.4rem;
+	left: 0;
+	right: 0;
+	bottom: calc(0.9 * var(--rem));
 	display: flex;
+	justify-content: center;
 	align-items: baseline;
-	gap: 0.4rem;
-	color: #fff;
-	font-size: 1.6rem;
-	font-weight: 500;
-	line-height: 2.4rem;
+	gap: calc(0.2 * var(--rem));
+	color: var(--color-text);
+	font-size: calc(1.4 * var(--rem));
+	font-weight: 700;
+	line-height: calc(2.4 * var(--rem));
 	letter-spacing: 0.05em;
 	white-space: nowrap;
-	opacity: 0;
-	transition: opacity 0.3s ease-out;
+	transition: color 0.3s linear;
 }
 #main .netArea .num {
-	font-family: var(--font-en);
-	font-size: 4.2rem;
-	font-weight: 700;
-	line-height: 4.326rem;
+	color: var(--color-blue);
+	font-family: var(--font-num);
+	font-size: calc(3.2 * var(--rem));
+	line-height: 1.03;
 	letter-spacing: 0;
+	transition: color 0.3s linear;
 }
-#main .netArea .arrow {
+#main .netSearch {
 	position: absolute;
-	top: 5.4rem;
-	left: 6.9rem;
-	width: 3.6rem;
-	height: 3.6rem;
-	background: url(../img/common/btn_arrow.svg) no-repeat center / contain;
-	transition: left 0.3s ease-out;
+	top: calc(41.2 * var(--rem));
+	left: 0;
+	z-index: 1;
 }
-@media all and (min-width: 897px) {
+#main .netBtn {
+	--btn-w: calc(36.5 * var(--rem));
+}
+@media all and (min-width: 1025px) {
 	#main .netArea a:hover {
-		background: var(--color-navy);
+		background: #0077be;
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), inset calc(0.3 * var(--rem)) calc(0.3 * var(--rem)) calc(0.5 * var(--rem)) rgba(0, 0, 0, 0.25);
 	}
-	#main .netArea a:hover .name {
+	#main .netArea a:hover::after {
+		background-image: url(../img/top/net_arrow_white.svg);
+	}
+	#main .netArea a:hover .name,
+	#main .netArea a:hover .count,
+	#main .netArea a:hover .num {
 		color: #fff;
 	}
-	#main .netArea a:hover .count {
-		opacity: 1;
-	}
-	#main .netArea a:hover .arrow {
-		left: 12.1rem;
-		background-image: url(../img/common/btn_arrow_hover.svg);
-	}
 }
-@media all and (min-width: 897px) and (max-width: 1024px) {
-	#main .netBand {
-		right: 4rem;
-	}
-	/* 中身の幅が 102rem になるので、Figma の配置ごと縮める */
-	#main .netStage {
-		width: 112rem;
-		zoom: 0.91;
-	}
-}
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .network {
-		margin-top: 6rem;
+		margin-top: calc(6 * var(--rem));
 	}
 	#main .netBody {
-		margin-top: 2.4rem;
+		height: auto;
+		margin-top: calc(2.4 * var(--rem));
 	}
-	#main .netBand {
+	#main .netCard {
 		right: 0;
 		border-radius: 0;
 	}
 	#main .netStage {
 		height: auto;
-		padding: 3.6rem 0 4rem;
+		padding: calc(3.2 * var(--rem)) 0 calc(4 * var(--rem));
+		display: flex;
+		flex-direction: column;
 	}
-	#main .netTxt,
-	#main .netMap,
+	#main .netTtl,
 	#main .netLead,
-	#main .netArea li {
+	#main .netArea,
+	#main .netSearch,
+	#main .netMap {
 		position: relative;
 		top: auto;
 		left: auto;
 	}
-	#main .netTxt {
-		width: auto;
-	}
 	#main .netTtl {
-		font-size: 1.8rem;
+		font-size: calc(2.2 * var(--rem));
+		line-height: 1.4;
+		white-space: normal;
 	}
-	#main .netDesc {
-		width: auto;
-		margin-top: 1.2rem;
-		font-size: 1.4rem;
-		line-height: 1.8;
-	}
-	/* 地図の右側の余白を切り落として幅いっぱいに表示 */
-	#main .netMap {
-		width: 100%;
-		height: auto;
-		margin-top: 2.4rem;
-		overflow: hidden;
-		aspect-ratio: 585 / 675;
-	}
-	#main .netMap img {
-		left: -14.5%;
-		width: 124.8%;
+	#main .netTtl .num {
+		font-size: calc(3.6 * var(--rem));
 	}
 	#main .netLead {
-		margin-top: 2.4rem;
-		font-size: 2rem;
-		line-height: 1.5;
+		margin-top: calc(0.8 * var(--rem));
+		font-size: calc(1.5 * var(--rem));
+		line-height: 1.6;
+		white-space: normal;
+	}
+	/* 地図はボタンの下に（左の余白を切り落として幅いっぱいに） */
+	#main .netMap {
+		order: 1;
+		width: 100%;
+		height: auto;
+		margin-top: calc(2 * var(--rem));
+		aspect-ratio: 982 / 878;
+	}
+	#main .netMap img {
+		left: -20.67%;
+		width: 120.67%;
 	}
 	#main .netArea {
-		margin-top: 1.6rem;
-		display: grid;
+		margin-top: calc(2 * var(--rem));
 		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
+		gap: calc(1 * var(--rem));
 	}
-	#main .netArea li {
-		width: auto;
-		height: 7.2rem;
+	#main .netArea a {
+		height: calc(6.8 * var(--rem));
 	}
 	#main .netArea .name {
-		top: 1.4rem;
-		left: 1.4rem;
-		font-size: 1.5rem;
+		top: calc(0.8 * var(--rem));
+		font-size: calc(1.4 * var(--rem));
 	}
-	#main .netArea .count {
-		display: none;
+	#main .netArea .num {
+		font-size: calc(2.6 * var(--rem));
 	}
-	#main .netArea .arrow {
-		top: auto;
-		bottom: 1rem;
-		left: auto;
-		right: 1rem;
-		width: 2.8rem;
-		height: 2.8rem;
+	#main .netSearch {
+		margin-top: calc(2 * var(--rem));
+	}
+	#main .netBtn {
+		--btn-w: 100%;
 	}
 }
 
@@ -616,40 +651,49 @@
 	製品ラインナップ（タブ切替：0.25秒でフェード。Figma の Smart Animate 0.25s ease-out）
 ------------------------------------------------------------*/
 #main .product {
-	margin-top: 12rem;
+	margin-top: calc(12 * var(--rem));
 }
 #main .prodHead {
-	height: 6.3rem;
+	height: calc(6.3 * var(--rem));
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
 }
 #main .prodIntro {
-	margin-top: 1.675rem;
-	font-size: 1.6rem;
-	line-height: 2.6rem;
+	margin-top: calc(1.675 * var(--rem));
+	font-size: calc(1.6 * var(--rem));
+	line-height: calc(2.6 * var(--rem));
 	white-space: nowrap;
 }
 #main .prodTabs {
-	margin-top: 4rem;
+	margin-top: calc(6 * var(--rem));
 }
 #main .tabList {
 	display: flex;
-	gap: 0.5rem;
+	gap: calc(0.5 * var(--rem));
 }
+/* タブごとのテーマ色（Figma「製品タブ-1007-A」：01 黄／02 青／03 青緑／04 水色） */
+#main .prodTabs [role="tab"]:nth-child(1),
+#main .tabPanel:nth-child(1) { --on-bg: #ffe49f; --theme: #eb9533; --panel-bg: linear-gradient(150.4deg, #ffe49f 9.3%, #f5fbfe 79.6%); }
+#main .prodTabs [role="tab"]:nth-child(2),
+#main .tabPanel:nth-child(2) { --on-bg: #8cd2f3; --theme: #1a6bad; --panel-bg: linear-gradient(150.4deg, #7bcbf1 9.3%, #f5fbfe 79.6%); }
+#main .prodTabs [role="tab"]:nth-child(3),
+#main .tabPanel:nth-child(3) { --on-bg: #b1e2eb; --theme: #1b8b99; --panel-bg: linear-gradient(150.4deg, #9fdde5 9.3%, #f5fbfe 79.6%); }
+#main .prodTabs [role="tab"]:nth-child(4),
+#main .tabPanel:nth-child(4) { --on-bg: #93d5f4; --theme: #fff;    --panel-bg: linear-gradient(150.4deg, #009ce5 9.3%, #7bcbf1 25.5%, #f5fbfe 79.6%); }
 #main .tabList button {
 	position: relative;
-	width: 27.6rem;
-	height: 9.4rem;
-	color: var(--color-blue);
+	width: calc(27.6 * var(--rem));
+	height: calc(9.4 * var(--rem));
+	color: #338abe;
 	text-align: center;
-	background: #e6f1f6;
-	border-radius: 1rem 1rem 0 0;
+	background: #e2f3fc;
+	border-radius: calc(1 * var(--rem)) calc(1 * var(--rem)) 0 0;
 	transition: color 0.25s ease-out, background-color 0.25s ease-out;
 }
 #main .tabList button.is-active {
-	color: #fff;
-	background: var(--color-blue);
+	color: var(--theme);
+	background: var(--on-bg);
 	cursor: default;
 }
 #main .tabList .num,
@@ -658,28 +702,35 @@
 	left: 0;
 	width: 100%;
 	display: block;
-	font-size: 2.4rem;
-	line-height: 2.6rem;
+	font-size: calc(2.4 * var(--rem));
+	line-height: calc(2.6 * var(--rem));
 }
 #main .tabList .num {
-	top: 1.52rem;
+	top: calc(1.52 * var(--rem));
+	color: rgba(17, 80, 137, 0.5);
 	font-family: var(--font-en);
 	font-weight: 400;
+	transition: color 0.25s ease-out;
+}
+#main .tabList button.is-active .num {
+	color: var(--theme);
 }
 #main .tabList .ja {
-	top: 5.01rem;
+	top: calc(5.01 * var(--rem));
 	font-weight: 700;
 }
 #main .tabPanels {
 	position: relative;
-	height: 49.9rem;
-	background: linear-gradient(-70.26deg, #ddf4ff 10.42%, #009ce5 94.454%);
-	border-radius: 0 0 1rem 1rem;
+	height: calc(49.9 * var(--rem));
+	border-radius: 0 0 calc(1 * var(--rem)) calc(1 * var(--rem));
 }
+/* 背景はパネルごとに持たせ、切替時に一緒にフェードさせる */
 #main .tabPanel {
 	position: absolute;
 	inset: 0;
-	color: #fff;
+	color: var(--color-text);
+	background: var(--panel-bg);
+	border-radius: 0 0 calc(1 * var(--rem)) calc(1 * var(--rem));
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.25s ease-out, visibility 0.25s;
@@ -690,113 +741,102 @@
 }
 #main .panelTxt > * {
 	position: absolute;
-	left: 4.8rem;
+	left: calc(4.8 * var(--rem));
+}
+#main .panelTxt .num,
+#main .panelTxt .name {
+	color: var(--theme);
 }
 #main .panelTxt .num {
-	top: 8.98rem;
+	top: calc(8.98 * var(--rem));
 	font-family: var(--font-en);
-	font-size: 5.2rem;
-	line-height: 2.6rem;
+	font-size: calc(5.2 * var(--rem));
+	line-height: calc(2.6 * var(--rem));
 }
 /* 番号と製品名の間の縦線 */
 #main .panelTxt .num::after {
 	content: "";
 	position: absolute;
-	top: -2.08rem;
-	left: 9.4rem;
+	top: calc(-2.08 * var(--rem));
+	left: calc(9.4 * var(--rem));
 	width: 1px;
-	height: 6.6rem;
-	background: #fff;
+	height: calc(6.6 * var(--rem));
+	background: var(--theme);
 }
 #main .panelTxt .name {
-	top: 6.87rem;
-	left: 17.2rem;
+	top: calc(6.87 * var(--rem));
+	left: calc(17.2 * var(--rem));
 	font-weight: 700;
 }
 #main .panelTxt .name .en {
 	display: block;
 	font-family: var(--font-en);
-	font-size: 1.6rem;
+	font-size: calc(1.6 * var(--rem));
 	font-weight: 400;
 	line-height: 1.219;
 	text-transform: uppercase;
 }
 #main .panelTxt .name .ja {
-	margin-top: 1.28rem;
+	margin-top: calc(1.28 * var(--rem));
 	display: block;
-	font-size: 3.2rem;
-	line-height: 2.6rem;
+	font-size: calc(3.2 * var(--rem));
+	line-height: calc(2.6 * var(--rem));
 }
 #main .panelTxt .catch {
-	top: 17.79rem;
-	font-size: 2rem;
+	top: calc(17.79 * var(--rem));
+	font-size: calc(2 * var(--rem));
 	font-weight: 700;
-	line-height: 2.6rem;
+	line-height: calc(2.6 * var(--rem));
 	white-space: nowrap;
 }
 #main .panelTxt .desc {
-	top: 21.58rem;
-	width: 41rem;
-	font-size: 1.6rem;
-	line-height: 2.6rem;
+	top: calc(21.58 * var(--rem));
+	width: calc(41 * var(--rem));
+	font-size: calc(1.6 * var(--rem));
+	line-height: calc(2.6 * var(--rem));
 }
 #main .is-2line .panelTxt .catch {
-	top: 17.59rem;
-	line-height: 3rem;
+	top: calc(17.59 * var(--rem));
+	line-height: calc(3 * var(--rem));
 }
 #main .is-2line .panelTxt .desc {
-	top: 24.88rem;
+	top: calc(24.88 * var(--rem));
 }
 #main .panelTxt .btn01 {
-	top: 36.9rem;
-	left: 12rem;
+	top: calc(36.9 * var(--rem));
+	left: calc(12 * var(--rem));
 }
 #main .panelImg {
 	position: absolute;
-	top: 3.4rem;
-	left: 51.1rem;
-	width: 57.5rem;
-	height: 43.08rem;
+	top: calc(3.4 * var(--rem));
+	left: calc(51.1 * var(--rem));
+	width: calc(57.5 * var(--rem));
+	height: calc(43.08 * var(--rem));
 	overflow: hidden;
-	border-radius: 0.6rem;
+	border-radius: calc(0.6 * var(--rem));
 }
 #main .panelImg img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-@media all and (min-width: 897px) {
+@media all and (min-width: 1025px) {
 	#main .tabList button:not(.is-active):hover {
 		background: #d3e8f2;
 	}
 }
-@media all and (min-width: 897px) and (max-width: 1024px) {
-	#main .prodHead {
-		height: auto;
-		flex-direction: column;
-		gap: 2.4rem;
-	}
-	#main .prodIntro {
-		margin-top: 0;
-		white-space: normal;
-	}
-	#main .prodTabs {
-		width: 112rem;
-		zoom: 0.91;
-	}
-}
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .product {
-		margin-top: 6rem;
+		margin-top: calc(6 * var(--rem));
 	}
 	#main .prodHead {
 		height: auto;
 		flex-direction: column;
-		gap: 1.6rem;
+		gap: calc(1.6 * var(--rem));
 	}
 	#main .prodIntro {
 		margin-top: 0;
-		font-size: 1.4rem;
+		font-size: calc(1.4 * var(--rem));
 		line-height: 1.8;
 		white-space: normal;
 	}
@@ -804,44 +844,42 @@
 		display: none;
 	}
 	#main .prodTabs {
-		margin-top: 2.4rem;
+		margin-top: calc(2.4 * var(--rem));
 	}
 	#main .tabList {
-		gap: 0.3rem;
+		gap: calc(0.3 * var(--rem));
 	}
 	#main .tabList button {
 		flex: 1;
 		width: auto;
-		height: 6.4rem;
-		border-radius: 0.6rem 0.6rem 0 0;
+		height: calc(6.4 * var(--rem));
+		border-radius: calc(0.6 * var(--rem)) calc(0.6 * var(--rem)) 0 0;
 	}
 	#main .tabList .num {
-		top: 1rem;
-		font-size: 1.4rem;
-		line-height: 1.6rem;
+		top: calc(1 * var(--rem));
+		font-size: calc(1.4 * var(--rem));
+		line-height: calc(1.6 * var(--rem));
 	}
 	#main .tabList .ja {
-		top: 3rem;
-		padding: 0 0.2rem;
-		font-size: 1.1rem;
-		line-height: 1.4rem;
+		top: calc(3 * var(--rem));
+		padding: 0 calc(0.2 * var(--rem));
+		font-size: calc(1.1 * var(--rem));
+		line-height: calc(1.4 * var(--rem));
 	}
 	/* SP はパネルを同じマスに重ね、いちばん高いパネルに高さを合わせる */
 	#main .tabPanels {
 		height: auto;
 		display: grid;
-		/* 縦長になるため、白文字が読めるよう明るい側を弱めた（Figma に SP デザインなし・仮） */
-		background: linear-gradient(170deg, #009ce5 45%, #5fc3f0 100%);
-		border-radius: 0 0 0.6rem 0.6rem;
+		border-radius: 0 0 calc(0.6 * var(--rem)) calc(0.6 * var(--rem));
 	}
 	#main .tabPanel {
 		position: relative;
 		inset: auto;
 		grid-area: 1 / 1;
-		padding: 2rem 2rem 3.2rem;
+		padding: calc(2 * var(--rem)) calc(2 * var(--rem)) calc(3.2 * var(--rem));
 		display: flex;
 		flex-direction: column-reverse;
-		gap: 2rem;
+		gap: calc(2 * var(--rem));
 	}
 	#main .panelImg {
 		position: relative;
@@ -870,42 +908,42 @@
 	}
 	#main .panelTxt .num {
 		position: absolute;
-		top: 0.4rem;
-		font-size: 3.6rem;
+		top: calc(0.4 * var(--rem));
+		font-size: calc(3.6 * var(--rem));
 		line-height: 1;
 	}
 	#main .panelTxt .num::after {
-		top: -0.2rem;
-		left: 6rem;
-		height: 4.4rem;
+		top: calc(-0.2 * var(--rem));
+		left: calc(6 * var(--rem));
+		height: calc(4.4 * var(--rem));
 	}
 	#main .panelTxt .name {
-		margin-left: 7.6rem;
+		margin-left: calc(7.6 * var(--rem));
 	}
 	#main .panelTxt .name .en {
-		font-size: 1.2rem;
+		font-size: calc(1.2 * var(--rem));
 	}
 	#main .panelTxt .name .ja {
-		margin-top: 0.4rem;
-		font-size: 2.2rem;
+		margin-top: calc(0.4 * var(--rem));
+		font-size: calc(2.2 * var(--rem));
 		line-height: 1.3;
 	}
 	#main .panelTxt .catch,
 	#main .is-2line .panelTxt .catch {
-		margin-top: 2rem;
-		font-size: 1.6rem;
+		margin-top: calc(2 * var(--rem));
+		font-size: calc(1.6 * var(--rem));
 		line-height: 1.5;
 		white-space: normal;
 	}
 	#main .panelTxt .desc,
 	#main .is-2line .panelTxt .desc {
 		width: auto;
-		margin-top: 0.8rem;
-		font-size: 1.4rem;
+		margin-top: calc(0.8 * var(--rem));
+		font-size: calc(1.4 * var(--rem));
 		line-height: 1.8;
 	}
 	#main .panelTxt .btn01 {
-		margin-top: 2rem;
+		margin-top: calc(2 * var(--rem));
 	}
 }
 
@@ -913,102 +951,96 @@
 	お問い合わせフロー（4ステップ。カードの間に矢印）
 ------------------------------------------------------------*/
 #main .flow {
-	margin-top: 12rem;
+	margin-top: calc(12 * var(--rem));
 }
 #main .flowList {
-	margin-top: 5rem;
+	margin-top: calc(5 * var(--rem));
 	display: flex;
-	gap: 4rem;
+	gap: calc(4 * var(--rem));
 }
 #main .flowList li {
 	position: relative;
-	width: 25rem;
-	height: 25.6rem;
+	width: calc(25 * var(--rem));
+	height: calc(25.6 * var(--rem));
 	background: #e1eff6;
-	border-radius: 0.6rem;
+	border-radius: calc(0.6 * var(--rem));
 }
 /* カードの右の矢印（最後のカード以外） */
 #main .flowList li:not(:last-child)::after {
 	content: "";
 	position: absolute;
-	top: 11.4rem;
-	left: 26.1rem;
-	width: 1.7rem;
-	height: 2.9rem;
+	top: calc(11.4 * var(--rem));
+	left: calc(26.1 * var(--rem));
+	width: calc(1.7 * var(--rem));
+	height: calc(2.9 * var(--rem));
 	background: url(../img/top/flow_arrow.svg) no-repeat center / contain;
 }
 #main .flowList .icon {
 	position: absolute;
-	top: 3.3rem;
-	left: 1.8rem;
-	width: 4rem;
+	top: calc(3.3 * var(--rem));
+	left: calc(1.8 * var(--rem));
+	width: calc(4 * var(--rem));
 }
 #main .flowList .step {
-	padding-top: 4.06rem;
+	padding-top: calc(4.06 * var(--rem));
 	color: var(--color-navy);
 	font-family: var(--font-en);
-	font-size: 2rem;
+	font-size: calc(2 * var(--rem));
 	line-height: 1.219;
 	letter-spacing: 0.05em;
 	text-align: center;
 }
 #main .flowList .ttl {
 	position: absolute;
-	top: 7.98rem;
+	top: calc(7.98 * var(--rem));
 	left: 0;
 	width: 100%;
-	font-size: 1.6rem;
+	font-size: calc(1.6 * var(--rem));
 	font-weight: 700;
-	line-height: 3rem;
+	line-height: calc(3 * var(--rem));
 	text-align: center;
 }
 #main .flowList .desc {
 	position: absolute;
-	top: 12.48rem;
-	left: 3rem;
-	right: 3rem;
-	font-size: 1.6rem;
-	line-height: 2.4rem;
+	top: calc(12.48 * var(--rem));
+	left: calc(3 * var(--rem));
+	right: calc(3 * var(--rem));
+	font-size: calc(1.6 * var(--rem));
+	line-height: calc(2.4 * var(--rem));
 	letter-spacing: -0.01em;
 }
-@media all and (min-width: 897px) and (max-width: 1024px) {
-	#main .flowList {
-		width: 112rem;
-		zoom: 0.91;
-	}
-}
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .flow {
-		margin-top: 6rem;
+		margin-top: calc(6 * var(--rem));
 	}
 	#main .flowList {
-		margin-top: 2.4rem;
+		margin-top: calc(2.4 * var(--rem));
 		flex-direction: column;
-		gap: 3.6rem;
+		gap: calc(3.6 * var(--rem));
 	}
 	#main .flowList li {
 		width: auto;
 		height: auto;
-		padding: 2rem 2rem 2.4rem;
+		padding: calc(2 * var(--rem)) calc(2 * var(--rem)) calc(2.4 * var(--rem));
 	}
 	/* SP は縦並びなので矢印を下向きに */
 	#main .flowList li:not(:last-child)::after {
 		top: auto;
-		bottom: -3rem;
+		bottom: calc(-3 * var(--rem));
 		left: 50%;
-		width: 1.4rem;
-		height: 2.4rem;
-		margin-left: -0.7rem;
+		width: calc(1.4 * var(--rem));
+		height: calc(2.4 * var(--rem));
+		margin-left: calc(-0.7 * var(--rem));
 		transform: rotate(90deg);
 	}
 	#main .flowList .icon {
-		top: 1.6rem;
-		left: 2rem;
-		width: 3.6rem;
+		top: calc(1.6 * var(--rem));
+		left: calc(2 * var(--rem));
+		width: calc(3.6 * var(--rem));
 	}
 	#main .flowList .step {
-		padding: 0.5rem 0 0 5.2rem;
-		font-size: 1.8rem;
+		padding: calc(0.5 * var(--rem)) 0 0 calc(5.2 * var(--rem));
+		font-size: calc(1.8 * var(--rem));
 		text-align: left;
 	}
 	#main .flowList .ttl,
@@ -1016,318 +1048,239 @@
 		position: static;
 	}
 	#main .flowList .ttl {
-		margin: 1.2rem 0 0;
-		font-size: 1.6rem;
+		margin: calc(1.2 * var(--rem)) 0 0;
+		font-size: calc(1.6 * var(--rem));
 		line-height: 1.5;
 		text-align: left;
 	}
 	#main .flowList .desc {
-		margin-top: 0.6rem;
-		font-size: 1.4rem;
+		margin-top: calc(0.6 * var(--rem));
+		font-size: calc(1.4 * var(--rem));
 		line-height: 1.7;
 	}
 }
 
 /*------------------------------------------------------------
-	コンテンツ一覧（中央拡大のカルーセル）
-	カードは3つの位置（左・中央・右）に置き、矢印で 0.4 秒かけて移動（Figma の Smart Animate 0.4s ease-in-out）。
-	位置は js/main.js が is-left / is-center / is-right / is-outL / is-outR を付けて切り替える。
-	hover：写真が少し拡大＋丸矢印が紺（0.3s ease-out）
+	丸く広がる背景（Figma「Frame 769」の色：#F3FAFD → #C8F0FD）
+	コンテンツ一覧〜文化シヤッターグループの後ろ。参考 alvamososaka.com の黄色い丸と同じ動き：
+	エリアが画面の下から入ってくると、真円が下から現れ、スクロールに合わせて拡大しながら上がり、最後は全面を塗る。
+	形は「円の上半分＋その下は全面」。js/main.js が clip-path: path() で毎フレーム入れる。
+	円はエリアの上へはみ出して前のセクションの後ろまで広がる（.dome を --ext だけ上へ広げてある）
 ------------------------------------------------------------*/
-#main .contents {
-	margin-top: 12rem;
+#main .gradArea > .domeArea {
+	z-index: 0; /* 上に広がった円が、前のセクション（お問い合わせフロー）の文字やカードより後ろになるように */
 }
-#main .ctSlider {
+#main .domeArea > section {
 	position: relative;
-	height: 35.9rem;
-	margin-top: 2.2rem;
-	/* 各位置の座標（PC：Figma のとおり） */
-	--l-x: 4.8rem;   --l-y: 2.8rem;  --l-s: 1;
-	--c-x: 34.5rem;  --c-y: 0rem;    --c-s: 1.1813;
-	--r-x: 70.8rem;  --r-y: 2.8rem;  --r-s: 1;
-}
-#main .ctCard {
-	position: absolute;
-	top: var(--r-y);
-	left: var(--r-x);
-	width: 36.4rem;
-	height: 30.4rem;
-	opacity: 0;
-	pointer-events: none;
-	transform: scale(var(--r-s));
-	transform-origin: 0 0;
-}
-/* 最初の配置ではアニメーションさせない（js/main.js が配置後に .is-ready を付ける） */
-#main .ctSlider.is-ready .ctCard {
-	transition: left 0.4s ease-in-out, top 0.4s ease-in-out, transform 0.4s ease-in-out, opacity 0.4s ease-in-out, filter 0.4s ease-in-out;
-}
-#main .ctCard.is-left,
-#main .ctCard.is-outL {
-	top: var(--l-y);
-	left: var(--l-x);
-	transform: scale(var(--l-s));
-}
-#main .ctCard.is-center {
-	z-index: 2;
-	top: var(--c-y);
-	left: var(--c-x);
-	transform: scale(var(--c-s));
-	filter: drop-shadow(0 0 0.74rem rgba(0, 0, 0, 0.25));
-}
-#main .ctCard.is-left,
-#main .ctCard.is-center,
-#main .ctCard.is-right {
-	opacity: 1;
-	pointer-events: auto;
-}
-#main .ctCard.is-left,
-#main .ctCard.is-right {
 	z-index: 1;
 }
-#main .ctCard a {
+#main .dome {
+	--ext: 150vw; /* 円がエリアの上へはみ出しても切れないように、要素を上へ広げておく量 */
+	position: absolute;
+	top: calc(calc(-1 * var(--rem)) - var(--ext));
+	bottom: calc(-12 * var(--rem));
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	background: linear-gradient(180deg, #f3fafd var(--ext), #c8f0fd calc(var(--ext) + calc(159.3 * var(--rem))));
+	clip-path: inset(100% 0 0 0); /* 最初は見せない（形は js/main.js が clip-path: path() で入れる） */
+}
+@media all and (max-width: 1024px) {
+	#main .dome {
+		bottom: calc(-6 * var(--rem));
+	}
+}
+
+/*------------------------------------------------------------
+	横に流れるカルーセル（コンテンツ一覧・文化シヤッターグループ共通。Figma「サービスカルーセル 1013」）
+	幅 340px のカードを 370px 間隔で並べ、現在のカードを中央に。左右2枚目は 40%、それより外は非表示。
+	前後ボタン・スワイプで 0.5 秒移動（ループ）。下の進捗バーは現在の位置を表す。js/main.js
+------------------------------------------------------------*/
+#main .loopSlider {
+	position: relative;
+}
+#main .slideView {
+	position: relative;
+	overflow: hidden;
+}
+#main .slideItem {
+	--k: 0;
+	position: absolute;
+	top: 0;
+	left: calc(50% - calc(17 * var(--rem)) + var(--k) * calc(37 * var(--rem)));
+	width: calc(34 * var(--rem));
+	opacity: 0;
+	pointer-events: none;
+}
+#main .loopSlider.is-ready .slideItem {
+	transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+#main .loopSlider .slideItem.no-anim {
+	transition: none;
+}
+#main .slideItem.is-near,
+#main .slideItem.is-side {
+	pointer-events: auto;
+}
+#main .slideItem.is-near {
+	opacity: 1;
+}
+#main .slideItem.is-side {
+	opacity: 0.4;
+}
+#main .slideCtrl {
+	position: relative;
+	height: calc(6.2 * var(--rem));
+}
+#main .slideBar {
+	position: absolute;
+	top: calc(2.9 * var(--rem));
+	left: 0;
+	width: calc(94 * var(--rem));
+	height: calc(0.4 * var(--rem));
+	overflow: hidden;
+	background: #fff;
+	border-radius: calc(0.2 * var(--rem));
+}
+#main .slideBar span {
+	--i: 0;
+	--n: 6;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: calc(100% / var(--n));
 	height: 100%;
+	background: var(--color-blue);
+	border-radius: calc(0.2 * var(--rem));
+	transform: translateX(calc(var(--i) * 100%));
+	transition: transform 0.5s ease-in-out;
+}
+#main .slideBtn {
+	position: absolute;
+	top: 0;
+	width: calc(6.2 * var(--rem));
+	height: calc(6.2 * var(--rem));
+	background: url(../img/common/slide_btn.svg) no-repeat center / contain;
+	border-radius: 50%;
+	transition: opacity 0.3s;
+}
+#main .slideBtn.next {
+	right: 0;
+}
+#main .slideBtn.prev {
+	right: calc(7.6 * var(--rem));
+	transform: scaleX(-1);
+}
+@media all and (min-width: 1025px) {
+	#main .slideBtn:hover {
+		opacity: 0.7;
+	}
+}
+@media all and (max-width: 1024px) {
+	#main .slideItem {
+		left: calc(50% - calc(13 * var(--rem)) + var(--k) * calc(28 * var(--rem)));
+		width: calc(26 * var(--rem));
+	}
+	#main .slideBar {
+		width: calc(100% - calc(13 * var(--rem)));
+	}
+	#main .slideBtn {
+		width: calc(5 * var(--rem));
+		height: calc(5 * var(--rem));
+	}
+	#main .slideBtn.prev {
+		right: calc(6 * var(--rem));
+	}
+	#main .slideCtrl {
+		height: calc(5 * var(--rem));
+	}
+	#main .slideBar {
+		top: calc(2.3 * var(--rem));
+	}
+}
+
+/*------------------------------------------------------------
+	コンテンツ一覧（hover：カードが 11px 浮いて文字が青。0.3s）
+------------------------------------------------------------*/
+#main .contents {
+	margin-top: calc(12 * var(--rem));
+}
+#main .ctSlider {
+	height: calc(38.1 * var(--rem));
+	margin-top: calc(4.4 * var(--rem));
+}
+#main .ctSlider .slideView {
+	height: calc(28.3 * var(--rem));
+}
+#main .ctSlider .slideCtrl {
+	margin-top: calc(2.2 * var(--rem));
+}
+#main .ctCard a {
+	padding-top: calc(1.1 * var(--rem));
 	display: block;
+	transition: transform 0.3s ease-out;
 }
 #main .ctCard .img {
-	height: 21.4rem;
+	height: calc(23 * var(--rem));
 	display: block;
 	overflow: hidden;
-	border-radius: 1rem 1rem 0 0;
+	border-radius: calc(1 * var(--rem));
 }
 #main .ctCard .img img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	transition: transform 0.3s ease-out;
 }
-#main .ctCard .body {
-	position: relative;
-	height: 9rem;
-	display: block;
-	background: #fff;
-	border: 1px solid var(--color-line);
-	border-top: 0;
-	border-radius: 0 0 1rem 1rem;
-}
-#main .ctCard .body::after {
-	content: "";
-	position: absolute;
-	top: 2.7rem;
-	right: 2rem;
-	width: 3.6rem;
-	height: 3.6rem;
-	background: url(../img/common/btn_arrow.svg) no-repeat center / contain;
-}
-#main .ctCard .icon {
-	position: absolute;
-	top: 2.69rem;
-	left: 2.59rem;
-	width: 3.62rem;
-}
-#main .ctCard .name {
-	position: absolute;
-	top: 2.95rem;
-	left: 9rem;
-	font-size: 2rem;
-	font-weight: 700;
-	line-height: 1.448;
+#main .ctCard .cap {
+	height: calc(2.4 * var(--rem));
+	margin-top: calc(1.8 * var(--rem));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: calc(1.2 * var(--rem));
+	color: var(--color-text);
+	font-size: calc(2 * var(--rem));
+	font-weight: 500;
+	line-height: calc(2.4 * var(--rem));
 	letter-spacing: 0.05em;
 	white-space: nowrap;
+	transition: color 0.3s ease-out;
 }
-#main .ctArrow {
-	position: absolute;
-	top: 14rem;
-	z-index: 3;
-	width: 4.8rem;
-	height: 8rem;
-}
-#main .ctArrow::before {
+#main .ctCard .cap::after {
 	content: "";
-	position: absolute;
-	top: 1.95rem;
-	left: 1.2rem;
-	width: 2.4rem;
-	height: 4.1rem;
-	background: url(../img/common/arrow_slide.svg) no-repeat center / contain;
-}
-#main .ctArrow.prev {
-	left: -1.2rem;
-}
-#main .ctArrow.next {
-	right: -1.2rem;
-}
-#main .ctArrow.next::before {
-	transform: scaleX(-1);
-}
-@media all and (min-width: 897px) {
-	#main .ctCard a:hover .img img {
-		transform: scale(1.152);
-	}
-	#main .ctCard a:hover .body::after {
-		background-image: url(../img/common/btn_arrow_navy.svg);
-	}
-	#main .ctArrow:hover::before {
-		opacity: 0.6;
-	}
-}
-@media all and (max-width: 896px) {
-	#main .contents {
-		margin-top: 6rem;
-	}
-	/* SP：中央のカードを大きく、左右はほぼ画面外にのぞく程度 */
-	#main .ctSlider {
-		height: 25.84rem;
-		margin-top: 2.4rem;
-		--c-s: 0.85;  --c-x: calc(50% - 15.47rem);  --c-y: 0rem;
-		--l-s: 0.7;   --l-x: calc(50% - 12.74rem - 27rem); --l-y: 2.28rem;
-		--r-s: 0.7;   --r-x: calc(50% - 12.74rem + 27rem); --r-y: 2.28rem;
-	}
-	#main .ctArrow {
-		top: 8.9rem;
-	}
-	#main .ctArrow.prev {
-		left: -2rem;
-	}
-	#main .ctArrow.next {
-		right: -2rem;
-	}
-}
-
-/*------------------------------------------------------------
-	文化シヤッターグループ
-	カード（280×178、間隔40）を画面幅いっぱいに並べ、現在のカードを中央に置く。
-	矢印・ドットで 0.4 秒スライド。前後に複製を置いてループさせる（js/main.js）
-------------------------------------------------------------*/
-#main .group {
-	margin-top: 12rem;
-}
-#main .grpSlider {
-	margin-top: 5rem;
-}
-/* hover でカードが 11px 浮くので、その分だけ上に余白を足して切れないようにする */
-#main .grpView {
-	position: relative;
-	height: 18.9rem;
-	margin-top: -1.1rem;
-	overflow: hidden;
-}
-#main .grpTrack {
-	position: absolute;
-	top: 1.1rem;
-	left: calc(50% - 14rem - var(--pos, 0) * 32rem);
-	display: flex;
-	gap: 4rem;
-}
-#main .grpSlider.is-ready .grpTrack {
-	transition: left 0.4s ease-in-out;
-}
-#main .grpCard {
-	width: 28rem;
-	height: 17.8rem;
+	width: calc(0.945 * var(--rem));
+	height: calc(1.605 * var(--rem));
 	flex-shrink: 0;
+	background: url(../img/common/chevron_blue.svg) no-repeat center / contain;
 }
-#main .grpCard a {
-	position: relative;
-	height: 100%;
-	display: block;
-	background: #fff;
-	border-radius: 0.6rem;
-	transition: transform 0.3s ease-out;
-}
-#main .grpCard img {
-	position: absolute;
-	top: 4.6rem;
-	left: 0;
-	width: 100%;
-	height: 4.2rem;
-}
-#main .grpCard .txt {
-	position: absolute;
-	top: 11.3rem;
-	left: 0;
-	width: 100%;
-	color: #000;
-	font-size: 1.4rem;
-	line-height: 2.2rem;
-	text-align: center;
-	white-space: nowrap;
-}
-#main .grpCtrl {
-	position: relative;
-	height: 3.6rem;
-	margin-top: 4rem;
-}
-#main .grpNav {
-	position: absolute;
-	top: 0.5rem;
-	left: 50%;
-	width: 30.8rem;
-	height: 2.2rem;
-	margin-left: -15.4rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-#main .grpArrow {
-	width: 1.3rem;
-	height: 2.2rem;
-	background: url(../img/common/arrow_small.svg) no-repeat center / contain;
-}
-#main .grpArrow.next {
-	transform: scaleX(-1);
-}
-#main .grpDots {
-	display: flex;
-	gap: 3rem;
-}
-#main .grpDots button {
-	width: 1.2rem;
-	height: 1.2rem;
-	background: var(--color-blue);
-	border-radius: 50%;
-	opacity: 0.3;
-	transition: opacity 0.3s;
-}
-#main .grpDots button.is-active {
-	opacity: 1;
-}
-#main .grpCtrl .moreBtn {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-@media all and (min-width: 897px) {
-	/* Figma「グループ会社-1002」：hover でカードごと 11px 上へ（0.3s ease-out） */
-	#main .grpCard a:hover {
-		transform: translateY(-1.1rem);
+@media all and (min-width: 1025px) {
+	#main .ctCard a:hover {
+		transform: translateY(calc(-1.1 * var(--rem)));
 	}
-	#main .grpArrow:hover,
-	#main .grpDots button:not(.is-active):hover {
-		opacity: 0.6;
+	#main .ctCard a:hover .cap {
+		color: var(--color-blue);
 	}
 }
-@media all and (max-width: 896px) {
-	#main .group {
-		margin-top: 6rem;
+@media all and (max-width: 1024px) {
+	#main .contents {
+		margin-top: calc(6 * var(--rem));
 	}
-	#main .grpSlider {
-		margin-top: 2.4rem;
-	}
-	#main .grpCtrl {
+	#main .ctSlider {
 		height: auto;
-		margin-top: 2.4rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 2.4rem;
+		margin-top: calc(2.4 * var(--rem));
 	}
-	#main .grpNav {
-		position: static;
-		margin-left: 0;
+	#main .ctSlider .slideView {
+		height: calc(23.3 * var(--rem));
 	}
-	#main .grpCtrl .moreBtn {
-		position: relative;
-		align-self: flex-end;
+	#main .ctCard .img {
+		height: calc(17.6 * var(--rem));
+	}
+	#main .ctCard .cap {
+		margin-top: calc(1.2 * var(--rem));
+		font-size: calc(1.6 * var(--rem));
+	}
+	#main .ctSlider .slideCtrl {
+		margin-top: calc(1.6 * var(--rem));
 	}
 }
 
@@ -1335,25 +1288,25 @@
 	お知らせ（PC：左に見出し、右に一覧。hover で行が白地）
 ------------------------------------------------------------*/
 #main .gradArea {
-	padding-bottom: 12rem;
+	padding-bottom: calc(12 * var(--rem));
 }
 #main .news {
-	margin-top: 11.1rem;
+	margin-top: calc(12 * var(--rem));
 }
 #main .news .inner {
 	position: relative;
 }
 #main .newsList {
-	width: 82.5rem;
-	margin: -7.3rem 0 0 auto;
+	width: calc(82.5 * var(--rem));
+	margin: calc(-7.3 * var(--rem)) 0 0 auto;
 }
 #main .newsList a {
 	position: relative;
-	height: 8rem;
-	padding: 0 0 0 1.7rem;
+	height: calc(8 * var(--rem));
+	padding: 0 0 0 calc(1.7 * var(--rem));
 	display: flex;
 	align-items: center;
-	border-radius: 0.6rem;
+	border-radius: calc(0.6 * var(--rem));
 	transition: background-color 0.3s ease-out;
 }
 /* 下線（Figma「Line 22」。行の左 17px から右端まで。白） */
@@ -1361,25 +1314,25 @@
 	content: "";
 	position: absolute;
 	bottom: 0;
-	left: 1.7rem;
+	left: calc(1.7 * var(--rem));
 	right: 0;
 	height: 1px;
 	background: #fff;
 	transition: opacity 0.3s ease-out;
 }
 #main .newsList time {
-	width: 10.6rem;
+	width: calc(10.6 * var(--rem));
 	flex-shrink: 0;
 	color: var(--color-blue);
 	font-family: var(--font-en);
-	font-size: 1.6rem;
+	font-size: calc(1.6 * var(--rem));
 	line-height: 1.03;
 }
 #main .newsList .ttl {
 	min-width: 0;
 	overflow: hidden;
-	font-size: 1.6rem;
-	line-height: 2.4rem;
+	font-size: calc(1.6 * var(--rem));
+	line-height: calc(2.4 * var(--rem));
 	letter-spacing: 0.05em;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1387,17 +1340,17 @@
 #main .newsList .is-pdf::before {
 	content: "";
 	order: 1;
-	width: 1.6rem;
-	height: 2rem;
-	margin-left: 1.5rem;
+	width: calc(1.6 * var(--rem));
+	height: calc(2 * var(--rem));
+	margin-left: calc(1.5 * var(--rem));
 	flex-shrink: 0;
 	background: url(../img/common/icon_pdf.svg) no-repeat center / contain;
 }
 #main .newsMore {
-	margin-top: 3rem;
+	margin-top: calc(3 * var(--rem));
 	text-align: right;
 }
-@media all and (min-width: 897px) {
+@media all and (min-width: 1025px) {
 	#main .newsList a:hover {
 		background: #fff;
 	}
@@ -1405,20 +1358,20 @@
 		opacity: 0;
 	}
 }
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .gradArea {
-		padding-bottom: 6rem;
+		padding-bottom: calc(6 * var(--rem));
 	}
 	#main .news {
-		margin-top: 6rem;
+		margin-top: calc(6 * var(--rem));
 	}
 	#main .newsList {
 		width: auto;
-		margin: 1.6rem 0 0;
+		margin: calc(1.6 * var(--rem)) 0 0;
 	}
 	#main .newsList a {
 		height: auto;
-		padding: 1.6rem 3rem 1.6rem 0;
+		padding: calc(1.6 * var(--rem)) calc(3 * var(--rem)) calc(1.6 * var(--rem)) 0;
 		flex-wrap: wrap;
 		border-radius: 0;
 	}
@@ -1427,12 +1380,12 @@
 	}
 	#main .newsList time {
 		width: 100%;
-		margin-bottom: 0.6rem;
-		font-size: 1.4rem;
+		margin-bottom: calc(0.6 * var(--rem));
+		font-size: calc(1.4 * var(--rem));
 	}
 	#main .newsList .ttl {
 		width: 100%;
-		font-size: 1.4rem;
+		font-size: calc(1.4 * var(--rem));
 		line-height: 1.6;
 		white-space: normal;
 		display: -webkit-box;
@@ -1443,10 +1396,93 @@
 		position: absolute;
 		right: 0;
 		top: 50%;
-		margin: -1rem 0 0;
+		margin: calc(-1 * var(--rem)) 0 0;
 	}
 	#main .newsMore {
-		margin-top: 2.4rem;
+		margin-top: calc(2.4 * var(--rem));
+	}
+}
+
+/*------------------------------------------------------------
+	文化シヤッターグループ（カルーセルは共通部品。hover でカードが 11px 浮く。4秒ごとに自動で次へ）
+------------------------------------------------------------*/
+#main .group {
+	margin-top: calc(12 * var(--rem));
+}
+#main .grpSlider {
+	height: calc(29 * var(--rem));
+	margin-top: calc(3.4 * var(--rem));
+}
+#main .grpSlider .slideView {
+	height: calc(18.9 * var(--rem));
+}
+#main .grpSlider .slideCtrl {
+	margin-top: calc(3.2 * var(--rem));
+}
+#main .grpCard a {
+	position: relative;
+	height: calc(17.8 * var(--rem));
+	margin-top: calc(1.1 * var(--rem));
+	display: block;
+	background: #fff;
+	border-radius: calc(0.6 * var(--rem));
+	transition: transform 0.3s ease-out;
+}
+#main .grpCard img {
+	position: absolute;
+	top: calc(3.4 * var(--rem));
+	left: 0;
+	width: 100%;
+	height: calc(5.1 * var(--rem));
+}
+#main .grpCard .txt {
+	position: absolute;
+	top: calc(10.6 * var(--rem));
+	left: 0;
+	width: 100%;
+	color: #000;
+	font-size: calc(1.4 * var(--rem));
+	line-height: calc(2.2 * var(--rem));
+	text-align: center;
+	white-space: nowrap;
+}
+#main .grpMore {
+	margin-top: calc(2.7 * var(--rem));
+	text-align: right;
+}
+@media all and (min-width: 1025px) {
+	#main .grpCard a:hover {
+		transform: translateY(calc(-1.1 * var(--rem)));
+	}
+}
+@media all and (max-width: 1024px) {
+	#main .group {
+		margin-top: calc(6 * var(--rem));
+	}
+	#main .grpSlider {
+		height: auto;
+		margin-top: calc(2.4 * var(--rem));
+	}
+	#main .grpSlider .slideView {
+		height: calc(15.4 * var(--rem));
+	}
+	#main .grpCard a {
+		height: calc(14.3 * var(--rem));
+	}
+	#main .grpCard img {
+		top: calc(2.4 * var(--rem));
+		height: calc(4 * var(--rem));
+	}
+	#main .grpCard .txt {
+		top: calc(8 * var(--rem));
+		font-size: calc(1.2 * var(--rem));
+		line-height: calc(1.8 * var(--rem));
+	}
+	#main .grpSlider .slideCtrl {
+		margin-top: calc(1.6 * var(--rem));
+	}
+	#main .grpMore {
+		margin-top: calc(2.4 * var(--rem));
 	}
 }
 
@@ -1455,72 +1491,63 @@
 ------------------------------------------------------------*/
 #main .otherLinks {
 	position: relative;
-	padding: 12rem 0;
+	padding: calc(12 * var(--rem)) 0;
 	background: #fff;
 }
 #main .otherLinks ul {
 	display: grid;
-	grid-template-columns: repeat(2, 54rem);
+	grid-template-columns: repeat(2, calc(54 * var(--rem)));
 	justify-content: space-between;
-	gap: 3rem 3.9rem;
+	gap: calc(3 * var(--rem)) calc(3.9 * var(--rem));
 }
 #main .otherLinks a {
 	position: relative;
-	height: 7rem;
-	padding: 0 10rem;
+	height: calc(7 * var(--rem));
+	padding: 0 calc(10 * var(--rem));
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: #000;
-	font-size: 1.6rem;
+	font-size: calc(1.6 * var(--rem));
 	font-weight: 700;
-	line-height: 2.8rem;
+	line-height: calc(2.8 * var(--rem));
 	text-align: center;
 	background: #fff;
 	border: 1px solid var(--color-line);
-	border-radius: 0.6rem;
+	border-radius: calc(0.6 * var(--rem));
 	transition: border-color 0.3s, color 0.3s;
 }
 #main .otherLinks img {
 	position: absolute;
-	top: 1.7rem;
-	left: 2.5rem;
-	width: 3.5rem;
+	top: calc(1.7 * var(--rem));
+	left: calc(2.5 * var(--rem));
+	width: calc(3.5 * var(--rem));
 }
-@media all and (min-width: 897px) {
+@media all and (min-width: 1025px) {
 	#main .otherLinks a:hover {
 		color: var(--color-blue);
 		border-color: var(--color-blue);
 	}
 }
-@media all and (min-width: 897px) and (max-width: 1024px) {
-	#main .otherLinks ul {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 2rem;
-	}
-	#main .otherLinks a {
-		padding: 0 2rem 0 7rem;
-	}
-}
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	#main .otherLinks {
-		padding: 6rem 0;
+		padding: calc(6 * var(--rem)) 0;
 	}
 	#main .otherLinks ul {
 		grid-template-columns: 1fr;
-		gap: 1.2rem;
+		gap: calc(1.2 * var(--rem));
 	}
 	#main .otherLinks a {
-		height: 6rem;
-		padding: 0 1.6rem 0 6.4rem;
+		height: calc(6 * var(--rem));
+		padding: 0 calc(1.6 * var(--rem)) 0 calc(6.4 * var(--rem));
 		justify-content: flex-start;
-		font-size: 1.5rem;
+		font-size: calc(1.5 * var(--rem));
 		text-align: left;
 	}
 	#main .otherLinks img {
-		top: 1.3rem;
-		left: 1.6rem;
-		width: 3.4rem;
+		top: calc(1.3 * var(--rem));
+		left: calc(1.6 * var(--rem));
+		width: calc(3.4 * var(--rem));
 	}
 }
 
@@ -1529,89 +1556,91 @@
 ------------------------------------------------------------*/
 .fvCta {
 	position: fixed;
-	top: 24.5rem;
-	right: 2rem;
+	top: calc(24.5 * var(--rem));
+	right: calc(2 * var(--rem));
 	z-index: 90;
-	width: 20rem;
+	width: calc(20 * var(--rem));
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: calc(1 * var(--rem));
 	/* ふわっと消える・戻る */
 	transition: opacity 0.8s ease, transform 1s cubic-bezier(0.45, 0.05, 0.25, 1), visibility 0.8s;
 }
 .fvCta.hide {
 	opacity: 0;
 	visibility: hidden;
-	transform: translateX(2rem);
+	transform: translateX(calc(2 * var(--rem)));
 }
 .fvCta a {
 	position: relative;
 	display: block;
-	border-radius: 0.6rem;
-	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+	border-radius: calc(0.6 * var(--rem));
+	box-shadow: 0 0 calc(1 * var(--rem)) rgba(0, 0, 0, 0.25);
 }
 .fvCta .tel {
-	height: 17.9rem;
+	height: calc(17.9 * var(--rem));
 	color: #fff;
 	text-align: center;
-	background: linear-gradient(268.4deg, #3867b3 14.437%, #03d188 103.61%);
-	border: 0.3rem solid #fff;
+	background: linear-gradient(252.2deg, #0082d0 36.484%, #0e6aac 62.698%, #115089 88.912%);
+	border: calc(0.3 * var(--rem)) solid #fff;
 }
 .fvCta .tel > span {
 	position: absolute;
-	left: -0.3rem;
-	right: -0.3rem;
+	left: calc(-0.3 * var(--rem));
+	right: calc(-0.3 * var(--rem));
 	display: block;
 }
 .fvCta .tel .badge {
-	top: 1.7rem;
-	left: 1.7rem;
-	right: 1.7rem;
-	height: 3rem;
+	top: calc(1.7 * var(--rem));
+	left: calc(1.7 * var(--rem));
+	right: calc(1.7 * var(--rem));
+	height: calc(3 * var(--rem));
 	color: var(--color-navy);
-	font-size: 1.6rem;
+	font-size: calc(1.6 * var(--rem));
 	font-weight: 700;
-	line-height: 3rem;
-	background: #fff;
-	border-radius: 0.4rem;
+	line-height: calc(3 * var(--rem));
+	background: linear-gradient(90deg, #ffeb0d, #fff045 50%, #fff47c);
+	border-radius: calc(0.4 * var(--rem));
 }
 .fvCta .tel .head {
-	top: 6.45rem;
-	left: 3.2rem;
+	top: calc(6.45 * var(--rem));
+	left: calc(3.2 * var(--rem));
 	display: flex;
 	align-items: center;
-	gap: 0.6rem;
-	font-size: 1.6rem;
+	gap: calc(0.6 * var(--rem));
+	font-size: calc(1.6 * var(--rem));
 	font-weight: 700;
-	line-height: 2.2rem;
+	line-height: calc(2.2 * var(--rem));
 }
 .fvCta .tel .head img {
-	width: 1.9rem;
+	width: calc(1.9 * var(--rem));
 }
 .fvCta .tel .num {
-	top: 9.85rem;
+	top: calc(10.2 * var(--rem));
+	left: calc(1.6 * var(--rem));
+	right: auto;
 	font-family: var(--font-en);
-	font-size: 2.5rem;
-	font-weight: 600;
-	line-height: 2.2rem;
+	font-size: calc(2.5 * var(--rem));
+	font-weight: 700;
+	line-height: calc(2.2 * var(--rem));
 	letter-spacing: 0.02em;
 }
 .fvCta .tel .note {
-	top: 12.55rem;
-	font-size: 1.2rem;
+	top: calc(12.55 * var(--rem));
+	font-size: calc(1.2 * var(--rem));
 	font-weight: 500;
-	line-height: 2.2rem;
+	line-height: calc(2.2 * var(--rem));
 }
 .fvCta .mail {
-	height: 8.2rem;
+	height: calc(8.2 * var(--rem));
 	background: linear-gradient(135.82deg, #fff 45.876%, #bcd4e9 108.14%);
 }
 .fvCta .mail .icon {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 8.2rem;
-	height: 8.2rem;
+	width: calc(6.8 * var(--rem));
+	height: calc(8.2 * var(--rem));
 	background: url(../img/common/fv_corp_bg.svg) no-repeat left top / 100% 100%;
 }
 .fvCta .indiv .icon {
@@ -1619,49 +1648,49 @@
 }
 .fvCta .mail .icon img {
 	position: absolute;
-	top: 2.4rem;
-	left: 1.79rem;
-	width: 3.65rem;
+	top: calc(2.4 * var(--rem));
+	left: calc(1.79 * var(--rem));
+	width: calc(3.65 * var(--rem));
 }
 .fvCta .indiv .icon img {
-	top: 2.3rem;
-	left: 1.8rem;
-	width: 3.6rem;
+	top: calc(2.3 * var(--rem));
+	left: calc(1.8 * var(--rem));
+	width: calc(3.6 * var(--rem));
 }
 .fvCta .mail .target,
 .fvCta .mail .txt {
 	position: absolute;
-	left: 8.8rem;
-	width: 9.6rem;
+	left: calc(8.8 * var(--rem));
+	width: calc(9.6 * var(--rem));
 	display: block;
 	font-weight: 700;
-	line-height: 2.2rem;
+	line-height: calc(2.2 * var(--rem));
 	text-align: center;
 	white-space: nowrap;
 }
 .fvCta .mail .target {
-	top: 0.9rem;
+	top: calc(0.9 * var(--rem));
 	color: #21b2a1;
-	font-size: 1.4rem;
+	font-size: calc(1.4 * var(--rem));
 }
 .fvCta .indiv .target {
 	color: var(--color-blue);
 }
 .fvCta .mail .txt {
-	top: 3.1rem;
+	top: calc(3.1 * var(--rem));
 	color: var(--color-navy2);
-	font-size: 1.6rem;
+	font-size: calc(1.6 * var(--rem));
 }
-@media all and (min-width: 897px) {
+@media all and (min-width: 1025px) {
 	.fvCta a {
 		transition: transform 0.3s, box-shadow 0.3s;
 	}
 	.fvCta a:hover {
-		transform: translateY(-0.3rem);
-		box-shadow: 0 0.4rem 1.4rem rgba(0, 0, 0, 0.3);
+		transform: translateY(calc(-0.3 * var(--rem)));
+		box-shadow: 0 calc(0.4 * var(--rem)) calc(1.4 * var(--rem)) rgba(0, 0, 0, 0.3);
 	}
 }
-@media all and (max-width: 896px) {
+@media all and (max-width: 1024px) {
 	.fvCta {
 		display: none;
 	}

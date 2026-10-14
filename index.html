@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Montserrat:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <!-- パスは必ず相対パス（index.html を直接開いても崩れないように） -->
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/top.css">
@@ -124,6 +124,9 @@
 				<span class="txt">このたびの令和8年熊本地震によりお亡くなりになられた方々にお悔み申し上げますとともに、被災された皆様に心よりお見舞い申し上げます。<br>テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</span>
 			</a>
 
+			<!-- 写真の下部を暗くするグラデ（Figma「Rectangle 4258」） -->
+			<div class="mvShade" aria-hidden="true"></div>
+
 			<h1 class="mvCatch">
 				<span class="line js-fade" style="--delay: 0.3s;">設備を守るという、</span>
 				<span class="line js-fade" style="--delay: 0.5s;">ただ一つの使命を胸に。</span>
@@ -136,24 +139,21 @@
 		-->
 		<div class="loopTxt" aria-hidden="true">
 			<div class="loopTrack js-loopTrack">
-				<p>Supporting Safety With Sincerity And Expertise</p>
-				<p>Supporting Safety With Sincerity And Expertise</p>
+				<p>Supporting Safety with Sincerity and Expertise</p>
+				<p>Supporting Safety with Sincerity and Expertise</p>
 			</div>
 		</div>
 
 		<!--============================================================
 			背景エリア（固定写真の上に、ぼかし＋背景色を重ねる。js/main.js）
-			- 上部：白の半透明（80%→89%）で写真がぼけて透ける
-			- お問い合わせフロー：スクロールに合わせて徐々に白ベタへ
-			- コンテンツ一覧に来たら #C1E6F3、お知らせに来たら #C0ECDF にふわっと切り替え
-			「全国対応ネットワーク」〜「お知らせ」のセクションはこの .gradArea の中に入れる
+			- 上部：白の半透明（80%）で写真がぼけて透け、製品ラインナップまでに白ベタになる（スクロール連動）
+			- コンテンツ一覧〜文化シヤッターグループ：丸い背景（.dome）が下から現れ、スクロールに合わせて
+			  拡大しながら上がり、最後は全面を塗る（参考：alvamososaka.com）。色は Figma「Frame 769」
+			「全国対応ネットワーク」〜「文化シヤッターグループ」のセクションはこの .gradArea の中に入れる
 		============================================================-->
 		<div class="gradArea js-gradArea">
 			<div class="gradBg" aria-hidden="true">
-				<div class="gradBgInner js-gradBg">
-					<span class="gradColor" data-bg-from="contents" style="background: #c1e6f3;"></span>
-					<span class="gradColor" data-bg-from="news" style="background: #c0ecdf;"></span>
-				</div>
+				<div class="gradBgInner js-gradBg"></div>
 			</div>
 
 			<!--============================================================
@@ -173,93 +173,83 @@
 			</div>
 
 			<!--============================================================
-				全国対応ネットワーク
+				全国対応ネットワーク（Figma「全国対応ネットワーク-1013」）
 			============================================================-->
 			<section class="network" id="network">
 				<div class="inner">
 					<h2 class="secTtl js-secTtl"><span class="en">Network</span><span class="ja">全国対応ネットワーク</span></h2>
 				</div>
 				<div class="netBody">
-					<div class="netBand js-band" aria-hidden="true"></div>
+					<!-- 青グラデのカード（左端から伸びる帯。.js-band）と背景の模様 -->
+					<div class="netCard js-band" aria-hidden="true"><span class="netPattern"></span></div>
 					<div class="inner">
 						<div class="netStage js-fadeGroup">
-							<div class="netTxt">
-								<h3 class="netTtl js-fade">お近くの拠点から、<br>迅速なサポートをお約束。</h3>
-								<p class="netDesc js-fade">シャッターの修理・点検・防火設備検査など、さまざまなご相談に各地域のサービスステーションが対応します。</p>
-								<div class="js-fade"><a href="#" class="btn01 netBtn">最寄りの<br>サービスステーションを検索</a></div>
-							</div>
-							<!-- 日本地図（エリアにホバーすると該当地域が青くなる。js/main.js） -->
+							<!-- 日本地図（エリアボタンにホバーすると該当地域が青くなる。js/main.js） -->
 							<div class="netMap" aria-hidden="true">
-								<img src="img/top/map_base.svg" alt="" class="base" width="730" height="675" loading="lazy">
-							<img src="img/top/map_hokkaido.svg" alt="" class="hl" data-area="hokkaido" width="730" height="675" loading="lazy">
-							<img src="img/top/map_tohoku.svg" alt="" class="hl" data-area="tohoku" width="730" height="675" loading="lazy">
-							<img src="img/top/map_kanetsu.svg" alt="" class="hl" data-area="kanetsu" width="730" height="675" loading="lazy">
-							<img src="img/top/map_shutoken.svg" alt="" class="hl" data-area="shutoken" width="730" height="675" loading="lazy">
-							<img src="img/top/map_chubu.svg" alt="" class="hl" data-area="chubu" width="730" height="675" loading="lazy">
-							<img src="img/top/map_kansai.svg" alt="" class="hl" data-area="kansai" width="730" height="675" loading="lazy">
-							<img src="img/top/map_chushikoku.svg" alt="" class="hl" data-area="chushikoku" width="730" height="675" loading="lazy">
-							<img src="img/top/map_kyushu.svg" alt="" class="hl" data-area="kyushu" width="730" height="675" loading="lazy">
+								<img src="img/top/map_base.svg" alt="" class="base" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_hokkaido.svg" alt="" class="hl" data-area="hokkaido" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_tohoku.svg" alt="" class="hl" data-area="tohoku" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_kanetsu.svg" alt="" class="hl" data-area="kanetsu" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_shutoken.svg" alt="" class="hl" data-area="shutoken" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_chubu.svg" alt="" class="hl" data-area="chubu" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_kansai.svg" alt="" class="hl" data-area="kansai" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_chushikoku.svg" alt="" class="hl" data-area="chushikoku" width="1185" height="878" loading="lazy">
+								<img src="img/top/map_kyushu.svg" alt="" class="hl" data-area="kyushu" width="1185" height="878" loading="lazy">
 							</div>
-							<p class="netLead js-fade">全国138拠点地域密着で<br>迅速に対応</p>
+							<h3 class="netTtl js-fade">全国<span class="num" data-num="138"><span class="fill">138</span></span>ヵ所の<br class="sp">サービスステーション</h3>
+							<p class="netLead js-fade">お近くの拠点から、迅速なサポートをお約束。</p>
 							<!-- エリア別の拠点数は固定の値（投稿ではない） -->
 							<ul class="netArea">
-							<li class="hokkaido js-fade" data-area="hokkaido">
-								<a href="#">
-									<span class="name">北海道エリア</span>
-									<span class="count"><span class="num">13</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="tohoku js-fade" data-area="tohoku">
-								<a href="#">
-									<span class="name">東北エリア</span>
-									<span class="count"><span class="num">13</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="kanetsu js-fade" data-area="kanetsu">
-								<a href="#">
-									<span class="name">関越エリア</span>
-									<span class="count"><span class="num">16</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="shutoken js-fade" data-area="shutoken">
-								<a href="#">
-									<span class="name">首都圏エリア</span>
-									<span class="count"><span class="num">30</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="chubu js-fade" data-area="chubu">
-								<a href="#">
-									<span class="name">中部エリア</span>
-									<span class="count"><span class="num">23</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="kansai js-fade" data-area="kansai">
-								<a href="#">
-									<span class="name">関西エリア</span>
-									<span class="count"><span class="num">26</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="chushikoku js-fade" data-area="chushikoku">
-								<a href="#">
-									<span class="name">中四国エリア</span>
-									<span class="count"><span class="num">11</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li class="kyushu js-fade" data-area="kyushu">
-								<a href="#">
-									<span class="name">九州エリア</span>
-									<span class="count"><span class="num">16</span>拠点</span>
-									<span class="arrow" aria-hidden="true"></span>
-								</a>
-							</li>
+								<li class="js-fade" data-area="hokkaido">
+									<a href="#">
+										<span class="name">北海道エリア</span>
+										<span class="count"><span class="num">13</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="tohoku">
+									<a href="#">
+										<span class="name">東北エリア</span>
+										<span class="count"><span class="num">13</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="kanetsu">
+									<a href="#">
+										<span class="name">関越エリア</span>
+										<span class="count"><span class="num">16</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="shutoken">
+									<a href="#">
+										<span class="name">首都圏エリア</span>
+										<span class="count"><span class="num">30</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="chubu">
+									<a href="#">
+										<span class="name">中部エリア</span>
+										<span class="count"><span class="num">23</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="kansai">
+									<a href="#">
+										<span class="name">関西エリア</span>
+										<span class="count"><span class="num">26</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="chushikoku">
+									<a href="#">
+										<span class="name">中四国エリア</span>
+										<span class="count"><span class="num">11</span>拠点</span>
+									</a>
+								</li>
+								<li class="js-fade" data-area="kyushu">
+									<a href="#">
+										<span class="name">九州エリア</span>
+										<span class="count"><span class="num">16</span>拠点</span>
+									</a>
+								</li>
 							</ul>
+							<div class="netSearch js-fade"><a href="#" class="btn01 btnEmboss netBtn">最寄りのサービスステーションを検索</a></div>
 						</div>
 					</div>
 				</div>
@@ -363,142 +353,66 @@
 				</div>
 			</section>
 
+			<!-- コンテンツ一覧〜文化シヤッターグループ（背景に丸いドーム型。スクロールで拡大しながらせり上がる。js/main.js） -->
+			<div class="domeArea js-domeArea">
+				<div class="dome js-dome" aria-hidden="true"></div>
+
 			<!--============================================================
-				コンテンツ一覧（中央拡大のカルーセル。6枚をループ。js/main.js）
+				コンテンツ一覧（横に流れるカルーセル。6枚をループ。js/main.js）
 			============================================================-->
 			<section class="contents" id="contents">
 				<div class="inner">
 					<h2 class="secTtl js-secTtl"><span class="en">Information</span><span class="ja">コンテンツ一覧</span></h2>
-					<!-- 固定のリンクカード（投稿ではない）。li の順番どおりに回る -->
-					<div class="ctSlider js-ctSlider js-fade">
-						<ul class="ctList">
-							<li class="ctCard">
+				</div>
+				<!-- 固定のリンクカード（投稿ではない）。li の順番どおりに回る。1枚目が中央 -->
+				<div class="loopSlider ctSlider js-loopSlider js-fade">
+					<div class="slideView">
+						<ul class="slideList">
+							<li class="slideItem ctCard">
 								<a href="#">
-									<span class="img"><img src="img/top/content_service.webp" alt="" width="860" height="506" loading="lazy"></span>
-									<span class="body">
-										<img src="img/top/content_icon_service.svg" alt="" class="icon" width="36" height="36">
-										<span class="name">サービス紹介</span>
-									</span>
+									<span class="img"><img src="img/top/content_service.webp" alt="" width="680" height="460" loading="lazy"></span>
+									<span class="cap">サービス紹介</span>
 								</a>
 							</li>
-							<li class="ctCard">
+							<li class="slideItem ctCard">
 								<a href="#">
-									<span class="img"><img src="img/top/content_support.webp" alt="" width="860" height="506" loading="lazy"></span>
-									<span class="body">
-										<img src="img/top/content_icon_service.svg" alt="" class="icon" width="36" height="36">
-										<span class="name">お客様サポート</span>
-									</span>
+									<span class="img"><img src="img/top/content_support.webp" alt="" width="680" height="460" loading="lazy"></span>
+									<span class="cap">お客様サポート</span>
 								</a>
 							</li>
-							<li class="ctCard">
+							<li class="slideItem ctCard">
 								<a href="#">
-									<span class="img"><img src="img/top/content_faq.webp" alt="" width="860" height="506" loading="lazy"></span>
-									<span class="body">
-										<img src="img/top/content_icon_service.svg" alt="" class="icon" width="36" height="36">
-										<span class="name">よくある質問</span>
-									</span>
+									<span class="img"><img src="img/top/content_faq.webp" alt="" width="680" height="460" loading="lazy"></span>
+									<span class="cap">よくある質問</span>
 								</a>
 							</li>
-							<li class="ctCard">
+							<li class="slideItem ctCard">
 								<a href="#">
-									<span class="img"><img src="img/top/content_recruit.webp" alt="" width="860" height="506" loading="lazy"></span>
-									<span class="body">
-										<img src="img/top/content_icon_service.svg" alt="" class="icon" width="36" height="36">
-										<span class="name">採用情報</span>
-									</span>
+									<span class="img"><img src="img/top/content_recruit.webp" alt="" width="680" height="460" loading="lazy"></span>
+									<span class="cap">採用情報</span>
 								</a>
 							</li>
-							<li class="ctCard">
+							<li class="slideItem ctCard">
 								<a href="#">
-									<span class="img"><img src="img/top/content_company.webp" alt="" width="860" height="506" loading="lazy"></span>
-									<span class="body">
-										<img src="img/top/content_icon_service.svg" alt="" class="icon" width="36" height="36">
-										<span class="name">会社情報</span>
-									</span>
+									<span class="img"><img src="img/top/content_company.webp" alt="" width="680" height="460" loading="lazy"></span>
+									<span class="cap">会社情報</span>
 								</a>
 							</li>
-							<li class="ctCard">
+							<li class="slideItem ctCard">
 								<a href="#">
-									<span class="img"><img src="img/top/content_csr.webp" alt="" width="860" height="506" loading="lazy"></span>
-									<span class="body">
-										<img src="img/top/content_icon_service.svg" alt="" class="icon" width="36" height="36">
-										<span class="name">CSR情報</span>
-									</span>
+									<span class="img"><img src="img/top/content_csr.webp" alt="" width="680" height="460" loading="lazy"></span>
+									<span class="cap">CSR情報</span>
 								</a>
 							</li>
 						</ul>
-						<button type="button" class="ctArrow prev" aria-label="前へ"></button>
-						<button type="button" class="ctArrow next" aria-label="次へ"></button>
 					</div>
-				</div>
-			</section>
-
-			<!--============================================================
-				文化シヤッターグループ（ロゴカードの横スライダー。ループ。js/main.js）
-			============================================================-->
-			<section class="group" id="group">
-				<div class="inner">
-					<h2 class="secTtl js-secTtl"><span class="en">Bunka Shutter Group</span><span class="ja">文化シヤッターグループ</span></h2>
-				</div>
-				<!-- グループ会社は固定（投稿ではない）。ドットの数は li の数に合わせて js/main.js が作り直す -->
-				<div class="grpSlider js-grpSlider js-fade">
-					<div class="grpView">
-						<ul class="grpTrack">
-						<li class="grpCard">
-							<a href="#" target="_blank" rel="noopener">
-								<img src="img/top/group_bunka.png" alt="文化シヤッター" width="560" height="84" loading="lazy">
-								<span class="txt">各種シャッター、住宅用建材、<br>ビル用建材の総合メーカー</span>
-							</a>
-						</li>
-						<li class="grpCard">
-							<a href="#" target="_blank" rel="noopener">
-								<img src="img/top/group_tempal.png" alt="BXテンパル" width="560" height="84" loading="lazy">
-								<span class="txt">オーニングや外装設備の設計・<br>施工に関する事業</span>
-							</a>
-						</li>
-						<li class="grpCard">
-							<a href="#" target="_blank" rel="noopener">
-								<img src="img/top/group_yutori.png" alt="BXゆとりフォーム" width="560" height="84" loading="lazy">
-								<span class="txt">リフォームの設計・施工それらに<br>関連する事業</span>
-							</a>
-						</li>
-						<li class="grpCard"> <!-- 仮（Figma のダミー） -->
-							<a href="#" target="_blank" rel="noopener">
-								<img src="img/top/group_yutori.png" alt="BXゆとりフォーム" width="560" height="84" loading="lazy">
-								<span class="txt">リフォームの設計・施工それらに<br>関連する事業</span>
-							</a>
-						</li>
-						<li class="grpCard"> <!-- 仮（Figma のダミー） -->
-							<a href="#" target="_blank" rel="noopener">
-								<img src="img/top/group_yutori.png" alt="BXゆとりフォーム" width="560" height="84" loading="lazy">
-								<span class="txt">リフォームの設計・施工それらに<br>関連する事業</span>
-							</a>
-						</li>
-						<li class="grpCard"> <!-- 仮（Figma のダミー） -->
-							<a href="#" target="_blank" rel="noopener">
-								<img src="img/top/group_yutori.png" alt="BXゆとりフォーム" width="560" height="84" loading="lazy">
-								<span class="txt">リフォームの設計・施工それらに<br>関連する事業</span>
-							</a>
-						</li>
-						</ul>
-					</div>
-					<div class="inner">
-						<div class="grpCtrl">
-							<div class="grpNav">
-								<button type="button" class="grpArrow prev" aria-label="前へ"></button>
-								<div class="grpDots">
-								<button type="button" aria-label="1枚目"></button>
-								<button type="button" aria-label="2枚目"></button>
-								<button type="button" aria-label="3枚目"></button>
-								<button type="button" aria-label="4枚目"></button>
-								<button type="button" aria-label="5枚目"></button>
-								<button type="button" aria-label="6枚目"></button>
-								</div>
-								<button type="button" class="grpArrow next" aria-label="次へ"></button>
+						<div class="inner">
+							<div class="slideCtrl">
+								<div class="slideBar" aria-hidden="true"><span></span></div>
+								<button type="button" class="slideBtn prev" aria-label="前へ"></button>
+								<button type="button" class="slideBtn next" aria-label="次へ"></button>
 							</div>
-							<a href="#" class="moreBtn">もっと見る</a>
 						</div>
-					</div>
 				</div>
 			</section>
 
@@ -546,9 +460,72 @@
 								</a>
 							</li>
 					</ul>
-					<div class="newsMore"><a href="#" class="moreBtn">もっと見る</a></div>
+					<div class="newsMore"><a href="#" class="moreBtn">ニュース一覧</a></div>
 				</div>
 			</section>
+
+			<!--============================================================
+				文化シヤッターグループ（横に流れるカルーセル。ループ・4秒ごとに自動。js/main.js）
+			============================================================-->
+			<section class="group" id="group">
+				<div class="inner">
+					<h2 class="secTtl js-secTtl"><span class="en">Bunka Shutter Group</span><span class="ja">文化シヤッターグループ</span></h2>
+				</div>
+				<!-- グループ会社は固定（投稿ではない）。li の順番どおりに回る。1枚目が中央 -->
+				<div class="loopSlider grpSlider js-loopSlider js-fade" data-auto="4000">
+					<div class="slideView">
+						<ul class="slideList">
+							<li class="slideItem grpCard">
+								<a href="#" target="_blank" rel="noopener">
+									<img src="img/top/group_bunka.png" alt="文化シヤッター" width="680" height="102" loading="lazy">
+									<span class="txt">各種シャッター、住宅用建材、<br>ビル用建材の総合メーカー</span>
+								</a>
+							</li>
+							<li class="slideItem grpCard">
+								<a href="#" target="_blank" rel="noopener">
+									<img src="img/top/group_tempal.png" alt="BXテンパル" width="680" height="102" loading="lazy">
+									<span class="txt">オーニングや外装設備の設計・<br>施工に関する事業</span>
+								</a>
+							</li>
+							<li class="slideItem grpCard">
+								<a href="#" target="_blank" rel="noopener">
+									<img src="img/top/group_yutori.png" alt="BXゆとりフォーム" width="680" height="102" loading="lazy">
+									<span class="txt">リフォームの設計・施工それらに<br>関連する事業</span>
+								</a>
+							</li>
+							<li class="slideItem grpCard"> <!-- 仮（Figma のダミー） -->
+								<a href="#" target="_blank" rel="noopener">
+									<img src="img/top/group_bunka.png" alt="文化シヤッター" width="680" height="102" loading="lazy">
+									<span class="txt">各種シャッター、住宅用建材、<br>ビル用建材の総合メーカー</span>
+								</a>
+							</li>
+							<li class="slideItem grpCard"> <!-- 仮（Figma のダミー） -->
+								<a href="#" target="_blank" rel="noopener">
+									<img src="img/top/group_tempal.png" alt="BXテンパル" width="680" height="102" loading="lazy">
+									<span class="txt">オーニングや外装設備の設計・<br>施工に関する事業</span>
+								</a>
+							</li>
+							<li class="slideItem grpCard"> <!-- 仮（Figma のダミー） -->
+								<a href="#" target="_blank" rel="noopener">
+									<img src="img/top/group_yutori.png" alt="BXゆとりフォーム" width="680" height="102" loading="lazy">
+									<span class="txt">リフォームの設計・施工それらに<br>関連する事業</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+						<div class="inner">
+							<div class="slideCtrl">
+								<div class="slideBar" aria-hidden="true"><span></span></div>
+								<button type="button" class="slideBtn prev" aria-label="前へ"></button>
+								<button type="button" class="slideBtn next" aria-label="次へ"></button>
+							</div>
+						</div>
+				</div>
+				<div class="inner">
+					<div class="grpMore"><a href="#" class="moreBtn">グループ会社一覧</a></div>
+				</div>
+			</section>
+			</div><!-- /.domeArea -->
 		</div>
 
 		<!--============================================================
