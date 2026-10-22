@@ -447,108 +447,120 @@ button {
 ------------------------------------------------------------*/
 .sideCta {
 	position: fixed;
-	top: 32.2rem;
+	top: 32.7rem; /* Figma「Group 833」：MV 下端（892）から 327px */
 	right: 0;
 	z-index: 90;
-	width: 33.6rem;
+	width: 27.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	gap: 0.6rem;
+	gap: 0.5rem;
 	pointer-events: none;
 }
+/* 2026-10-22 カンプ（Figma「Group 833」／固定CTA-電話・法人向け・個人向け-ホバー1013）
+   85×85 のアイコン部分だけ見せ、hover で 190px の白いパネルが左へ出てくる */
 .sideCta li {
-	width: 33.6rem;
+	width: 27.5rem;
 	opacity: 0;
-	transform: translateX(34.6rem);
+	transform: translateX(28.5rem);
 	/* ふわっと：ゆっくり動き出して、ゆっくり止まる（表示の切替・hover の開閉とも） */
 	transition: transform 1s cubic-bezier(0.45, 0.05, 0.25, 1), opacity 0.8s ease;
 }
 .sideCta.show li {
 	opacity: 1;
-	transform: translateX(25rem);
+	transform: translateX(19rem);
 	pointer-events: auto;
 }
 .sideCta.show li:nth-child(2) { transition-delay: 0.1s; }
 .sideCta.show li:nth-child(3) { transition-delay: 0.2s; }
 .sideCta a {
-	height: 8.6rem;
+	height: 8.5rem;
 	display: flex;
-	filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.25));
+	filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.25));
 }
 .sideCta .icon {
-	width: 8.6rem;
-	height: 8.6rem;
+	width: 8.5rem;
+	height: 8.5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-shrink: 0;
 	background: var(--cta-bg);
 	border-radius: 1rem 0 0 1rem;
+	box-shadow: inset 0.5rem 0.5rem 0.5rem rgba(255, 255, 255, 0.25), inset -0.1rem -0.1rem 0.5rem rgba(0, 0, 0, 0.25);
 }
-.sideCta .icon img {
-	width: 4.8rem;
+.sideCta .icon img.pc {
+	width: 5.5rem;
 }
+/* 白いパネル：上下に 2px の線（電話はグラデ） */
 .sideCta .body {
+	position: relative;
 	flex: 1;
-	padding: 1.6rem 0 0 1.7rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.8rem;
-	background: #fff;
-	border-top: 2px solid var(--cta-line);
-	border-bottom: 2px solid var(--cta-line);
+	background:
+		var(--cta-line) left top / 100% 2px no-repeat,
+		var(--cta-line) left bottom / 100% 2px no-repeat,
+		#fff;
+	transition: box-shadow 0.3s ease-out;
 }
-.sideCta .ttl {
-	color: var(--cta-ttl);
-	font-size: 1.8rem;
-	font-weight: 500;
-	line-height: 2.2rem;
-}
+.sideCta .ttl,
 .sideCta .sub {
-	color: var(--cta-sub);
-	font-size: 1.8rem;
-	font-weight: 700;
+	position: absolute;
 	line-height: 2.2rem;
 	white-space: nowrap;
 }
-/* 配色（Figma 1013：TELグラデ／法人グラデ-1013／個人グラデ-1013） */
+.sideCta .ttl {
+	top: 0.835rem; /* Figma：キャップ上端 14px */
+	left: 2.4rem;
+	color: var(--cta-ttl);
+	font-size: 1.8rem;
+	font-weight: 500;
+}
+.sideCta .sub {
+	top: 2.635rem; /* Figma：キャップ上端 32px、2行 */
+	left: 4.2rem;
+	color: var(--color-navy2);
+	font-size: 1.8rem;
+	font-weight: 700;
+}
+/* 配色（Figma：TELグラデ／法人グラデ／個人グラデ） */
 .sideCta .tel {
 	--cta-bg: linear-gradient(-87.68deg, #0082d0 15.344%, #0e6aac 60.554%, #115089 105.76%);
-	--cta-line: #0082d0;
+	--cta-line: linear-gradient(-87.68deg, #0082d0 15.344%, #0e6aac 60.554%, #115089 105.76%);
 	--cta-ttl: var(--color-text);
-	--cta-sub: #0e6aac;
 }
 .sideCta .corp {
 	--cta-bg: linear-gradient(90deg, #53abab, #6dcbc0 50%, #87ecd5);
-	--cta-line: #84e9d3;
+	--cta-line: linear-gradient(#84e9d3, #84e9d3);
 	--cta-ttl: #21b2a1;
-	--cta-sub: var(--color-navy2);
 }
 .sideCta .indiv {
 	--cta-bg: linear-gradient(90deg, #0391dd, #02a8e6 50%, #00bfef);
-	--cta-line: #00bdee;
+	--cta-line: linear-gradient(#00bdee, #00bdee);
 	--cta-ttl: var(--color-blue);
-	--cta-sub: var(--color-navy2);
 }
-/* 電話番号はグラデーションの文字 */
+/* 電話：「電話で相談」18px／番号 24px（グラデの文字） */
+.sideCta .tel .ttl {
+	top: 1.735rem; /* キャップ上端 23px */
+	left: 1.7rem;
+}
 .sideCta .tel .sub {
+	top: 4.113rem; /* キャップ上端 45px */
+	left: 1.7rem;
+	font-size: 2.4rem;
 	background: linear-gradient(-70.17deg, #0082d0 15.344%, #0e6aac 60.554%, #115089 105.76%);
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-}
-.sideCta .tel .body {
-	gap: 0.7rem;
-}
-.sideCta .tel .sub {
-	font-size: 2.4rem;
 }
 @media all and (min-width: 897px) {
 	.sideCta.show li:hover {
 		transform: translateX(0);
 		transition-duration: 0.8s;
 		transition-delay: 0s;
+	}
+	/* hover 中はパネルにも内側の影（Figma のバリアント2） */
+	.sideCta.show li:hover .body {
+		box-shadow: inset 0.5rem 0.5rem 0.5rem rgba(255, 255, 255, 0.25), inset -0.1rem -0.1rem 0.5rem rgba(0, 0, 0, 0.25);
 	}
 }
 @media all and (max-width: 896px) {
@@ -586,6 +598,8 @@ button {
 		width: 2.6rem;
 		height: 2.6rem;
 		background: none;
+		border-radius: 0;
+		box-shadow: none;
 	}
 	.sideCta .icon img {
 		width: 2.6rem;
@@ -597,6 +611,7 @@ button {
 		border: 0;
 	}
 	.sideCta .ttl {
+		position: static;
 		color: #fff;
 		font-size: 1.2rem;
 		font-weight: 700;
@@ -1055,14 +1070,15 @@ button {
 /* ※ OS の「アニメーション効果オフ」（prefers-reduced-motion）でも止めない（2026-10-07 ユーザー指示。Windows で演出が出ないため） */
 
 /*------------------------------------------------------------
-	ボタン（Figma「btn2-1002」）：白い角丸＋青文字＋右に丸矢印。hover で紺地・白文字
+	ボタン（Figma「btn2-1022」：丸なし）：白い角丸＋文字＋右に「>」。hover で #0077BE 地・白文字（0.3s ease-out）
+	文字と「>」の色は color（既定は青）。hover の地の色は --btn-hover で変えられる（製品タブで使用）
 	幅は既定 26.5rem。変えるときは --btn-w を指定する
 ------------------------------------------------------------*/
 .btn01 {
 	position: relative;
 	width: var(--btn-w, 26.5rem);
 	min-height: 6rem;
-	padding: 0.6rem 6rem 0.6rem 2.9rem;
+	padding: 0.6rem 4rem 0.6rem 2.9rem;
 	display: inline-flex;
 	align-items: center;
 	color: var(--color-blue);
@@ -1071,48 +1087,46 @@ button {
 	line-height: 1.45;
 	background: #fff;
 	border-radius: 5rem;
-	transition: color 0.3s, background-color 0.3s;
+	transition: color 0.3s ease-out, background-color 0.3s ease-out;
 }
+/* 「>」（Figma：8×14、右端から 22px＝左端から 235px。2026-10-22 カンプで 13px → 22px）。文字と同じ色にするため mask で描く
+   mask の画像はファイル参照だと index.html を直接開いたとき（file://）に読み込まれず「>」が消えるので、SVG を data URI で埋め込む（元は img/common/btn_chevron.svg） */
 .btn01::after {
 	content: "";
 	position: absolute;
 	top: 50%;
-	right: 1.3rem;
-	width: 3.6rem;
-	height: 3.6rem;
-	margin-top: -1.8rem;
-	background: url(../img/common/btn_arrow.svg) no-repeat center / contain;
+	right: 2.2rem;
+	width: 0.8rem;
+	height: 1.4rem;
+	margin-top: -0.7rem;
+	background: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 14'%3E%3Cpath d='M1.206 14 8 7 1.206 0 0 1.2425 5.5881 7 0 12.7575z'/%3E%3C/svg%3E") no-repeat center / contain;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 14'%3E%3Cpath d='M1.206 14 8 7 1.206 0 0 1.2425 5.5881 7 0 12.7575z'/%3E%3C/svg%3E") no-repeat center / contain;
 }
 @media all and (min-width: 897px) {
 	a.btn01:hover,
 	a:hover .btn01 {
 		color: #fff;
-		background: var(--color-hover);
-	}
-	a.btn01:hover::after,
-	a:hover .btn01::after {
-		background-image: url(../img/common/btn_arrow_hover.svg);
+		background: var(--btn-hover, var(--color-hover));
 	}
 }
 @media all and (max-width: 896px) {
 	.btn01 {
 		min-height: 5.2rem;
+		padding-right: 3.6rem;
 		font-size: 1.4rem;
 	}
 	.btn01::after {
-		width: 3.2rem;
-		height: 3.2rem;
-		margin-top: -1.6rem;
-		right: 1rem;
+		right: 1.8rem;
 	}
 }
 
 /*------------------------------------------------------------
-	もっと見る（Figma「txt-btn-1002」）：文字＋右に丸矢印。hover で丸が紺
+	もっと見る（Figma「txt-btn-1022」：丸なし）：灰色の文字＋右に青い「>」。hover で文字と「>」が #0077BE（0.3s ease-out）
 ------------------------------------------------------------*/
 .moreBtn {
 	height: 3.6rem;
-	padding-right: 5.8rem;
+	padding-right: 3.2rem; /* 文字の右端から「>」まで 24px＋「>」8px */
 	display: inline-flex;
 	align-items: center;
 	position: relative;
@@ -1121,36 +1135,26 @@ button {
 	font-weight: 700;
 	line-height: 1;
 	white-space: nowrap;
+	transition: color 0.3s ease-out;
 }
 .moreBtn::after {
 	content: "";
 	position: absolute;
-	top: 0;
+	top: 1.1rem;
 	right: 0;
-	width: 3.6rem;
-	height: 3.6rem;
-	background: url(../img/common/btn_arrow.svg) no-repeat center / contain;
+	width: 0.8rem;
+	height: 1.4rem;
+	background: var(--color-blue);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 14'%3E%3Cpath d='M1.206 14 8 7 1.206 0 0 1.2425 5.5881 7 0 12.7575z'/%3E%3C/svg%3E") no-repeat center / contain;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 14'%3E%3Cpath d='M1.206 14 8 7 1.206 0 0 1.2425 5.5881 7 0 12.7575z'/%3E%3C/svg%3E") no-repeat center / contain;
+	transition: background-color 0.3s ease-out;
 }
 @media all and (min-width: 897px) {
+	.moreBtn:hover {
+		color: var(--color-hover);
+	}
 	.moreBtn:hover::after {
-		background-image: url(../img/common/btn_arrow_hoverblue.svg);
-	}
-}
-
-/* 浮き出たような影のボタン（Figma「btn3-1013」 7533:15780）
-   hover で押し込んだ見た目：#0077BE 地＋白い 1px 枠＋内側の影、丸は白地に灰色の矢印（Smart Animate 0.3s ease-out） */
-.btnEmboss {
-	box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.2), inset -0.3rem -0.3rem 0.4rem rgba(0, 0, 0, 0.2);
-	transition: color 0.3s ease-out, background-color 0.3s ease-out, box-shadow 0.3s ease-out;
-}
-@media all and (min-width: 897px) {
-	a.btnEmboss:hover {
-		color: #fff;
-		background: var(--color-hover);
-		box-shadow: 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 1px #fff, inset 0.3rem 0.3rem 0.5rem rgba(0, 0, 0, 0.25);
-	}
-	a.btnEmboss:hover::after {
-		background-image: url(../img/common/btn_arrow_hover.svg);
+		background-color: var(--color-hover);
 	}
 }
 
