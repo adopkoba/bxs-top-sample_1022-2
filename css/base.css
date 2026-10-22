@@ -509,14 +509,14 @@ button {
 	white-space: nowrap;
 }
 .sideCta .ttl {
-	top: 0.835rem; /* Figma：キャップ上端 14px */
+	top: 0.935rem; /* Figma の書き出し画像と文字の上端（墨の上端 12px）を実測で合わせた */
 	left: 2.4rem;
 	color: var(--cta-ttl);
 	font-size: 1.8rem;
 	font-weight: 500;
 }
 .sideCta .sub {
-	top: 2.635rem; /* Figma：キャップ上端 32px、2行 */
+	top: 3.035rem; /* 2行。Figma の書き出し画像と実測で合わせた（墨の上端 33px。計算値より 4px 下。2026-10-22 ユーザー指摘で修正） */
 	left: 4.2rem;
 	color: var(--color-navy2);
 	font-size: 1.8rem;
