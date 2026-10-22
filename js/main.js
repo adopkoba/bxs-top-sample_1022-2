@@ -1,26 +1,7 @@
 (function () {
 	'use strict';
 
-	/*------------------------------------------------------------
-		定数（★カスタマイズ：数値を変更する場所）
-	------------------------------------------------------------*/
-	var SP_BREAKPOINT = 1024; // PC/SP の切替（px。CSS の @media と合わせる）
-	var VW_MAX = 1920;        // ヘッダー・フッターなどの拡大を止める画面幅（px）
-
 	var body = document.body;
-
-	/*------------------------------------------------------------
-		リキッド方式：--vw（画面幅。最大 VW_MAX）を入れる
-		- base.css の --rem はこの --vw から計算（#main の中は CSS で 100vw に上書き済み）
-		- VW_MAX を超えたら body に .is-capped
-	------------------------------------------------------------*/
-	function updateVw() {
-		var w = window.innerWidth;
-		document.documentElement.style.setProperty('--vw', Math.min(w, VW_MAX) + 'px');
-		body.classList.toggle('is-capped', w > VW_MAX);
-	}
-	updateVw();
-	window.addEventListener('resize', updateVw, { passive: true });
 	var header = document.getElementById('gHeader');
 	var menuBtn = document.querySelector('#gHeader .menu');
 	var menuBox = document.getElementById('menuBox');
@@ -83,6 +64,8 @@
 		MV：写真のクロスフェード（4秒表示 → 1.2秒でフェード。Figma の After Delay 4000ms / 1.2s と同じ）
 	------------------------------------------------------------*/
 	var slide = document.querySelector('.js-mvSlide');
+	var mvCatch = document.querySelector('.js-mvCatch');
+	var WHITE_CATCH_SLIDE = 3; // キャッチを白にする写真（0 始まり。4枚目。2026-10-22 ユーザー指示）
 	if (slide) {
 		var imgs = slide.querySelectorAll('img');
 		var current = 0;
@@ -91,6 +74,7 @@
 				imgs[current].classList.remove('is-active');
 				current = (current + 1) % imgs.length;
 				imgs[current].classList.add('is-active');
+				if (mvCatch) mvCatch.classList.toggle('is-white', current === WHITE_CATCH_SLIDE);
 			}, 5200);
 		}
 	}
@@ -133,7 +117,7 @@
 		for (var i = 1; i < n * 2; i++) {
 			loopTrack.appendChild(loopSrc.cloneNode(true));
 		}
-		var secPerText = window.matchMedia('(max-width: 1024px)').matches ? 41 : 67; // 前回（文字 54px で 40 秒／SP 28px で 25 秒）と同じ見た目の速さ。文字を大きくした分だけ秒数を伸ばした
+		var secPerText = window.matchMedia('(max-width: 896px)').matches ? 41 : 67; // 前回（文字 54px で 40 秒／SP 28px で 25 秒）と同じ見た目の速さ。文字を大きくした分だけ秒数を伸ばした
 		loopTrack.style.animationDuration = (secPerText * n) + 's';
 	}
 	buildLoop();
@@ -148,7 +132,7 @@
 		var area = li.getAttribute('data-area');
 		var link = li.querySelector('a');
 		function toggle(on) {
-			if (on && !window.matchMedia('(min-width: 1025px)').matches) return;
+			if (on && !window.matchMedia('(min-width: 897px)').matches) return;
 			mapHls.forEach(function (img) {
 				img.classList.toggle('is-active', on && img.getAttribute('data-area') === area);
 			});
@@ -297,10 +281,9 @@
 	var gradBg = document.querySelector('.js-gradBg');
 	var domeArea = document.querySelector('.js-domeArea');
 	var dome = document.querySelector('.js-dome');
-	// #main の中の --rem（Figma の 10px）を px で（リキッド方式。base.css と同じ計算）
+	var newsSec = document.getElementById('news');
 	function remPx() {
-		var w = window.innerWidth;
-		return w <= SP_BREAKPOINT ? w * 10 / 390 : w * 10 / 1366;
+		return parseFloat(getComputedStyle(document.documentElement).fontSize) || 10;
 	}
 	function whiteAlpha(y) {
 		return 0.8 + 0.2 * Math.min(1, Math.max(0, y / (130.5 * remPx())));
@@ -334,6 +317,8 @@
 				path = 'M0,' + ys + ' A' + r + ',' + r + ' 0 0 1 ' + w + ',' + ys + ' L' + w + ',' + h + ' L0,' + h + ' Z';
 			}
 			dome.style.clipPath = 'path("' + path.replace(/(\d+\.\d)\d+/g, '$1') + '")';
+			// 色の切替：お知らせの上端が画面の 60% まで来たら #C0ECDF（初回版と同じ。CSS で 1 秒フェード）
+			dome.classList.toggle('is-news', !!newsSec && newsSec.getBoundingClientRect().top < vh * 0.6);
 		}
 	}
 
@@ -366,7 +351,7 @@
 		- .js-fadeGroup の中の .js-fade は 0.12 秒ずつ（data-stagger で変更可）遅らせて順番に表示（左から時間差でふわっと）
 		- data-trigger="group" のグループは PC ではグループが画面に入った時点でまとめて開始（横並びのカードを左から順に出す）
 	------------------------------------------------------------*/
-	var isPc = window.matchMedia('(min-width: 1025px)').matches;
+	var isPc = window.matchMedia('(min-width: 897px)').matches;
 	var groupTargets = []; // まとめて表示するグループ（PC の横並び。data-trigger="group"）
 	document.querySelectorAll('.js-fadeGroup').forEach(function (group) {
 		var step = parseFloat(group.getAttribute('data-stagger')) || 0.12;

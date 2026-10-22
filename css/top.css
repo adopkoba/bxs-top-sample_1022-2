@@ -12,7 +12,7 @@
 ------------------------------------------------------------*/
 #main .mv {
 	position: relative;
-	height: max(calc(76.8 * var(--rem)), min(56.22vw, calc(94.5 * var(--rem))));
+	height: max(76.8rem, min(56.22vw, 94.5rem));
 }
 #main .mvSlide {
 	position: fixed;
@@ -44,8 +44,8 @@
 	left: 0;
 	z-index: 2;
 	width: 100%;
-	height: calc(6 * var(--rem));
-	padding: 0 calc(12 * var(--rem)) 0 calc(6.4 * var(--rem));
+	height: 6rem;
+	padding: 0 12rem 0 6.4rem;
 	display: flex;
 	align-items: center;
 	color: #000;
@@ -54,56 +54,45 @@
 #main .newsBar::after {
 	content: "";
 	position: absolute;
-	top: calc(2.2 * var(--rem));
-	right: calc(6.8 * var(--rem));
-	width: calc(0.9 * var(--rem));
-	height: calc(1.53 * var(--rem));
+	top: 2.2rem;
+	right: 6.8rem;
+	width: 0.9rem;
+	height: 1.53rem;
 	background: url(../img/common/arrow_right.svg) no-repeat center / contain;
 	transform: scaleX(-1);
 }
 #main .newsBar .label {
-	width: calc(11.4 * var(--rem));
-	height: calc(2.4 * var(--rem));
+	width: 11.4rem;
+	height: 2.4rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-shrink: 0;
 	color: #fff;
-	font-size: calc(1.2 * var(--rem));
+	font-size: 1.2rem;
 	font-weight: 700;
 	background: var(--color-red);
-	border-radius: calc(5 * var(--rem));
+	border-radius: 5rem;
 }
 #main .newsBar .txt {
-	margin-left: calc(2.4 * var(--rem));
+	margin-left: 2.4rem;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
-	font-size: calc(1.4 * var(--rem));
-	line-height: calc(2.2 * var(--rem));
+	font-size: 1.4rem;
+	line-height: 2.2rem;
 }
-/* キャッチコピー */
-/* 写真の下部を暗くするグラデ（Figma「Rectangle 4258」：紺・不透明度 50%） */
-/* Figma「Rectangle 4258」：MV の写真からループ文字の下端まで（MV の高さ＋ループ帯 calc(12.4 * var(--rem))） */
-#main .mvShade {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: calc(100% + calc(12.4 * var(--rem)));
-	background: linear-gradient(180deg, rgba(16, 16, 55, 0) 64.6%, #0a0d27 100%);
-	opacity: 0.5;
-	pointer-events: none;
-}
-/* Figma：MV 下端（768）からキャッチの下端（行ボックス 577.5＋73.84×2＝725.2）まで 42.8px。MV の高さが画面幅で変わっても下からの位置を保つ */
+/* キャッチコピー（2026-10-22 Figma「PC_トップページ_C」：文字 #1A1A1A、キャップ上端 y391。C 案には MV の影「Rectangle 4258」が無いので外した）
+   行ボックスの上端＝391 −（73.84 ÷ 2 − 0.297 × 52）＝369.5。4枚目の写真のときだけ白（ユーザー指示。写真と同じ 1.2 秒で切替） */
 #main .mvCatch {
 	position: absolute;
-	bottom: calc(4.28 * var(--rem));
-	left: calc(6.3 * var(--rem));
+	top: 36.95rem;
+	left: 6.3rem;
 	z-index: 1;
-	color: #fff;
-	font-size: calc(5.2 * var(--rem));
+	color: var(--color-text);
+	transition: color 1.2s ease;
+	font-size: 5.2rem;
 	font-weight: 700;
 	line-height: 1.42;
 	letter-spacing: 0.03em;
@@ -111,60 +100,49 @@
 #main .mvCatch .line {
 	display: block;
 }
-@media all and (min-width: 1025px) {
+#main .mvCatch.is-white {
+	color: #fff;
+}
+@media all and (min-width: 897px) {
 	#main .newsBar:hover .txt {
 		color: var(--color-blue);
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	#main .mv {
-		height: calc(var(--header-h) + calc(8.4 * var(--rem)) + calc(48 * var(--rem)));
+		height: calc(var(--header-h) + 8.4rem + 48rem);
 	}
 	#main .newsBar {
 		position: absolute;
-		height: calc(8.4 * var(--rem));
-		padding: calc(1.2 * var(--rem)) calc(4 * var(--rem)) calc(1.2 * var(--rem)) calc(2 * var(--rem));
+		height: 8.4rem;
+		padding: 1.2rem 4rem 1.2rem 2rem;
 		display: block;
 		border-bottom: 1px solid var(--color-line);
 	}
 	#main .newsBar::after {
-		top: calc(3.4 * var(--rem));
-		right: calc(1.8 * var(--rem));
-		width: calc(0.8 * var(--rem));
-		height: calc(1.36 * var(--rem));
+		top: 3.4rem;
+		right: 1.8rem;
+		width: 0.8rem;
+		height: 1.36rem;
 	}
 	#main .newsBar .label {
-		width: calc(9.6 * var(--rem));
-		height: calc(2 * var(--rem));
-		font-size: calc(1 * var(--rem));
+		width: 9.6rem;
+		height: 2rem;
+		font-size: 1rem;
 	}
 	#main .newsBar .txt {
-		margin: calc(0.6 * var(--rem)) 0 0;
-		font-size: calc(1.2 * var(--rem));
-		line-height: calc(1.8 * var(--rem));
+		margin: 0.6rem 0 0;
+		font-size: 1.2rem;
+		line-height: 1.8rem;
 	}
 	#main .newsBar .txt br {
 		display: none;
 	}
-	/* SP は写真の明るい部分にキャッチが重なるため、上部に薄い影を敷く（Figma に SP デザインなし・仮） */
-	#main .mv::before {
-		content: "";
-		position: absolute;
-		top: calc(var(--header-h) + calc(8.4 * var(--rem)));
-		left: 0;
-		width: 100%;
-		height: calc(24 * var(--rem));
-		background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-	}
-	#main .mvShade {
-		height: calc(100% + calc(6.4 * var(--rem)));
-	}
+	/* SP（Figma に SP デザインなし・仮）：PC と同じく黒文字（4枚目は白）。写真の上部に置く */
 	#main .mvCatch {
-		top: calc(var(--header-h) + calc(8.4 * var(--rem)) + calc(2.8 * var(--rem)));
-		bottom: auto;
-		left: calc(2 * var(--rem));
-		font-size: calc(2.6 * var(--rem));
-		text-shadow: 0 0 calc(1.2 * var(--rem)) rgba(0, 0, 0, 0.3);
+		top: calc(var(--header-h) + 8.4rem + 2.8rem);
+		left: 2rem;
+		font-size: 2.6rem;
 	}
 }
 
@@ -174,8 +152,8 @@
 /* 文字の上端は帯の上端から 13px（Figma：帯 768〜892、文字 781） */
 #main .loopTxt {
 	position: relative; /* MV の影（.mvShade）より手前に出す */
-	height: calc(12.4 * var(--rem));
-	padding-top: calc(1.3 * var(--rem));
+	height: 12.4rem;
+	padding-top: 1.3rem;
 	overflow: hidden;
 }
 #main .loopTrack {
@@ -184,11 +162,11 @@
 	animation: loopTxt 40s linear infinite; /* 実際の秒数は js/main.js が文の数に合わせて設定 */
 }
 #main .loopTrack p {
-	padding-right: calc(9 * var(--rem)); /* 文と文の間隔＝文字サイズ（前回と同じ比率） */
+	padding-right: 9rem; /* 文と文の間隔＝文字サイズ（前回と同じ比率） */
 	color: #fff;
 	opacity: 0.6; /* Figma：不透明度 60% */
 	font-family: var(--font-en);
-	font-size: calc(9 * var(--rem));
+	font-size: 9rem;
 	font-weight: 700;
 	line-height: 1.03;
 	white-space: nowrap;
@@ -197,14 +175,14 @@
 	from { transform: translateX(0); }
 	to   { transform: translateX(-50%); }
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	#main .loopTxt {
-		height: calc(6.4 * var(--rem));
-		padding-top: calc(0.8 * var(--rem));
+		height: 6.4rem;
+		padding-top: 0.8rem;
 	}
 	#main .loopTrack p {
-		padding-right: calc(4.6 * var(--rem));
-		font-size: calc(4.6 * var(--rem));
+		padding-right: 4.6rem;
+		font-size: 4.6rem;
 	}
 }
 
@@ -217,8 +195,8 @@
 ------------------------------------------------------------*/
 #main .gradArea {
 	position: relative;
-	-webkit-backdrop-filter: blur(calc(1 * var(--rem)));
-	backdrop-filter: blur(calc(1 * var(--rem)));
+	-webkit-backdrop-filter: blur(1rem);
+	backdrop-filter: blur(1rem);
 }
 #main .gradBg {
 	position: absolute;
@@ -237,7 +215,7 @@
 	z-index: 1;
 }
 #main .gradArea {
-	padding-top: calc(12 * var(--rem));
+	padding-top: 12rem;
 }
 
 /*------------------------------------------------------------
@@ -245,79 +223,86 @@
 ------------------------------------------------------------*/
 #main .lpBanner {
 	position: relative;
-	height: calc(24 * var(--rem));
+	height: 24rem;
 	display: block;
 	overflow: hidden;
 	color: #fff;
 	background: url(../img/top/lp_maintenance.webp) no-repeat center / cover;
-	border-radius: calc(1 * var(--rem));
+	border-radius: 1rem;
 }
 #main .lpBanner::before {
 	content: "";
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: calc(66.8 * var(--rem));
+	width: 66.8rem;
 	height: 100%;
 	background: url(../img/top/lp_panel.svg) no-repeat left top / 100% 100%;
 }
 #main .lpBanner > span {
 	position: absolute;
-	left: calc(4.2 * var(--rem));
+	left: 4.2rem;
 }
 #main .lpBanner .tags {
-	top: calc(4.2 * var(--rem));
+	top: 4.2rem;
 	display: flex;
-	gap: calc(1.6 * var(--rem));
+	gap: 1.6rem;
 }
 #main .lpBanner .tag {
-	width: calc(9.67 * var(--rem));
-	height: calc(3.7 * var(--rem));
+	width: 9.67rem;
+	height: 3.7rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: #f0742d;
-	font-size: calc(2.8 * var(--rem));
+	font-size: 2.8rem;
 	font-weight: 700;
 	line-height: 1;
 	background: #fff;
-	border-radius: calc(0.4 * var(--rem));
+	border-radius: 0.4rem;
 }
 #main .lpBanner .made {
 	position: absolute;
-	top: calc(0.49 * var(--rem));
-	left: calc(33.79 * var(--rem));
-	font-size: calc(3 * var(--rem));
+	top: 0.49rem;
+	left: 33.79rem;
+	font-size: 3rem;
 	font-weight: 700;
-	line-height: calc(2.4 * var(--rem));
+	line-height: 2.4rem;
 	white-space: nowrap;
 }
 #main .lpBanner .ttl {
-	top: calc(7.71 * var(--rem));
-	font-size: calc(5 * var(--rem));
+	top: 7.71rem;
+	font-size: 5rem;
 	font-weight: 900;
-	line-height: calc(7.75 * var(--rem));
+	line-height: 7.75rem;
 	white-space: nowrap;
 }
 #main .lpBanner .sub {
-	top: calc(16.05 * var(--rem));
-	font-size: calc(3.2 * var(--rem));
+	top: 16.05rem;
+	font-size: 3.2rem;
 	font-weight: 700;
-	line-height: calc(2.4 * var(--rem));
+	line-height: 2.4rem;
 	white-space: nowrap;
 }
 #main .lpBanner .btn01 {
 	position: absolute;
-	top: calc(16.4 * var(--rem));
-	left: calc(82.9 * var(--rem));
+	top: 16.4rem;
+	left: 82.9rem;
 }
-@media all and (max-width: 1024px) {
+@media all and (min-width: 897px) and (max-width: 1024px) {
+	/* 中身の幅が 102rem になるので、ボタンを右端基準に */
+	#main .lpBanner .btn01 {
+		left: auto;
+		right: 2.5rem;
+	}
+}
+@media all and (max-width: 896px) {
 	#main .gradArea {
-		padding-top: calc(6 * var(--rem));
+		padding-top: 6rem;
 	}
 	#main .lpBanner {
 		height: auto;
-		padding: calc(2.4 * var(--rem)) calc(2 * var(--rem));
+		padding: 2.4rem 2rem;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -335,31 +320,31 @@
 		left: auto;
 	}
 	#main .lpBanner .tags {
-		gap: calc(0.8 * var(--rem));
+		gap: 0.8rem;
 		align-items: center;
 	}
 	#main .lpBanner .tag {
-		width: calc(5.6 * var(--rem));
-		height: calc(2.8 * var(--rem));
-		font-size: calc(1.7 * var(--rem));
+		width: 5.6rem;
+		height: 2.8rem;
+		font-size: 1.7rem;
 	}
 	#main .lpBanner .made {
 		position: static;
-		margin-left: calc(0.4 * var(--rem));
-		font-size: calc(1.8 * var(--rem));
+		margin-left: 0.4rem;
+		font-size: 1.8rem;
 	}
 	#main .lpBanner .ttl {
-		margin-top: calc(1 * var(--rem));
-		font-size: calc(2.6 * var(--rem));
+		margin-top: 1rem;
+		font-size: 2.6rem;
 		line-height: 1.4;
 	}
 	#main .lpBanner .sub {
-		margin-top: calc(0.4 * var(--rem));
-		font-size: calc(1.8 * var(--rem));
+		margin-top: 0.4rem;
+		font-size: 1.8rem;
 		line-height: 1.5;
 	}
 	#main .lpBanner .btn01 {
-		margin-top: calc(1.6 * var(--rem));
+		margin-top: 1.6rem;
 	}
 }
 
@@ -369,12 +354,12 @@
 	エリアボタンに hover：ボタンが濃い青、地図の該当地域が青グラデ（0.3s）
 ------------------------------------------------------------*/
 #main .network {
-	margin-top: calc(12 * var(--rem));
+	margin-top: 12rem;
 }
 #main .netBody {
 	position: relative;
-	height: calc(69.5 * var(--rem));
-	margin-top: calc(4 * var(--rem));
+	height: 69.5rem;
+	margin-top: 4rem;
 }
 /* 青グラデのカード（左端から伸びる。.js-band） */
 #main .netCard {
@@ -382,19 +367,19 @@
 	top: 0;
 	bottom: 0;
 	left: 0;
-	right: max(calc(12.3 * var(--rem)), calc((100% - calc(136.6 * var(--rem))) / 2 + calc(12.3 * var(--rem))));
+	right: max(12.3rem, calc((100% - 136.6rem) / 2 + 12.3rem));
 	overflow: hidden;
 	background: linear-gradient(180deg, #2aa3dc, #ccecfd);
-	border-radius: 0 calc(1 * var(--rem)) calc(1 * var(--rem)) 0;
-	box-shadow: 0 0 calc(4 * var(--rem)) rgba(0, 0, 0, 0.25);
+	border-radius: 0 1rem 1rem 0;
+	box-shadow: 0 0 4rem rgba(0, 0, 0, 0.25);
 }
 /* 背景のピンと線の模様（下に向かって濃くなる） */
 #main .netPattern {
 	position: absolute;
-	top: calc(6.2 * var(--rem));
+	top: 6.2rem;
 	left: 0;
 	right: 0;
-	height: calc(63.3 * var(--rem));
+	height: 63.3rem;
 	background: url(../img/top/network_bg.webp) no-repeat right top / cover;
 	opacity: 0.5;
 	-webkit-mask-image: linear-gradient(180deg, transparent 40.6%, #000 84%);
@@ -410,10 +395,10 @@
 }
 #main .netMap {
 	position: absolute;
-	top: calc(-8.3 * var(--rem));
-	left: calc(0.1 * var(--rem));
-	width: calc(118.5 * var(--rem));
-	height: calc(87.8 * var(--rem));
+	top: -8.3rem;
+	left: 0.1rem;
+	width: 118.5rem;
+	height: 87.8rem;
 	pointer-events: none;
 }
 #main .netMap img {
@@ -432,11 +417,11 @@
 }
 #main .netTtl {
 	position: absolute;
-	top: calc(6.4 * var(--rem));
-	left: calc(-0.1 * var(--rem));
+	top: 6.4rem;
+	left: -0.1rem;
 	z-index: 1;
 	color: #fff;
-	font-size: calc(4.2 * var(--rem));
+	font-size: 4.2rem;
 	font-weight: 700;
 	line-height: 1;
 	white-space: nowrap;
@@ -446,13 +431,13 @@
    線：外側 1px 白 75%（::before に 2px の線を描いて塗りの後ろに重ねる＝外側の 1px だけ見える）
    影：0 1px 5px rgba(0,0,0,.25)（線も含めて影を落とす） */
 #main .netTtl .num {
-	margin: 0 calc(-0.1 * var(--rem)) 0 calc(0.4 * var(--rem));
+	margin: 0 -0.1rem 0 0.4rem;
 	display: inline-grid;
 	font-family: var(--font-num);
-	font-size: calc(6.5 * var(--rem));
+	font-size: 6.5rem;
 	line-height: 1;
 	letter-spacing: -0.03em;
-	filter: drop-shadow(0 calc(0.1 * var(--rem)) calc(0.5 * var(--rem)) rgba(0, 0, 0, 0.25));
+	filter: drop-shadow(0 0.1rem 0.5rem rgba(0, 0, 0, 0.25));
 }
 #main .netTtl .num::before,
 #main .netTtl .num .fill {
@@ -461,7 +446,7 @@
 #main .netTtl .num::before {
 	content: attr(data-num);
 	color: transparent;
-	-webkit-text-stroke: calc(0.2 * var(--rem)) rgba(255, 255, 255, 0.75);
+	-webkit-text-stroke: 0.2rem rgba(255, 255, 255, 0.75);
 }
 #main .netTtl .num .fill {
 	/* 行の高さ 1em の箱の中で、Inter のキャップ上端は 0.1365em、ベースラインは 0.8635em（ascent 0.969 / descent 0.242 / キャップ 0.727） */
@@ -472,52 +457,52 @@
 }
 #main .netLead {
 	position: absolute;
-	top: calc(13.81 * var(--rem));
-	left: calc(-0.1 * var(--rem));
+	top: 13.81rem;
+	left: -0.1rem;
 	z-index: 1;
 	color: #fff;
-	font-size: calc(2.4 * var(--rem));
+	font-size: 2.4rem;
 	font-weight: 700;
-	line-height: calc(3.4 * var(--rem));
+	line-height: 3.4rem;
 	white-space: nowrap;
 }
 #main .netArea {
 	position: absolute;
-	top: calc(20.6 * var(--rem));
-	left: calc(0.1 * var(--rem));
+	top: 20.6rem;
+	left: 0.1rem;
 	z-index: 1;
 	display: grid;
-	grid-template-columns: repeat(4, calc(14.2 * var(--rem)));
-	gap: calc(1.6 * var(--rem));
+	grid-template-columns: repeat(4, 14.2rem);
+	gap: 1.6rem;
 }
 #main .netArea a {
 	position: relative;
-	height: calc(7.5 * var(--rem));
+	height: 7.5rem;
 	display: block;
 	background: #fff;
-	border-radius: calc(0.6 * var(--rem));
-	box-shadow: calc(0.2 * var(--rem)) calc(0.2 * var(--rem)) calc(0.6 * var(--rem)) rgba(0, 0, 0, 0.2), inset calc(-0.3 * var(--rem)) calc(-0.3 * var(--rem)) calc(0.4 * var(--rem)) rgba(0, 0, 0, 0.2);
+	border-radius: 0.6rem;
+	box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.2), inset -0.3rem -0.3rem 0.4rem rgba(0, 0, 0, 0.2);
 	transition: background-color 0.3s linear, box-shadow 0.3s linear;
 }
 #main .netArea a::after {
 	content: "";
 	position: absolute;
-	top: calc(3.1 * var(--rem));
-	right: calc(0.8 * var(--rem));
-	width: calc(0.8 * var(--rem));
-	height: calc(1.4 * var(--rem));
+	top: 3.1rem;
+	right: 0.8rem;
+	width: 0.8rem;
+	height: 1.4rem;
 	background: url(../img/top/net_arrow.svg) no-repeat center / contain;
 	transform: scaleX(-1);
 }
 #main .netArea .name {
 	position: absolute;
-	top: calc(0.98 * var(--rem));
+	top: 0.98rem;
 	left: 0;
 	right: 0;
 	color: var(--color-text);
-	font-size: calc(1.6 * var(--rem));
+	font-size: 1.6rem;
 	font-weight: 700;
-	line-height: calc(2.4 * var(--rem));
+	line-height: 2.4rem;
 	letter-spacing: 0.05em;
 	text-align: center;
 	white-space: nowrap;
@@ -527,15 +512,15 @@
 	position: absolute;
 	left: 0;
 	right: 0;
-	bottom: calc(0.9 * var(--rem));
+	bottom: 0.9rem;
 	display: flex;
 	justify-content: center;
 	align-items: baseline;
-	gap: calc(0.2 * var(--rem));
+	gap: 0.2rem;
 	color: var(--color-text);
-	font-size: calc(1.4 * var(--rem));
+	font-size: 1.4rem;
 	font-weight: 700;
-	line-height: calc(2.4 * var(--rem));
+	line-height: 2.4rem;
 	letter-spacing: 0.05em;
 	white-space: nowrap;
 	transition: color 0.3s linear;
@@ -543,24 +528,24 @@
 #main .netArea .num {
 	color: var(--color-blue);
 	font-family: var(--font-num);
-	font-size: calc(3.2 * var(--rem));
+	font-size: 3.2rem;
 	line-height: 1.03;
 	letter-spacing: 0;
 	transition: color 0.3s linear;
 }
 #main .netSearch {
 	position: absolute;
-	top: calc(41.2 * var(--rem));
+	top: 41.2rem;
 	left: 0;
 	z-index: 1;
 }
 #main .netBtn {
-	--btn-w: calc(36.5 * var(--rem));
+	--btn-w: 36.5rem;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .netArea a:hover {
 		background: #0077be;
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), inset calc(0.3 * var(--rem)) calc(0.3 * var(--rem)) calc(0.5 * var(--rem)) rgba(0, 0, 0, 0.25);
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), inset 0.3rem 0.3rem 0.5rem rgba(0, 0, 0, 0.25);
 	}
 	#main .netArea a:hover::after {
 		background-image: url(../img/top/net_arrow_white.svg);
@@ -571,13 +556,23 @@
 		color: #fff;
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (min-width: 897px) and (max-width: 1024px) {
+	#main .netCard {
+		right: 4rem;
+	}
+	/* 中身の幅が 102rem になるので、Figma の配置ごと縮める */
+	#main .netStage {
+		width: 112rem;
+		zoom: 0.91;
+	}
+}
+@media all and (max-width: 896px) {
 	#main .network {
-		margin-top: calc(6 * var(--rem));
+		margin-top: 6rem;
 	}
 	#main .netBody {
 		height: auto;
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 	}
 	#main .netCard {
 		right: 0;
@@ -585,7 +580,7 @@
 	}
 	#main .netStage {
 		height: auto;
-		padding: calc(3.2 * var(--rem)) 0 calc(4 * var(--rem));
+		padding: 3.2rem 0 4rem;
 		display: flex;
 		flex-direction: column;
 	}
@@ -599,16 +594,16 @@
 		left: auto;
 	}
 	#main .netTtl {
-		font-size: calc(2.2 * var(--rem));
+		font-size: 2.2rem;
 		line-height: 1.4;
 		white-space: normal;
 	}
 	#main .netTtl .num {
-		font-size: calc(3.6 * var(--rem));
+		font-size: 3.6rem;
 	}
 	#main .netLead {
-		margin-top: calc(0.8 * var(--rem));
-		font-size: calc(1.5 * var(--rem));
+		margin-top: 0.8rem;
+		font-size: 1.5rem;
 		line-height: 1.6;
 		white-space: normal;
 	}
@@ -617,7 +612,7 @@
 		order: 1;
 		width: 100%;
 		height: auto;
-		margin-top: calc(2 * var(--rem));
+		margin-top: 2rem;
 		aspect-ratio: 982 / 878;
 	}
 	#main .netMap img {
@@ -625,22 +620,22 @@
 		width: 120.67%;
 	}
 	#main .netArea {
-		margin-top: calc(2 * var(--rem));
+		margin-top: 2rem;
 		grid-template-columns: 1fr 1fr;
-		gap: calc(1 * var(--rem));
+		gap: 1rem;
 	}
 	#main .netArea a {
-		height: calc(6.8 * var(--rem));
+		height: 6.8rem;
 	}
 	#main .netArea .name {
-		top: calc(0.8 * var(--rem));
-		font-size: calc(1.4 * var(--rem));
+		top: 0.8rem;
+		font-size: 1.4rem;
 	}
 	#main .netArea .num {
-		font-size: calc(2.6 * var(--rem));
+		font-size: 2.6rem;
 	}
 	#main .netSearch {
-		margin-top: calc(2 * var(--rem));
+		margin-top: 2rem;
 	}
 	#main .netBtn {
 		--btn-w: 100%;
@@ -651,26 +646,26 @@
 	製品ラインナップ（タブ切替：0.25秒でフェード。Figma の Smart Animate 0.25s ease-out）
 ------------------------------------------------------------*/
 #main .product {
-	margin-top: calc(12 * var(--rem));
+	margin-top: 12rem;
 }
 #main .prodHead {
-	height: calc(6.3 * var(--rem));
+	height: 6.3rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
 }
 #main .prodIntro {
-	margin-top: calc(1.675 * var(--rem));
-	font-size: calc(1.6 * var(--rem));
-	line-height: calc(2.6 * var(--rem));
+	margin-top: 1.675rem;
+	font-size: 1.6rem;
+	line-height: 2.6rem;
 	white-space: nowrap;
 }
 #main .prodTabs {
-	margin-top: calc(6 * var(--rem));
+	margin-top: 6rem;
 }
 #main .tabList {
 	display: flex;
-	gap: calc(0.5 * var(--rem));
+	gap: 0.5rem;
 }
 /* タブごとのテーマ色（Figma「製品タブ-1007-A」：01 黄／02 青／03 青緑／04 水色） */
 #main .prodTabs [role="tab"]:nth-child(1),
@@ -683,12 +678,12 @@
 #main .tabPanel:nth-child(4) { --on-bg: #93d5f4; --theme: #fff;    --panel-bg: linear-gradient(150.4deg, #009ce5 9.3%, #7bcbf1 25.5%, #f5fbfe 79.6%); }
 #main .tabList button {
 	position: relative;
-	width: calc(27.6 * var(--rem));
-	height: calc(9.4 * var(--rem));
+	width: 27.6rem;
+	height: 9.4rem;
 	color: #338abe;
 	text-align: center;
 	background: #e2f3fc;
-	border-radius: calc(1 * var(--rem)) calc(1 * var(--rem)) 0 0;
+	border-radius: 1rem 1rem 0 0;
 	transition: color 0.25s ease-out, background-color 0.25s ease-out;
 }
 #main .tabList button.is-active {
@@ -702,13 +697,13 @@
 	left: 0;
 	width: 100%;
 	display: block;
-	font-size: calc(2.4 * var(--rem));
-	line-height: calc(2.6 * var(--rem));
+	font-size: 2.4rem;
+	line-height: 2.6rem;
 }
 #main .tabList .num {
-	top: calc(1.52 * var(--rem));
+	top: 1.57rem; /* Inter はキャップ上端が Montserrat より 0.5px 上なので、その分下げる */
 	color: rgba(17, 80, 137, 0.5);
-	font-family: var(--font-en);
+	font-family: var(--font-num);
 	font-weight: 400;
 	transition: color 0.25s ease-out;
 }
@@ -716,13 +711,13 @@
 	color: var(--theme);
 }
 #main .tabList .ja {
-	top: calc(5.01 * var(--rem));
+	top: 5.01rem;
 	font-weight: 700;
 }
 #main .tabPanels {
 	position: relative;
-	height: calc(49.9 * var(--rem));
-	border-radius: 0 0 calc(1 * var(--rem)) calc(1 * var(--rem));
+	height: 49.9rem;
+	border-radius: 0 0 1rem 1rem;
 }
 /* 背景はパネルごとに持たせ、切替時に一緒にフェードさせる */
 #main .tabPanel {
@@ -730,7 +725,7 @@
 	inset: 0;
 	color: var(--color-text);
 	background: var(--panel-bg);
-	border-radius: 0 0 calc(1 * var(--rem)) calc(1 * var(--rem));
+	border-radius: 0 0 1rem 1rem;
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.25s ease-out, visibility 0.25s;
@@ -741,102 +736,117 @@
 }
 #main .panelTxt > * {
 	position: absolute;
-	left: calc(4.8 * var(--rem));
+	left: 4.8rem;
 }
 #main .panelTxt .num,
 #main .panelTxt .name {
 	color: var(--theme);
 }
 #main .panelTxt .num {
-	top: calc(8.98 * var(--rem));
-	font-family: var(--font-en);
-	font-size: calc(5.2 * var(--rem));
-	line-height: calc(2.6 * var(--rem));
+	top: 9.09rem; /* Inter はキャップ上端が Montserrat より 1.1px 上なので、その分下げる */
+	font-family: var(--font-num);
+	font-size: 5.2rem;
+	line-height: 2.6rem;
 }
 /* 番号と製品名の間の縦線 */
 #main .panelTxt .num::after {
 	content: "";
 	position: absolute;
-	top: calc(-2.08 * var(--rem));
-	left: calc(9.4 * var(--rem));
+	top: -2.08rem;
+	left: 9.4rem;
 	width: 1px;
-	height: calc(6.6 * var(--rem));
+	height: 6.6rem;
 	background: var(--theme);
 }
 #main .panelTxt .name {
-	top: calc(6.87 * var(--rem));
-	left: calc(17.2 * var(--rem));
+	top: 6.87rem;
+	left: 17.2rem;
 	font-weight: 700;
 }
 #main .panelTxt .name .en {
 	display: block;
 	font-family: var(--font-en);
-	font-size: calc(1.6 * var(--rem));
+	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 1.219;
 	text-transform: uppercase;
 }
 #main .panelTxt .name .ja {
-	margin-top: calc(1.28 * var(--rem));
+	margin-top: 1.28rem;
 	display: block;
-	font-size: calc(3.2 * var(--rem));
-	line-height: calc(2.6 * var(--rem));
+	font-size: 3.2rem;
+	line-height: 2.6rem;
 }
 #main .panelTxt .catch {
-	top: calc(17.79 * var(--rem));
-	font-size: calc(2 * var(--rem));
+	top: 17.79rem;
+	font-size: 2rem;
 	font-weight: 700;
-	line-height: calc(2.6 * var(--rem));
+	line-height: 2.6rem;
 	white-space: nowrap;
 }
 #main .panelTxt .desc {
-	top: calc(21.58 * var(--rem));
-	width: calc(41 * var(--rem));
-	font-size: calc(1.6 * var(--rem));
-	line-height: calc(2.6 * var(--rem));
+	top: 21.58rem;
+	width: 41rem;
+	font-size: 1.6rem;
+	line-height: 2.6rem;
 }
 #main .is-2line .panelTxt .catch {
-	top: calc(17.59 * var(--rem));
-	line-height: calc(3 * var(--rem));
+	top: 17.59rem;
+	line-height: 3rem;
 }
 #main .is-2line .panelTxt .desc {
-	top: calc(24.88 * var(--rem));
+	top: 24.88rem;
 }
 #main .panelTxt .btn01 {
-	top: calc(36.9 * var(--rem));
-	left: calc(12 * var(--rem));
+	top: 36.9rem;
+	left: 12rem;
 }
 #main .panelImg {
 	position: absolute;
-	top: calc(3.4 * var(--rem));
-	left: calc(51.1 * var(--rem));
-	width: calc(57.5 * var(--rem));
-	height: calc(43.08 * var(--rem));
+	top: 3.4rem;
+	left: 51.1rem;
+	width: 57.5rem;
+	height: 43.08rem;
 	overflow: hidden;
-	border-radius: calc(0.6 * var(--rem));
+	border-radius: 0.6rem;
 }
 #main .panelImg img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .tabList button:not(.is-active):hover {
 		background: #d3e8f2;
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (min-width: 897px) and (max-width: 1024px) {
+	#main .prodHead {
+		height: auto;
+		flex-direction: column;
+		gap: 2.4rem;
+	}
+	#main .prodIntro {
+		margin-top: 0;
+		white-space: normal;
+	}
+	#main .prodTabs {
+		width: 112rem;
+		zoom: 0.91;
+	}
+}
+@media all and (max-width: 896px) {
 	#main .product {
-		margin-top: calc(6 * var(--rem));
+		margin-top: 6rem;
 	}
 	#main .prodHead {
 		height: auto;
 		flex-direction: column;
-		gap: calc(1.6 * var(--rem));
+		gap: 1.6rem;
 	}
 	#main .prodIntro {
 		margin-top: 0;
-		font-size: calc(1.4 * var(--rem));
+		font-size: 1.4rem;
 		line-height: 1.8;
 		white-space: normal;
 	}
@@ -844,42 +854,42 @@
 		display: none;
 	}
 	#main .prodTabs {
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 	}
 	#main .tabList {
-		gap: calc(0.3 * var(--rem));
+		gap: 0.3rem;
 	}
 	#main .tabList button {
 		flex: 1;
 		width: auto;
-		height: calc(6.4 * var(--rem));
-		border-radius: calc(0.6 * var(--rem)) calc(0.6 * var(--rem)) 0 0;
+		height: 6.4rem;
+		border-radius: 0.6rem 0.6rem 0 0;
 	}
 	#main .tabList .num {
-		top: calc(1 * var(--rem));
-		font-size: calc(1.4 * var(--rem));
-		line-height: calc(1.6 * var(--rem));
+		top: 1rem;
+		font-size: 1.4rem;
+		line-height: 1.6rem;
 	}
 	#main .tabList .ja {
-		top: calc(3 * var(--rem));
-		padding: 0 calc(0.2 * var(--rem));
-		font-size: calc(1.1 * var(--rem));
-		line-height: calc(1.4 * var(--rem));
+		top: 3rem;
+		padding: 0 0.2rem;
+		font-size: 1.1rem;
+		line-height: 1.4rem;
 	}
 	/* SP はパネルを同じマスに重ね、いちばん高いパネルに高さを合わせる */
 	#main .tabPanels {
 		height: auto;
 		display: grid;
-		border-radius: 0 0 calc(0.6 * var(--rem)) calc(0.6 * var(--rem));
+		border-radius: 0 0 0.6rem 0.6rem;
 	}
 	#main .tabPanel {
 		position: relative;
 		inset: auto;
 		grid-area: 1 / 1;
-		padding: calc(2 * var(--rem)) calc(2 * var(--rem)) calc(3.2 * var(--rem));
+		padding: 2rem 2rem 3.2rem;
 		display: flex;
 		flex-direction: column-reverse;
-		gap: calc(2 * var(--rem));
+		gap: 2rem;
 	}
 	#main .panelImg {
 		position: relative;
@@ -908,42 +918,42 @@
 	}
 	#main .panelTxt .num {
 		position: absolute;
-		top: calc(0.4 * var(--rem));
-		font-size: calc(3.6 * var(--rem));
+		top: 0.4rem;
+		font-size: 3.6rem;
 		line-height: 1;
 	}
 	#main .panelTxt .num::after {
-		top: calc(-0.2 * var(--rem));
-		left: calc(6 * var(--rem));
-		height: calc(4.4 * var(--rem));
+		top: -0.2rem;
+		left: 6rem;
+		height: 4.4rem;
 	}
 	#main .panelTxt .name {
-		margin-left: calc(7.6 * var(--rem));
+		margin-left: 7.6rem;
 	}
 	#main .panelTxt .name .en {
-		font-size: calc(1.2 * var(--rem));
+		font-size: 1.2rem;
 	}
 	#main .panelTxt .name .ja {
-		margin-top: calc(0.4 * var(--rem));
-		font-size: calc(2.2 * var(--rem));
+		margin-top: 0.4rem;
+		font-size: 2.2rem;
 		line-height: 1.3;
 	}
 	#main .panelTxt .catch,
 	#main .is-2line .panelTxt .catch {
-		margin-top: calc(2 * var(--rem));
-		font-size: calc(1.6 * var(--rem));
+		margin-top: 2rem;
+		font-size: 1.6rem;
 		line-height: 1.5;
 		white-space: normal;
 	}
 	#main .panelTxt .desc,
 	#main .is-2line .panelTxt .desc {
 		width: auto;
-		margin-top: calc(0.8 * var(--rem));
-		font-size: calc(1.4 * var(--rem));
+		margin-top: 0.8rem;
+		font-size: 1.4rem;
 		line-height: 1.8;
 	}
 	#main .panelTxt .btn01 {
-		margin-top: calc(2 * var(--rem));
+		margin-top: 2rem;
 	}
 }
 
@@ -951,96 +961,105 @@
 	お問い合わせフロー（4ステップ。カードの間に矢印）
 ------------------------------------------------------------*/
 #main .flow {
-	margin-top: calc(12 * var(--rem));
+	margin-top: 12rem;
 }
 #main .flowList {
-	margin-top: calc(5 * var(--rem));
+	margin-top: 5rem;
 	display: flex;
-	gap: calc(4 * var(--rem));
+	gap: 4rem;
 }
 #main .flowList li {
 	position: relative;
-	width: calc(25 * var(--rem));
-	height: calc(25.6 * var(--rem));
+	width: 25rem;
+	height: 25.6rem;
 	background: #e1eff6;
-	border-radius: calc(0.6 * var(--rem));
+	border-radius: 0.6rem;
 }
 /* カードの右の矢印（最後のカード以外） */
 #main .flowList li:not(:last-child)::after {
 	content: "";
 	position: absolute;
-	top: calc(11.4 * var(--rem));
-	left: calc(26.1 * var(--rem));
-	width: calc(1.7 * var(--rem));
-	height: calc(2.9 * var(--rem));
+	top: 11.4rem;
+	left: 26.1rem;
+	width: 1.7rem;
+	height: 2.9rem;
 	background: url(../img/top/flow_arrow.svg) no-repeat center / contain;
 }
 #main .flowList .icon {
 	position: absolute;
-	top: calc(3.3 * var(--rem));
-	left: calc(1.8 * var(--rem));
-	width: calc(4 * var(--rem));
+	top: 3.3rem;
+	left: 1.8rem;
+	width: 4rem;
 }
 #main .flowList .step {
-	padding-top: calc(4.06 * var(--rem));
+	padding-top: 4.06rem;
 	color: var(--color-navy);
 	font-family: var(--font-en);
-	font-size: calc(2 * var(--rem));
+	font-size: 2rem;
 	line-height: 1.219;
 	letter-spacing: 0.05em;
 	text-align: center;
 }
+#main .flowList .step .n {
+	font-family: var(--font-num); /* Figma：番号だけ Inter Regular */
+}
 #main .flowList .ttl {
 	position: absolute;
-	top: calc(7.98 * var(--rem));
+	top: 7.98rem;
 	left: 0;
 	width: 100%;
-	font-size: calc(1.6 * var(--rem));
+	font-size: 1.6rem;
 	font-weight: 700;
-	line-height: calc(3 * var(--rem));
+	line-height: 3rem;
 	text-align: center;
 }
 #main .flowList .desc {
 	position: absolute;
-	top: calc(12.48 * var(--rem));
-	left: calc(3 * var(--rem));
-	right: calc(3 * var(--rem));
-	font-size: calc(1.6 * var(--rem));
-	line-height: calc(2.4 * var(--rem));
+	top: 12.48rem;
+	left: 3rem;
+	right: 3rem;
+	font-size: 1.6rem;
+	line-height: 2.4rem;
 	letter-spacing: -0.01em;
 }
-@media all and (max-width: 1024px) {
+@media all and (min-width: 897px) and (max-width: 1024px) {
+	#main .flowList {
+		width: 112rem;
+		zoom: 0.91;
+	}
+}
+@media all and (max-width: 896px) {
 	#main .flow {
-		margin-top: calc(6 * var(--rem));
+		margin-top: 6rem;
 	}
 	#main .flowList {
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 		flex-direction: column;
-		gap: calc(3.6 * var(--rem));
+		gap: 3.6rem;
 	}
 	#main .flowList li {
 		width: auto;
 		height: auto;
-		padding: calc(2 * var(--rem)) calc(2 * var(--rem)) calc(2.4 * var(--rem));
+		padding: 2rem 2rem 2.4rem;
 	}
 	/* SP は縦並びなので矢印を下向きに */
 	#main .flowList li:not(:last-child)::after {
 		top: auto;
-		bottom: calc(-3 * var(--rem));
+		bottom: -3rem;
 		left: 50%;
-		width: calc(1.4 * var(--rem));
-		height: calc(2.4 * var(--rem));
-		margin-left: calc(-0.7 * var(--rem));
+		width: 1.4rem;
+		height: 2.4rem;
+		margin-left: -0.7rem;
 		transform: rotate(90deg);
 	}
 	#main .flowList .icon {
-		top: calc(1.6 * var(--rem));
-		left: calc(2 * var(--rem));
-		width: calc(3.6 * var(--rem));
+		top: 1.6rem;
+		left: 2rem;
+		width: 3.6rem;
 	}
 	#main .flowList .step {
-		padding: calc(0.5 * var(--rem)) 0 0 calc(5.2 * var(--rem));
-		font-size: calc(1.8 * var(--rem));
+		padding: 0.5rem 0 0 5.2rem;
+		font-size: 1.8rem;
 		text-align: left;
 	}
 	#main .flowList .ttl,
@@ -1048,20 +1067,21 @@
 		position: static;
 	}
 	#main .flowList .ttl {
-		margin: calc(1.2 * var(--rem)) 0 0;
-		font-size: calc(1.6 * var(--rem));
+		margin: 1.2rem 0 0;
+		font-size: 1.6rem;
 		line-height: 1.5;
 		text-align: left;
 	}
 	#main .flowList .desc {
-		margin-top: calc(0.6 * var(--rem));
-		font-size: calc(1.4 * var(--rem));
+		margin-top: 0.6rem;
+		font-size: 1.4rem;
 		line-height: 1.7;
 	}
 }
 
 /*------------------------------------------------------------
-	丸く広がる背景（Figma「Frame 769」の色：#F3FAFD → #C8F0FD）
+	丸く広がる背景（形と動きは Figma「Frame 769」をもとに。色はグラデではなく、初回版（コーディング/）と同じスクロールでの色切替：
+	#C1E6F3 → お知らせの上端が画面の 60% まで来たら #C0ECDF に 1 秒でフェード。2026-10-22 ユーザー指示）
 	コンテンツ一覧〜文化シヤッターグループの後ろ。参考 alvamososaka.com の黄色い丸と同じ動き：
 	エリアが画面の下から入ってくると、真円が下から現れ、スクロールに合わせて拡大しながら上がり、最後は全面を塗る。
 	形は「円の上半分＋その下は全面」。js/main.js が clip-path: path() で毎フレーム入れる。
@@ -1077,17 +1097,29 @@
 #main .dome {
 	--ext: 150vw; /* 円がエリアの上へはみ出しても切れないように、要素を上へ広げておく量 */
 	position: absolute;
-	top: calc(calc(-1 * var(--rem)) - var(--ext));
-	bottom: calc(-12 * var(--rem));
+	top: calc(-1rem - var(--ext));
+	bottom: -12rem;
 	left: 0;
 	z-index: 0;
 	width: 100%;
-	background: linear-gradient(180deg, #f3fafd var(--ext), #c8f0fd calc(var(--ext) + calc(159.3 * var(--rem))));
+	background: #c1e6f3;
 	clip-path: inset(100% 0 0 0); /* 最初は見せない（形は js/main.js が clip-path: path() で入れる） */
 }
-@media all and (max-width: 1024px) {
+/* お知らせに来たら重ねる色（js/main.js が .dome に .is-news を付け外し） */
+#main .dome::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: #c0ecdf;
+	opacity: 0;
+	transition: opacity 1s ease;
+}
+#main .dome.is-news::after {
+	opacity: 1;
+}
+@media all and (max-width: 896px) {
 	#main .dome {
-		bottom: calc(-6 * var(--rem));
+		bottom: -6rem;
 	}
 }
 
@@ -1107,8 +1139,8 @@
 	--k: 0;
 	position: absolute;
 	top: 0;
-	left: calc(50% - calc(17 * var(--rem)) + var(--k) * calc(37 * var(--rem)));
-	width: calc(34 * var(--rem));
+	left: calc(50% - 17rem + var(--k) * 37rem);
+	width: 34rem;
 	opacity: 0;
 	pointer-events: none;
 }
@@ -1130,17 +1162,17 @@
 }
 #main .slideCtrl {
 	position: relative;
-	height: calc(6.2 * var(--rem));
+	height: 6.2rem;
 }
 #main .slideBar {
 	position: absolute;
-	top: calc(2.9 * var(--rem));
+	top: 2.9rem;
 	left: 0;
-	width: calc(94 * var(--rem));
-	height: calc(0.4 * var(--rem));
+	width: 94rem;
+	height: 0.4rem;
 	overflow: hidden;
 	background: #fff;
-	border-radius: calc(0.2 * var(--rem));
+	border-radius: 0.2rem;
 }
 #main .slideBar span {
 	--i: 0;
@@ -1151,15 +1183,15 @@
 	width: calc(100% / var(--n));
 	height: 100%;
 	background: var(--color-blue);
-	border-radius: calc(0.2 * var(--rem));
+	border-radius: 0.2rem;
 	transform: translateX(calc(var(--i) * 100%));
 	transition: transform 0.5s ease-in-out;
 }
 #main .slideBtn {
 	position: absolute;
 	top: 0;
-	width: calc(6.2 * var(--rem));
-	height: calc(6.2 * var(--rem));
+	width: 6.2rem;
+	height: 6.2rem;
 	background: url(../img/common/slide_btn.svg) no-repeat center / contain;
 	border-radius: 50%;
 	transition: opacity 0.3s;
@@ -1168,34 +1200,34 @@
 	right: 0;
 }
 #main .slideBtn.prev {
-	right: calc(7.6 * var(--rem));
+	right: 7.6rem;
 	transform: scaleX(-1);
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .slideBtn:hover {
 		opacity: 0.7;
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	#main .slideItem {
-		left: calc(50% - calc(13 * var(--rem)) + var(--k) * calc(28 * var(--rem)));
-		width: calc(26 * var(--rem));
+		left: calc(50% - 13rem + var(--k) * 28rem);
+		width: 26rem;
 	}
 	#main .slideBar {
-		width: calc(100% - calc(13 * var(--rem)));
+		width: calc(100% - 13rem);
 	}
 	#main .slideBtn {
-		width: calc(5 * var(--rem));
-		height: calc(5 * var(--rem));
+		width: 5rem;
+		height: 5rem;
 	}
 	#main .slideBtn.prev {
-		right: calc(6 * var(--rem));
+		right: 6rem;
 	}
 	#main .slideCtrl {
-		height: calc(5 * var(--rem));
+		height: 5rem;
 	}
 	#main .slideBar {
-		top: calc(2.3 * var(--rem));
+		top: 2.3rem;
 	}
 }
 
@@ -1203,28 +1235,28 @@
 	コンテンツ一覧（hover：カードが 11px 浮いて文字が青。0.3s）
 ------------------------------------------------------------*/
 #main .contents {
-	margin-top: calc(12 * var(--rem));
+	margin-top: 12rem;
 }
 #main .ctSlider {
-	height: calc(38.1 * var(--rem));
-	margin-top: calc(4.4 * var(--rem));
+	height: 38.1rem;
+	margin-top: 4.4rem;
 }
 #main .ctSlider .slideView {
-	height: calc(28.3 * var(--rem));
+	height: 28.3rem;
 }
 #main .ctSlider .slideCtrl {
-	margin-top: calc(2.2 * var(--rem));
+	margin-top: 2.2rem;
 }
 #main .ctCard a {
-	padding-top: calc(1.1 * var(--rem));
+	padding-top: 1.1rem;
 	display: block;
 	transition: transform 0.3s ease-out;
 }
 #main .ctCard .img {
-	height: calc(23 * var(--rem));
+	height: 23rem;
 	display: block;
 	overflow: hidden;
-	border-radius: calc(1 * var(--rem));
+	border-radius: 1rem;
 }
 #main .ctCard .img img {
 	width: 100%;
@@ -1232,55 +1264,55 @@
 	object-fit: cover;
 }
 #main .ctCard .cap {
-	height: calc(2.4 * var(--rem));
-	margin-top: calc(1.8 * var(--rem));
+	height: 2.4rem;
+	margin-top: 1.8rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: calc(1.2 * var(--rem));
+	gap: 1.2rem;
 	color: var(--color-text);
-	font-size: calc(2 * var(--rem));
+	font-size: 2rem;
 	font-weight: 500;
-	line-height: calc(2.4 * var(--rem));
+	line-height: 2.4rem;
 	letter-spacing: 0.05em;
 	white-space: nowrap;
 	transition: color 0.3s ease-out;
 }
 #main .ctCard .cap::after {
 	content: "";
-	width: calc(0.945 * var(--rem));
-	height: calc(1.605 * var(--rem));
+	width: 0.945rem;
+	height: 1.605rem;
 	flex-shrink: 0;
 	background: url(../img/common/chevron_blue.svg) no-repeat center / contain;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .ctCard a:hover {
-		transform: translateY(calc(-1.1 * var(--rem)));
+		transform: translateY(-1.1rem);
 	}
 	#main .ctCard a:hover .cap {
 		color: var(--color-blue);
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	#main .contents {
-		margin-top: calc(6 * var(--rem));
+		margin-top: 6rem;
 	}
 	#main .ctSlider {
 		height: auto;
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 	}
 	#main .ctSlider .slideView {
-		height: calc(23.3 * var(--rem));
+		height: 23.3rem;
 	}
 	#main .ctCard .img {
-		height: calc(17.6 * var(--rem));
+		height: 17.6rem;
 	}
 	#main .ctCard .cap {
-		margin-top: calc(1.2 * var(--rem));
-		font-size: calc(1.6 * var(--rem));
+		margin-top: 1.2rem;
+		font-size: 1.6rem;
 	}
 	#main .ctSlider .slideCtrl {
-		margin-top: calc(1.6 * var(--rem));
+		margin-top: 1.6rem;
 	}
 }
 
@@ -1288,25 +1320,25 @@
 	お知らせ（PC：左に見出し、右に一覧。hover で行が白地）
 ------------------------------------------------------------*/
 #main .gradArea {
-	padding-bottom: calc(12 * var(--rem));
+	padding-bottom: 12rem;
 }
 #main .news {
-	margin-top: calc(12 * var(--rem));
+	margin-top: 12rem;
 }
 #main .news .inner {
 	position: relative;
 }
 #main .newsList {
-	width: calc(82.5 * var(--rem));
-	margin: calc(-7.3 * var(--rem)) 0 0 auto;
+	width: 82.5rem;
+	margin: -7.3rem 0 0 auto;
 }
 #main .newsList a {
 	position: relative;
-	height: calc(8 * var(--rem));
-	padding: 0 0 0 calc(1.7 * var(--rem));
+	height: 8rem;
+	padding: 0 0 0 1.7rem;
 	display: flex;
 	align-items: center;
-	border-radius: calc(0.6 * var(--rem));
+	border-radius: 0.6rem;
 	transition: background-color 0.3s ease-out;
 }
 /* 下線（Figma「Line 22」。行の左 17px から右端まで。白） */
@@ -1314,25 +1346,25 @@
 	content: "";
 	position: absolute;
 	bottom: 0;
-	left: calc(1.7 * var(--rem));
+	left: 1.7rem;
 	right: 0;
 	height: 1px;
 	background: #fff;
 	transition: opacity 0.3s ease-out;
 }
 #main .newsList time {
-	width: calc(10.6 * var(--rem));
+	width: 10.6rem;
 	flex-shrink: 0;
 	color: var(--color-blue);
-	font-family: var(--font-en);
-	font-size: calc(1.6 * var(--rem));
+	font-family: var(--font-num);
+	font-size: 1.6rem;
 	line-height: 1.03;
 }
 #main .newsList .ttl {
 	min-width: 0;
 	overflow: hidden;
-	font-size: calc(1.6 * var(--rem));
-	line-height: calc(2.4 * var(--rem));
+	font-size: 1.6rem;
+	line-height: 2.4rem;
 	letter-spacing: 0.05em;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1340,17 +1372,17 @@
 #main .newsList .is-pdf::before {
 	content: "";
 	order: 1;
-	width: calc(1.6 * var(--rem));
-	height: calc(2 * var(--rem));
-	margin-left: calc(1.5 * var(--rem));
+	width: 1.6rem;
+	height: 2rem;
+	margin-left: 1.5rem;
 	flex-shrink: 0;
 	background: url(../img/common/icon_pdf.svg) no-repeat center / contain;
 }
 #main .newsMore {
-	margin-top: calc(3 * var(--rem));
+	margin-top: 3rem;
 	text-align: right;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .newsList a:hover {
 		background: #fff;
 	}
@@ -1358,20 +1390,20 @@
 		opacity: 0;
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	#main .gradArea {
-		padding-bottom: calc(6 * var(--rem));
+		padding-bottom: 6rem;
 	}
 	#main .news {
-		margin-top: calc(6 * var(--rem));
+		margin-top: 6rem;
 	}
 	#main .newsList {
 		width: auto;
-		margin: calc(1.6 * var(--rem)) 0 0;
+		margin: 1.6rem 0 0;
 	}
 	#main .newsList a {
 		height: auto;
-		padding: calc(1.6 * var(--rem)) calc(3 * var(--rem)) calc(1.6 * var(--rem)) 0;
+		padding: 1.6rem 3rem 1.6rem 0;
 		flex-wrap: wrap;
 		border-radius: 0;
 	}
@@ -1380,12 +1412,12 @@
 	}
 	#main .newsList time {
 		width: 100%;
-		margin-bottom: calc(0.6 * var(--rem));
-		font-size: calc(1.4 * var(--rem));
+		margin-bottom: 0.6rem;
+		font-size: 1.4rem;
 	}
 	#main .newsList .ttl {
 		width: 100%;
-		font-size: calc(1.4 * var(--rem));
+		font-size: 1.4rem;
 		line-height: 1.6;
 		white-space: normal;
 		display: -webkit-box;
@@ -1396,10 +1428,10 @@
 		position: absolute;
 		right: 0;
 		top: 50%;
-		margin: calc(-1 * var(--rem)) 0 0;
+		margin: -1rem 0 0;
 	}
 	#main .newsMore {
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 	}
 }
 
@@ -1407,82 +1439,82 @@
 	文化シヤッターグループ（カルーセルは共通部品。hover でカードが 11px 浮く。4秒ごとに自動で次へ）
 ------------------------------------------------------------*/
 #main .group {
-	margin-top: calc(12 * var(--rem));
+	margin-top: 12rem;
 }
 #main .grpSlider {
-	height: calc(29 * var(--rem));
-	margin-top: calc(3.4 * var(--rem));
+	height: 29rem;
+	margin-top: 3.4rem;
 }
 #main .grpSlider .slideView {
-	height: calc(18.9 * var(--rem));
+	height: 18.9rem;
 }
 #main .grpSlider .slideCtrl {
-	margin-top: calc(3.2 * var(--rem));
+	margin-top: 3.2rem;
 }
 #main .grpCard a {
 	position: relative;
-	height: calc(17.8 * var(--rem));
-	margin-top: calc(1.1 * var(--rem));
+	height: 17.8rem;
+	margin-top: 1.1rem;
 	display: block;
 	background: #fff;
-	border-radius: calc(0.6 * var(--rem));
+	border-radius: 0.6rem;
 	transition: transform 0.3s ease-out;
 }
 #main .grpCard img {
 	position: absolute;
-	top: calc(3.4 * var(--rem));
+	top: 3.4rem;
 	left: 0;
 	width: 100%;
-	height: calc(5.1 * var(--rem));
+	height: 5.1rem;
 }
 #main .grpCard .txt {
 	position: absolute;
-	top: calc(10.6 * var(--rem));
+	top: 10.6rem;
 	left: 0;
 	width: 100%;
 	color: #000;
-	font-size: calc(1.4 * var(--rem));
-	line-height: calc(2.2 * var(--rem));
+	font-size: 1.4rem;
+	line-height: 2.2rem;
 	text-align: center;
 	white-space: nowrap;
 }
 #main .grpMore {
-	margin-top: calc(2.7 * var(--rem));
+	margin-top: 2.7rem;
 	text-align: right;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .grpCard a:hover {
-		transform: translateY(calc(-1.1 * var(--rem)));
+		transform: translateY(-1.1rem);
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	#main .group {
-		margin-top: calc(6 * var(--rem));
+		margin-top: 6rem;
 	}
 	#main .grpSlider {
 		height: auto;
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 	}
 	#main .grpSlider .slideView {
-		height: calc(15.4 * var(--rem));
+		height: 15.4rem;
 	}
 	#main .grpCard a {
-		height: calc(14.3 * var(--rem));
+		height: 14.3rem;
 	}
 	#main .grpCard img {
-		top: calc(2.4 * var(--rem));
-		height: calc(4 * var(--rem));
+		top: 2.4rem;
+		height: 4rem;
 	}
 	#main .grpCard .txt {
-		top: calc(8 * var(--rem));
-		font-size: calc(1.2 * var(--rem));
-		line-height: calc(1.8 * var(--rem));
+		top: 8rem;
+		font-size: 1.2rem;
+		line-height: 1.8rem;
 	}
 	#main .grpSlider .slideCtrl {
-		margin-top: calc(1.6 * var(--rem));
+		margin-top: 1.6rem;
 	}
 	#main .grpMore {
-		margin-top: calc(2.4 * var(--rem));
+		margin-top: 2.4rem;
 	}
 }
 
@@ -1491,63 +1523,72 @@
 ------------------------------------------------------------*/
 #main .otherLinks {
 	position: relative;
-	padding: calc(12 * var(--rem)) 0;
+	padding: 12rem 0;
 	background: #fff;
 }
 #main .otherLinks ul {
 	display: grid;
-	grid-template-columns: repeat(2, calc(54 * var(--rem)));
+	grid-template-columns: repeat(2, 54rem);
 	justify-content: space-between;
-	gap: calc(3 * var(--rem)) calc(3.9 * var(--rem));
+	gap: 3rem 3.9rem;
 }
 #main .otherLinks a {
 	position: relative;
-	height: calc(7 * var(--rem));
-	padding: 0 calc(10 * var(--rem));
+	height: 7rem;
+	padding: 0 10rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: #000;
-	font-size: calc(1.6 * var(--rem));
+	font-size: 1.6rem;
 	font-weight: 700;
-	line-height: calc(2.8 * var(--rem));
+	line-height: 2.8rem;
 	text-align: center;
 	background: #fff;
 	border: 1px solid var(--color-line);
-	border-radius: calc(0.6 * var(--rem));
+	border-radius: 0.6rem;
 	transition: border-color 0.3s, color 0.3s;
 }
 #main .otherLinks img {
 	position: absolute;
-	top: calc(1.7 * var(--rem));
-	left: calc(2.5 * var(--rem));
-	width: calc(3.5 * var(--rem));
+	top: 1.7rem;
+	left: 2.5rem;
+	width: 3.5rem;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	#main .otherLinks a:hover {
 		color: var(--color-blue);
 		border-color: var(--color-blue);
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (min-width: 897px) and (max-width: 1024px) {
+	#main .otherLinks ul {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+	#main .otherLinks a {
+		padding: 0 2rem 0 7rem;
+	}
+}
+@media all and (max-width: 896px) {
 	#main .otherLinks {
-		padding: calc(6 * var(--rem)) 0;
+		padding: 6rem 0;
 	}
 	#main .otherLinks ul {
 		grid-template-columns: 1fr;
-		gap: calc(1.2 * var(--rem));
+		gap: 1.2rem;
 	}
 	#main .otherLinks a {
-		height: calc(6 * var(--rem));
-		padding: 0 calc(1.6 * var(--rem)) 0 calc(6.4 * var(--rem));
+		height: 6rem;
+		padding: 0 1.6rem 0 6.4rem;
 		justify-content: flex-start;
-		font-size: calc(1.5 * var(--rem));
+		font-size: 1.5rem;
 		text-align: left;
 	}
 	#main .otherLinks img {
-		top: calc(1.3 * var(--rem));
-		left: calc(1.6 * var(--rem));
-		width: calc(3.4 * var(--rem));
+		top: 1.3rem;
+		left: 1.6rem;
+		width: 3.4rem;
 	}
 }
 
@@ -1556,91 +1597,91 @@
 ------------------------------------------------------------*/
 .fvCta {
 	position: fixed;
-	top: calc(24.5 * var(--rem));
-	right: calc(2 * var(--rem));
+	top: 24.5rem;
+	right: 2rem;
 	z-index: 90;
-	width: calc(20 * var(--rem));
+	width: 20rem;
 	display: flex;
 	flex-direction: column;
-	gap: calc(1 * var(--rem));
+	gap: 1rem;
 	/* ふわっと消える・戻る */
 	transition: opacity 0.8s ease, transform 1s cubic-bezier(0.45, 0.05, 0.25, 1), visibility 0.8s;
 }
 .fvCta.hide {
 	opacity: 0;
 	visibility: hidden;
-	transform: translateX(calc(2 * var(--rem)));
+	transform: translateX(2rem);
 }
 .fvCta a {
 	position: relative;
 	display: block;
-	border-radius: calc(0.6 * var(--rem));
-	box-shadow: 0 0 calc(1 * var(--rem)) rgba(0, 0, 0, 0.25);
+	border-radius: 0.6rem;
+	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
 }
 .fvCta .tel {
-	height: calc(17.9 * var(--rem));
+	height: 17.9rem;
 	color: #fff;
 	text-align: center;
 	background: linear-gradient(252.2deg, #0082d0 36.484%, #0e6aac 62.698%, #115089 88.912%);
-	border: calc(0.3 * var(--rem)) solid #fff;
+	border: 0.3rem solid #fff;
 }
 .fvCta .tel > span {
 	position: absolute;
-	left: calc(-0.3 * var(--rem));
-	right: calc(-0.3 * var(--rem));
+	left: -0.3rem;
+	right: -0.3rem;
 	display: block;
 }
 .fvCta .tel .badge {
-	top: calc(1.7 * var(--rem));
-	left: calc(1.7 * var(--rem));
-	right: calc(1.7 * var(--rem));
-	height: calc(3 * var(--rem));
+	top: 1.7rem;
+	left: 1.7rem;
+	right: 1.7rem;
+	height: 3rem;
 	color: var(--color-navy);
-	font-size: calc(1.6 * var(--rem));
+	font-size: 1.6rem;
 	font-weight: 700;
-	line-height: calc(3 * var(--rem));
+	line-height: 3rem;
 	background: linear-gradient(90deg, #ffeb0d, #fff045 50%, #fff47c);
-	border-radius: calc(0.4 * var(--rem));
+	border-radius: 0.4rem;
 }
 .fvCta .tel .head {
-	top: calc(6.45 * var(--rem));
-	left: calc(3.2 * var(--rem));
+	top: 6.45rem;
+	left: 3.2rem;
 	display: flex;
 	align-items: center;
-	gap: calc(0.6 * var(--rem));
-	font-size: calc(1.6 * var(--rem));
+	gap: 0.6rem;
+	font-size: 1.6rem;
 	font-weight: 700;
-	line-height: calc(2.2 * var(--rem));
+	line-height: 2.2rem;
 }
 .fvCta .tel .head img {
-	width: calc(1.9 * var(--rem));
+	width: 1.9rem;
 }
 .fvCta .tel .num {
-	top: calc(10.2 * var(--rem));
-	left: calc(1.6 * var(--rem));
+	top: 10.28rem; /* Figma 1022：Inter Bold 23px（キャップ上端 y350） */
+	left: 1.6rem;
 	right: auto;
-	font-family: var(--font-en);
-	font-size: calc(2.5 * var(--rem));
+	font-family: var(--font-num);
+	font-size: 2.3rem;
 	font-weight: 700;
-	line-height: calc(2.2 * var(--rem));
+	line-height: 2.2rem;
 	letter-spacing: 0.02em;
 }
 .fvCta .tel .note {
-	top: calc(12.55 * var(--rem));
-	font-size: calc(1.2 * var(--rem));
+	top: 12.55rem;
+	font-size: 1.2rem;
 	font-weight: 500;
-	line-height: calc(2.2 * var(--rem));
+	line-height: 2.2rem;
 }
 .fvCta .mail {
-	height: calc(8.2 * var(--rem));
+	height: 8.2rem;
 	background: linear-gradient(135.82deg, #fff 45.876%, #bcd4e9 108.14%);
 }
 .fvCta .mail .icon {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: calc(6.8 * var(--rem));
-	height: calc(8.2 * var(--rem));
+	width: 6.8rem;
+	height: 8.2rem;
 	background: url(../img/common/fv_corp_bg.svg) no-repeat left top / 100% 100%;
 }
 .fvCta .indiv .icon {
@@ -1648,50 +1689,61 @@
 }
 .fvCta .mail .icon img {
 	position: absolute;
-	top: calc(2.4 * var(--rem));
-	left: calc(1.79 * var(--rem));
-	width: calc(3.65 * var(--rem));
+	top: 2.4rem;
+	left: 1.79rem;
+	width: 3.65rem;
 }
 .fvCta .indiv .icon img {
-	top: calc(2.3 * var(--rem));
-	left: calc(1.8 * var(--rem));
-	width: calc(3.6 * var(--rem));
+	top: 2.3rem;
+	left: 1.8rem;
+	width: 3.6rem;
 }
 .fvCta .mail .target,
 .fvCta .mail .txt {
 	position: absolute;
-	left: calc(8.8 * var(--rem));
-	width: calc(9.6 * var(--rem));
+	left: 8.8rem;
+	width: 9.6rem;
 	display: block;
 	font-weight: 700;
-	line-height: calc(2.2 * var(--rem));
+	line-height: 2.2rem;
 	text-align: center;
 	white-space: nowrap;
 }
 .fvCta .mail .target {
-	top: calc(0.9 * var(--rem));
+	top: 0.9rem;
 	color: #21b2a1;
-	font-size: calc(1.4 * var(--rem));
+	font-size: 1.4rem;
 }
 .fvCta .indiv .target {
 	color: var(--color-blue);
 }
 .fvCta .mail .txt {
-	top: calc(3.1 * var(--rem));
+	top: 3.1rem;
 	color: var(--color-navy2);
-	font-size: calc(1.6 * var(--rem));
+	font-size: 1.6rem;
 }
-@media all and (min-width: 1025px) {
+@media all and (min-width: 897px) {
 	.fvCta a {
 		transition: transform 0.3s, box-shadow 0.3s;
 	}
 	.fvCta a:hover {
-		transform: translateY(calc(-0.3 * var(--rem)));
-		box-shadow: 0 calc(0.4 * var(--rem)) calc(1.4 * var(--rem)) rgba(0, 0, 0, 0.3);
+		transform: translateY(-0.3rem);
+		box-shadow: 0 0.4rem 1.4rem rgba(0, 0, 0, 0.3);
 	}
 }
-@media all and (max-width: 1024px) {
+@media all and (max-width: 896px) {
 	.fvCta {
 		display: none;
+	}
+}
+
+/* 1920px を超える画面：固定の MV 写真と FV-CTA も 1920px の枠に合わせる（base.css 末尾と同じ） */
+@media all and (min-width: 1921px) {
+	#main .mvSlide {
+		left: calc((100% - 1920px) / 2);
+		width: 1920px;
+	}
+	.fvCta {
+		right: calc((100% - 1920px) / 2 + 2rem);
 	}
 }
